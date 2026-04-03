@@ -17,6 +17,7 @@
     <header class="app-header">
       <div class="logo"><i class="ri-headphone-fill"></i> ListenPro</div>
       <div class="header-actions">
+        <button id="btnLang" class="icon-btn" title="Toggle Language"><i class="ri-translate-2"></i></button>
         <button id="btnStats" class="icon-btn" title="Statistics"><i class="ri-bar-chart-2-fill"></i></button>
         <button id="btnWordbook" class="icon-btn" title="Word Book"><i class="ri-book-mark-fill"></i></button>
       </div>
@@ -25,17 +26,17 @@
     <!-- Filters -->
     <section class="filter-bar">
       <div class="filter-group">
-        <label>Type</label>
+        <label data-i18n="type">Type</label>
         <div class="seg-control" id="typeFilter">
-          <button class="seg-btn active" data-value="all">All</button>
-          <button class="seg-btn" data-value="interrogative">Interrogative</button>
-          <button class="seg-btn" data-value="declarative">Declarative</button>
+          <button class="seg-btn active" data-value="all" data-i18n="all">All</button>
+          <button class="seg-btn" data-value="interrogative" data-i18n="interrogative">Interrogative</button>
+          <button class="seg-btn" data-value="declarative" data-i18n="declarative">Declarative</button>
         </div>
       </div>
       <div class="filter-group">
-        <label>Level</label>
+        <label data-i18n="level">Level</label>
         <div class="seg-control" id="levelFilter">
-          <button class="seg-btn active" data-value="all">All</button>
+          <button class="seg-btn active" data-value="all" data-i18n="all">All</button>
           <button class="seg-btn" data-value="elementary"><i class="ri-seedling-line"></i> A1-A2</button>
           <button class="seg-btn" data-value="intermediate"><i class="ri-fire-line"></i> B1-B2</button>
           <button class="seg-btn" data-value="advanced"><i class="ri-rocket-line"></i> C1-C2</button>
@@ -46,7 +47,7 @@
     <!-- Sentence Display -->
     <section class="display-card" id="displayCard">
       <div class="card-badge" id="cardBadge">Elementary</div>
-      <p class="sentence-text" id="sentenceText">Select a sentence to start practicing</p>
+      <p class="sentence-text" id="sentenceText" data-i18n="selectPrompt">Select a sentence to start practicing</p>
       <div class="card-meta">
         <span id="sentenceIndex">0 / 0</span>
         <button id="btnFontSize" class="icon-btn-sm" title="Font Size"><i class="ri-font-size-2"></i></button>
@@ -65,7 +66,7 @@
       </div>
       <div class="player-options">
         <div class="option-group">
-          <label>Speed</label>
+          <label data-i18n="speed">Speed</label>
           <div class="speed-control" id="speedControl">
             <button class="speed-btn" data-speed="0.5">0.5x</button>
             <button class="speed-btn" data-speed="0.75">0.75x</button>
@@ -75,10 +76,10 @@
           </div>
         </div>
         <div class="option-group">
-          <label>Mode</label>
+          <label data-i18n="mode">Mode</label>
           <div class="seg-control" id="playMode">
-            <button class="seg-btn active" data-value="sequential"><i class="ri-order-play-fill"></i> Sequential</button>
-            <button class="seg-btn" data-value="loop"><i class="ri-repeat-one-fill"></i> Loop</button>
+            <button class="seg-btn active" data-value="sequential"><i class="ri-order-play-fill"></i> <span data-i18n="sequential">Sequential</span></button>
+            <button class="seg-btn" data-value="loop"><i class="ri-repeat-one-fill"></i> <span data-i18n="loop">Loop</span></button>
           </div>
         </div>
       </div>
@@ -87,7 +88,7 @@
     <!-- Sentence List -->
     <section class="sentence-list-section">
       <div class="list-header">
-        <h2>Sentences</h2>
+        <h2 data-i18n="sentences">Sentences</h2>
         <span class="count-badge" id="listCount">0</span>
       </div>
       <ul class="sentence-list" id="sentenceList"></ul>
@@ -97,6 +98,7 @@
     <div class="word-popup" id="wordPopup">
       <div class="popup-header">
         <span class="popup-word" id="popupWord"></span>
+        <button class="popup-speak" id="popupSpeak" title="Pronounce"><i class="ri-volume-up-fill"></i></button>
         <button class="popup-fav" id="popupFav"><i class="ri-star-line"></i></button>
         <button class="popup-close" id="popupClose"><i class="ri-close-line"></i></button>
       </div>
@@ -108,7 +110,7 @@
     <!-- Stats Modal -->
     <div class="modal-overlay" id="statsModal">
       <div class="modal-content">
-        <div class="modal-header"><h2>Learning Stats</h2><button class="popup-close" id="closeStats"><i class="ri-close-line"></i></button></div>
+        <div class="modal-header"><h2 data-i18n="statsTitle">Learning Stats</h2><button class="popup-close" id="closeStats"><i class="ri-close-line"></i></button></div>
         <div class="stats-grid" id="statsGrid"></div>
       </div>
     </div>
@@ -116,7 +118,7 @@
     <!-- Wordbook Modal -->
     <div class="modal-overlay" id="wordbookModal">
       <div class="modal-content">
-        <div class="modal-header"><h2>Word Book</h2><button class="popup-close" id="closeWordbook"><i class="ri-close-line"></i></button></div>
+        <div class="modal-header"><h2 data-i18n="wordbookTitle">Word Book</h2><button class="popup-close" id="closeWordbook"><i class="ri-close-line"></i></button></div>
         <ul class="wordbook-list" id="wordbookList"></ul>
       </div>
     </div>

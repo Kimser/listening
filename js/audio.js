@@ -99,4 +99,17 @@ class AudioEngine {
   setRate(rate) {
     this.rate = rate;
   }
+
+  speakWord(word, onEnd) {
+    this.synth.cancel();
+    const utt = new SpeechSynthesisUtterance(word);
+    if (this.voice) utt.voice = this.voice;
+    utt.rate = 0.8; // Speak words slowly for clarity
+    utt.pitch = 1;
+    utt.volume = 1;
+    utt.lang = 'en-US';
+    utt.onend = () => { if (onEnd) onEnd(); };
+    utt.onerror = () => { if (onEnd) onEnd(); };
+    this.synth.speak(utt);
+  }
 }

@@ -15,6 +15,30 @@
     loopTimer: null,
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
+    lang: localStorage.getItem('lp_lang') || 'en'
+  };
+
+  const i18n = {
+    en: {
+      type: "Type", all: "All", interrogative: "Interrogative", declarative: "Declarative",
+      level: "Level", speed: "Speed", mode: "Mode", sequential: "Sequential", loop: "Loop",
+      sentences: "Sentences", statsTitle: "Learning Stats", wordbookTitle: "Word Book",
+      selectPrompt: "Select a sentence to start practicing",
+      statsSentences: "Sentences Played", statsWords: "Words Saved",
+      statsTotal: "Total Sentences", statsDict: "Dictionary Words",
+      noDef: "No definition available",
+      noWords: "No words saved yet.<br>Tap any word to add it."
+    },
+    zh: {
+      type: "类型", all: "全部", interrogative: "疑问句", declarative: "非疑问句",
+      level: "难度等级", speed: "语速调节", mode: "播放模式", sequential: "顺序播放", loop: "单句循环",
+      sentences: "语句列表", statsTitle: "学习统计", wordbookTitle: "生词本",
+      selectPrompt: "请选择一个句子开始练习",
+      statsSentences: "已学句子数", statsWords: "已存单词数",
+      statsTotal: "总句子数", statsDict: "词典总词汇",
+      noDef: "暂无释义",
+      noWords: "暂无保存的单词。<br>点击任意单词即可添加。"
+    }
   };
 
   const audio = new AudioEngine();
@@ -90,7 +114,7 @@
   // ---- Display Current Sentence ----
   function updateDisplay() {
     if (state.currentIndex < 0 || state.filtered.length === 0) {
-      sentenceText.innerHTML = 'Select a sentence to start practicing';
+      sentenceText.innerHTML = i18n[state.lang].selectPrompt;
       sentenceText.style.fontSize = state.fontSize + 'px';
       cardBadge.textContent = '—';
       sentenceIndex.textContent = '0 / 0';
@@ -242,7 +266,7 @@
       $('popupExamples').innerHTML = entry.ex.map(e => `<p>• ${e}</p>`).join('');
     } else {
       $('popupPhonetic').textContent = '';
-      $('popupMeaning').innerHTML = '<em>No definition available</em>';
+      $('popupMeaning').innerHTML = `<em>${i18n[state.lang].noDef}</em>`;
       $('popupExamples').innerHTML = '';
     }
 
@@ -256,6 +280,18 @@
 
   function setupWordPopup() {
     $('popupClose').addEventListener('click', () => wordPopup.classList.remove('show'));
+
+    // Speak the word
+    $('popupSpeak').addEventListener('click', () => {
+      const word = $('popupWord').textContent;
+      if (!word) return;
+      const btn = $('popupSpeak');
+      btn.classList.add('speaking');
+      audio.speakWord(word, () => {
+        btn.classList.remove('speaking');
+      });
+    });
+
     $('popupFav').addEventListener('click', () => {
       const word = $('popupWord').textContent;
       const idx = state.wordbook.indexOf(word);
@@ -286,10 +322,10 @@
   function showStats() {
     const s = state.stats;
     $('statsGrid').innerHTML = `
-      <div class="stat-card"><div class="stat-value">${s.sentencesPlayed}</div><div class="stat-label">Sentences Played</div></div>
-      <div class="stat-card"><div class="stat-value">${state.wordbook.length}</div><div class="stat-label">Words Saved</div></div>
-      <div class="stat-card"><div class="stat-value">${SENTENCES.length}</div><div class="stat-label">Total Sentences</div></div>
-      <div class="stat-card"><div class="stat-value">${Object.keys(DICTIONARY).length}</div><div class="stat-label">Dictionary Words</div></div>
+      <div class="stat-card"><div class="stat-value">${s.sentencesPlayed}</div><div class="stat-label">${i18n[state.lang].statsSentences}</div></div>
+      <div class="stat-card"><div class="stat-value">${state.wordbook.length}</div><div class="stat-label">${i18n[state.lang].statsWords}</div></div>
+      <div class="stat-card"><div class="stat-value">${SENTENCES.length}</div><div class="stat-label">${i18n[state.lang].statsTotal}</div></div>
+      <div class="stat-card"><div class="stat-value">${Object.keys(DICTIONARY).length}</div><div class="stat-label">${i18n[state.lang].statsDict}</div></div>
     `;
     statsModal.classList.add('show');
   }
@@ -298,7 +334,7 @@
   function showWordbook() {
     const list = $('wordbookList');
     if (state.wordbook.length === 0) {
-      list.innerHTML = '<li class="wordbook-empty"><i class="ri-bookmark-line" style="font-size:32px;display:block;margin-bottom:8px"></i>No words saved yet.<br>Tap any word to add it.</li>';
+      list.innerHTML = `<li class="wordbook-empty"><i class="ri-bookmark-line" style="font-size:32px;display:block;margin-bottom:8px"></i>${i18n[state.lang].noWords}</li>`;
     } else {
       list.innerHTML = state.wordbook.map(w => {
         const entry = DICTIONARY[w];
@@ -328,8 +364,32 @@
     }, 60000); // Every minute
   }
 
+  // ---- Language ----
+  function updateI18n() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.dataset.i18n;
+      if (i18n[state.lang] && i18n[state.lang][key]) {
+        el.textContent = i18n[state.lang][key];
+      }
+    });
+    // Check if we need to update the prompt
+    if (state.currentIndex < 0 || state.filtered.length === 0) {
+      sentenceText.innerHTML = i18n[state.lang].selectPrompt;
+    }
+  }
+
+  function setupLanguage() {
+    updateI18n();
+    $('btnLang').addEventListener('click', () => {
+      state.lang = state.lang === 'en' ? 'zh' : 'en';
+      localStorage.setItem('lp_lang', state.lang);
+      updateI18n();
+    });
+  }
+
   // ---- Initialize ----
   function init() {
+    setupLanguage();
     setupFilters();
     setupSpeed();
     setupPlayMode();
