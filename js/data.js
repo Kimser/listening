@@ -181,6 +181,24 @@ const SENTENCES = [
   {id:316,text:"What an unprecedented paradigm shift this discovery represents!",type:"declarative",sub:"exclamatory",level:"advanced",cn:"这一发现代表了一个前所未有的范式转变！"},
   {id:317,text:"How profoundly the digital revolution has transformed contemporary society!",type:"declarative",sub:"exclamatory",level:"advanced",cn:"数字革命如此深刻地改变了当代社会！"},
   {id:318,text:"What a monumental breakthrough in renewable energy technology!",type:"declarative",sub:"exclamatory",level:"advanced",cn:"可再生能源技术的一个里程碑式突破！"},
+
+  // ===== DIALOGUE - ELEMENTARY =====
+  {id:1001,text:"A: Excuse me, I am looking for the downtown library. Could you please show me the fastest way to get there?",type:"dialogue",sub:"conversation",level:"elementary",cn:"A：打扰一下，我在找市中心的图书馆。你能告诉我到那里最快的路线吗？"},
+  {id:1002,text:"B: Of course. You need to walk straight down this street for about three blocks, and then turn right at the traffic light.",type:"dialogue",sub:"conversation",level:"elementary",cn:"B：当然。你需要沿着这条街一直走大概三个街区，然后在红绿灯处右转。"},
+  {id:1003,text:"A: Thank you so much! Is it within walking distance, or should I take a bus from here?",type:"dialogue",sub:"conversation",level:"elementary",cn:"A：非常感谢！走着去就能到吗，还是我应该从这里坐公交车？"},
+  {id:1004,text:"B: It is perfectly walkable. It should only take you about ten minutes if you keep a good walking pace.",type:"dialogue",sub:"conversation",level:"elementary",cn:"B：完全走得过去。如果你保持一个比较好的步行速度，大约只需要十分钟。"},
+
+  // ===== DIALOGUE - INTERMEDIATE =====
+  {id:1005,text:"A: Have you had a chance to thoroughly review the updated project proposal I sent to you yesterday afternoon?",type:"dialogue",sub:"conversation",level:"intermediate",cn:"A：你昨天下午有没有抽出时间，仔细审阅一下我发给你的那份更新后的项目提案？"},
+  {id:1006,text:"B: Yes, I went through the entire document. However, I noticed that we might have underestimated the overall budget required for the third phase.",type:"dialogue",sub:"conversation",level:"intermediate",cn:"B：是的，我把整个文件都看了一遍。不过我注意到，我们似乎低估了第三阶段所需的整体预算。"},
+  {id:1007,text:"A: That is a very valid concern. I was actually planning to schedule a comprehensive meeting with the finance department to discuss potential adjustments.",type:"dialogue",sub:"conversation",level:"intermediate",cn:"A：你的担忧非常有道理。我实际上正打算和财务部预约一个全面的会议，来讨论一下如何进行潜在的调整。"},
+  {id:1008,text:"B: That sounds like an excellent strategy. Let me know when the meeting starts, and I will make sure to bring my detailed cost analysis presentation.",type:"dialogue",sub:"conversation",level:"intermediate",cn:"B：听起来是个非常好的策略。会议开始的时候告诉我一声，我一定会带上我那份详细的成本分析演示文稿。"},
+  
+  // ===== DIALOGUE - ADVANCED =====
+  {id:1009,text:"A: What is your comprehensive perspective on integrating decentralized synthetic assets into the traditionally heavily regulated banking sector?",type:"dialogue",sub:"conversation",level:"advanced",cn:"A：关于将去中心化的合成资产整合到传统受到严格监管的银行业务中，你比较全面的看法是什么？"},
+  {id:1010,text:"B: Fundamentally, I argue that while the technological efficiency gains are absolutely undeniable, doing so inevitably introduces an array of unprecedented regulatory frictions.",type:"dialogue",sub:"conversation",level:"advanced",cn:"B：从根本上说，我认为虽然技术效率的提升是毫无疑问的，但这样做不可避免地会引入一系列前所未有的监管摩擦。"},
+  {id:1011,text:"A: That is ostensibly true, yet ignoring such a significant paradigm shift could arguably render orthodox financial institutions obsolete within the next decade.",type:"dialogue",sub:"conversation",level:"advanced",cn:"A：这表面上看是真的，但如果不去理会这样重大的范式转变，可以说在未来十年内会让正统的金融机构彻底被时代淘汰。"},
+  {id:1012,text:"B: Precisely. This is why cultivating a harmonious framework that perfectly bridges cryptographically secured ledgers with conservative risk-mitigation strategies is absolutely imperative.",type:"dialogue",sub:"conversation",level:"advanced",cn:"B：恰恰如此。这就是为什么我们绝对有必要去培养一个和谐的框架，以此将受到密码学保护的账本与保守的风险缓解策略完美地桥接起来。"}
 ];
 
 // ==================== WORD DICTIONARY ====================

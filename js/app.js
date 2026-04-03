@@ -20,24 +20,26 @@
 
   const i18n = {
     en: {
-      type: "Type", all: "All", interrogative: "Interrogative", declarative: "Declarative",
+      type: "Type", all: "All", interrogative: "Interrogative", declarative: "Declarative", dialogue: "Dialogue",
       level: "Level", speed: "Speed", mode: "Mode", sequential: "Sequential", loop: "Loop",
       sentences: "Sentences", statsTitle: "Learning Stats", wordbookTitle: "Word Book",
       selectPrompt: "Select a sentence to start practicing",
       statsSentences: "Sentences Played", statsWords: "Words Saved",
       statsTotal: "Total Sentences", statsDict: "Dictionary Words",
       noDef: "No definition available",
-      noWords: "No words saved yet.<br>Tap any word to add it."
+      noWords: "No words saved yet.<br>Tap any word to add it.",
+      lvl_elementary: "Elementary", lvl_intermediate: "Intermediate", lvl_advanced: "Advanced"
     },
     zh: {
-      type: "类型", all: "全部", interrogative: "疑问句", declarative: "非疑问句",
+      type: "类型", all: "全部", interrogative: "疑问句", declarative: "非疑问句", dialogue: "对话文章",
       level: "难度等级", speed: "语速调节", mode: "播放模式", sequential: "顺序播放", loop: "单句循环",
       sentences: "语句列表", statsTitle: "学习统计", wordbookTitle: "生词本",
       selectPrompt: "请选择一个句子开始练习",
       statsSentences: "已学句子数", statsWords: "已存单词数",
       statsTotal: "总句子数", statsDict: "词典总词汇",
       noDef: "暂无释义",
-      noWords: "暂无保存的单词。<br>点击任意单词即可添加。"
+      noWords: "暂无保存的单词。<br>点击任意单词即可添加。",
+      lvl_elementary: "入门级", lvl_intermediate: "进阶级", lvl_advanced: "高级"
     }
   };
 
@@ -129,7 +131,11 @@
     }).join(' ');
     sentenceText.style.fontSize = state.fontSize + 'px';
 
-    const levelNames = { elementary: 'Elementary', intermediate: 'Intermediate', advanced: 'Advanced' };
+    const levelNames = { 
+      elementary: i18n[state.lang].lvl_elementary, 
+      intermediate: i18n[state.lang].lvl_intermediate, 
+      advanced: i18n[state.lang].lvl_advanced 
+    };
     cardBadge.textContent = levelNames[s.level] || s.level;
     cardBadge.style.background = s.level === 'elementary' ? 'var(--accent)' : s.level === 'intermediate' ? '#f9c74f' : 'var(--accent2)';
     sentenceIndex.textContent = `${state.currentIndex + 1} / ${state.filtered.length}`;
@@ -394,6 +400,14 @@
         el.textContent = i18n[state.lang][key];
       }
     });
+
+    // Update dynamic texts
+    if (state.currentIndex >= 0 && state.filtered.length > 0) {
+      const s = state.filtered[state.currentIndex];
+      const levelNames = { elementary: i18n[state.lang].lvl_elementary, intermediate: i18n[state.lang].lvl_intermediate, advanced: i18n[state.lang].lvl_advanced };
+      cardBadge.textContent = levelNames[s.level] || s.level;
+    }
+
     // Check if we need to update the prompt manually if no selection
     if (state.currentIndex < 0 || state.filtered.length === 0) {
       sentenceText.innerHTML = i18n[state.lang].selectPrompt;

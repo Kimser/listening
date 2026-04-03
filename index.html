@@ -31,6 +31,7 @@
           <button class="seg-btn active" data-value="all" data-i18n="all">All</button>
           <button class="seg-btn" data-value="interrogative" data-i18n="interrogative">Interrogative</button>
           <button class="seg-btn" data-value="declarative" data-i18n="declarative">Declarative</button>
+          <button class="seg-btn" data-value="dialogue" data-i18n="dialogue">Dialogue</button>
         </div>
       </div>
       <div class="filter-group">
@@ -44,8 +45,9 @@
       </div>
     </section>
 
-    <!-- Sentence Display -->
-    <section class="display-card" id="displayCard">
+    <!-- Sentence Display & Player Sticky Wrap -->
+    <div class="sticky-player-wrap">
+      <section class="display-card" id="displayCard">
       <div class="card-badge" id="cardBadge">Elementary</div>
       <p class="sentence-text" id="sentenceText" data-i18n="selectPrompt">Select a sentence to start practicing</p>
       <div class="card-meta">
@@ -84,6 +86,7 @@
         </div>
       </div>
     </section>
+    </div> <!-- /sticky-player-wrap -->
 
     <!-- Sentence List -->
     <section class="sentence-list-section">

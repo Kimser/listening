@@ -170,6 +170,16 @@ body::before {
 
 .seg-btn:not(.active):hover { background: var(--surface-hover); }
 
+/* Sticky Player Wrap */
+.sticky-player-wrap {
+  position: sticky;
+  top: 72px; /* Ensure this is perfectly under the header */
+  z-index: 90;
+  background: var(--bg);
+  padding: 8px 0 4px; /* a tiny bit of breathing room */
+  margin: -8px 0 0;
+}
+
 /* Display Card */
 .display-card {
   background: var(--surface);
