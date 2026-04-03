@@ -368,11 +368,14 @@
   function updateI18n() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
+      // Do not overwrite the main sentence display if a sentence is currently playing
+      if (key === 'selectPrompt' && state.currentIndex >= 0 && state.filtered.length > 0) return;
+      
       if (i18n[state.lang] && i18n[state.lang][key]) {
         el.textContent = i18n[state.lang][key];
       }
     });
-    // Check if we need to update the prompt
+    // Check if we need to update the prompt manually if no selection
     if (state.currentIndex < 0 || state.filtered.length === 0) {
       sentenceText.innerHTML = i18n[state.lang].selectPrompt;
     }
