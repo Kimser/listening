@@ -338,9 +338,28 @@
     } else {
       list.innerHTML = state.wordbook.map(w => {
         const entry = DICTIONARY[w];
+        const ipa = entry && entry.ipa ? ` <span style="color:var(--accent);font-size:12px;margin-left:6px;font-style:italic">${entry.ipa}</span>` : '';
         const meaning = entry ? entry.cn : '—';
-        return `<li class="wordbook-item"><div><span class="wb-word">${w}</span><br><span class="wb-meaning">${meaning}</span></div><button class="wb-remove" data-word="${w}"><i class="ri-delete-bin-line"></i></button></li>`;
+        return `
+          <li class="wordbook-item">
+            <div><span class="wb-word">${w}</span>${ipa}<br><span class="wb-meaning">${meaning}</span></div>
+            <div style="display:flex; gap:12px;">
+              <button class="wb-speak" data-word="${w}" style="background:none;border:none;color:var(--primary);cursor:pointer;font-size:18px;transition:all 0.2s;"><i class="ri-volume-up-fill"></i></button>
+              <button class="wb-remove" data-word="${w}" style="background:none;border:none;color:var(--accent2);cursor:pointer;font-size:18px;transition:all 0.2s;"><i class="ri-delete-bin-line"></i></button>
+            </div>
+          </li>`;
       }).join('');
+      
+      list.querySelectorAll('.wb-speak').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const w = btn.dataset.word;
+          btn.style.transform = 'scale(1.2)';
+          audio.speakWord(w, () => {
+            btn.style.transform = 'scale(1)';
+          });
+        });
+      });
+
       list.querySelectorAll('.wb-remove').forEach(btn => {
         btn.addEventListener('click', () => {
           const w = btn.dataset.word;
