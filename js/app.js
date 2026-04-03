@@ -15,7 +15,7 @@
     loopTimer: null,
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
-    lang: localStorage.getItem('lp_lang') || 'en'
+    lang: localStorage.getItem('lp_lang') || 'zh'
   };
 
   const i18n = {

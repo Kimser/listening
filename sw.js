@@ -1,5 +1,13 @@
-const CACHE_NAME = 'listen-pro-v1';
-const ASSETS = ['/', '/index.html', '/css/style.css', '/js/data.js', '/js/audio.js', '/js/app.js'];
+const CACHE_NAME = 'listen-pro-v1.1';
+const ASSETS = [
+  './', 
+  './index.html', 
+  './css/style.css', 
+  './js/data.js', 
+  './js/audio.js', 
+  './js/app.js',
+  './manifest.json'
+];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
