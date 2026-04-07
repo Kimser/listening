@@ -15,7 +15,8 @@
     loopTimer: null,
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
-    lang: localStorage.getItem('lp_lang') || 'zh'
+    lang: localStorage.getItem('lp_lang') || 'zh',
+    showCn: localStorage.getItem('lp_showCn') === 'true'
   };
 
   const i18n = {
@@ -123,12 +124,18 @@
       return;
     }
     const s = state.filtered[state.currentIndex];
-    // Wrap words for click interaction
-    const words = s.text.replace(/[.,!?;:'"]/g, m => `<span class="punct">${m}</span>`).split(/\s+/);
-    sentenceText.innerHTML = s.text.split(/\s+/).map(w => {
-      const clean = w.replace(/[^a-zA-Z'-]/g, '').toLowerCase();
-      return `<span class="word" data-word="${clean}">${w}</span>`;
-    }).join(' ');
+    
+    if (state.showCn) {
+      sentenceText.innerHTML = s.cn;
+    } else {
+      // Wrap words for click interaction
+      const words = s.text.replace(/[.,!?;:'"]/g, m => `<span class="punct">${m}</span>`).split(/\s+/);
+      sentenceText.innerHTML = s.text.split(/\s+/).map(w => {
+        const clean = w.replace(/[^a-zA-Z'-]/g, '').toLowerCase();
+        return `<span class="word" data-word="${clean}">${w}</span>`;
+      }).join(' ');
+    }
+    
     sentenceText.style.fontSize = state.fontSize + 'px';
 
     const levelNames = { 
@@ -149,13 +156,15 @@
     const activeItem = sentenceList.querySelector('.sentence-item.active');
     if (activeItem) activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
 
-    // Wire up word clicks
-    sentenceText.querySelectorAll('.word').forEach(el => {
-      el.addEventListener('click', (e) => {
-        e.stopPropagation();
-        showWordPopup(el.dataset.word);
+    // Wire up word clicks if in English mode
+    if (!state.showCn) {
+      sentenceText.querySelectorAll('.word').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          showWordPopup(el.dataset.word);
+        });
       });
-    });
+    }
   }
 
   // ---- Select Sentence ----
@@ -461,6 +470,13 @@
     setupSpeed();
     setupPlayMode();
     setupFontSize();
+    
+    $('btnToggleCn').addEventListener('click', () => {
+      state.showCn = !state.showCn;
+      localStorage.setItem('lp_showCn', state.showCn);
+      updateDisplay();
+    });
+    
     setupWordPopup();
     startSessionTimer();
 
