@@ -11,7 +11,7 @@
     levelFilter: 'all',
     playMode: 'sequential',
     speed: 1,
-    fontSize: 20,
+    fontSize: 18,
     loopTimer: null,
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
@@ -175,16 +175,16 @@
     return idx > 0 ? SPEED_STEPS[idx - 1] : SPEED_STEPS[0];
   }
 
-  function playCurrent(isSlowerRepeat = false) {
+  function playCurrent(passType = 'initial') {
     if (state.currentIndex < 0 || state.filtered.length === 0) return;
     const s = state.filtered[state.currentIndex];
     
-    if (!isSlowerRepeat) {
+    if (passType !== 'slower') {
       state.stats.sentencesPlayed++;
       saveStats();
     }
 
-    const currentSpeed = isSlowerRepeat ? getNextSlowerSpeed(state.speed) : state.speed;
+    const currentSpeed = passType === 'slower' ? getNextSlowerSpeed(state.speed) : state.speed;
     audio.setRate(currentSpeed);
     
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
@@ -193,21 +193,21 @@
       audio.speak(s.text, () => {
         updatePlayBtn(false);
         
-        if (!isSlowerRepeat) {
+        if (passType !== 'slower') {
           // Trigger the slower repeat after a longer pause
-          state.loopTimer = setTimeout(() => playCurrent(true), 1500);
+          state.loopTimer = setTimeout(() => playCurrent('slower'), 1500);
           updatePlayBtn(true);
         } else {
           // Finished slower repeat, switch according to mode
           audio.setRate(state.speed); // reset global speed
           if (state.playMode === 'loop') {
-            state.loopTimer = setTimeout(() => playCurrent(false), 2000);
+            state.loopTimer = setTimeout(() => playCurrent('loop'), 2000);
             updatePlayBtn(true);
           } else if (state.playMode === 'sequential') {
             if (state.currentIndex < state.filtered.length - 1) {
               state.currentIndex++;
               updateDisplay();
-              state.loopTimer = setTimeout(() => playCurrent(false), 2000);
+              state.loopTimer = setTimeout(() => playCurrent('sequential'), 2000);
               updatePlayBtn(true);
             }
           }
@@ -215,7 +215,7 @@
       });
     };
 
-    if (!isSlowerRepeat) {
+    if (passType === 'initial' || passType === 'sequential') {
       audio.playPromptSound(startSpeaking);
     } else {
       startSpeaking();

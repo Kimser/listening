@@ -211,6 +211,7 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 28px 24px;
+  padding-bottom: 12px;
   margin-bottom: 20px;
   position: relative;
   backdrop-filter: blur(10px);
@@ -255,7 +256,7 @@ body::before {
 }
 
 .sentence-text {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.6;
   margin-top: 12px;
