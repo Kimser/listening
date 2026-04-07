@@ -11,7 +11,7 @@
     levelFilter: 'all',
     playMode: 'sequential',
     speed: 1,
-    fontSize: 18,
+    fontSize: parseInt(localStorage.getItem('lp_fontSize') || '18'),
     loopTimer: null,
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
@@ -287,6 +287,7 @@
     $('btnFontSize').addEventListener('click', () => {
       state.fontSize = state.fontSize >= 24 ? 14 : state.fontSize + 2;
       sentenceText.style.fontSize = state.fontSize + 'px';
+      localStorage.setItem('lp_fontSize', state.fontSize);
     });
   }
 
