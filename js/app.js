@@ -169,27 +169,57 @@
   }
 
   // ---- Play Controls ----
-  function playCurrent() {
+  const SPEED_STEPS = [0.5, 0.75, 1, 1.25, 1.5];
+  function getNextSlowerSpeed(current) {
+    const idx = SPEED_STEPS.indexOf(parseFloat(current));
+    return idx > 0 ? SPEED_STEPS[idx - 1] : SPEED_STEPS[0];
+  }
+
+  function playCurrent(isSlowerRepeat = false) {
     if (state.currentIndex < 0 || state.filtered.length === 0) return;
     const s = state.filtered[state.currentIndex];
-    state.stats.sentencesPlayed++;
-    saveStats();
+    
+    if (!isSlowerRepeat) {
+      state.stats.sentencesPlayed++;
+      saveStats();
+    }
 
+    const currentSpeed = isSlowerRepeat ? getNextSlowerSpeed(state.speed) : state.speed;
+    audio.setRate(currentSpeed);
+    
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
-    audio.speak(s.text, () => {
-      updatePlayBtn(false);
-      if (state.playMode === 'loop') {
-        state.loopTimer = setTimeout(() => playCurrent(), 500);
-        updatePlayBtn(true);
-      } else if (state.playMode === 'sequential') {
-        if (state.currentIndex < state.filtered.length - 1) {
-          state.currentIndex++;
-          updateDisplay();
-          setTimeout(() => playCurrent(), 300);
+    
+    const startSpeaking = () => {
+      audio.speak(s.text, () => {
+        updatePlayBtn(false);
+        
+        if (!isSlowerRepeat) {
+          // Trigger the slower repeat after a longer pause
+          state.loopTimer = setTimeout(() => playCurrent(true), 1500);
           updatePlayBtn(true);
+        } else {
+          // Finished slower repeat, switch according to mode
+          audio.setRate(state.speed); // reset global speed
+          if (state.playMode === 'loop') {
+            state.loopTimer = setTimeout(() => playCurrent(false), 2000);
+            updatePlayBtn(true);
+          } else if (state.playMode === 'sequential') {
+            if (state.currentIndex < state.filtered.length - 1) {
+              state.currentIndex++;
+              updateDisplay();
+              state.loopTimer = setTimeout(() => playCurrent(false), 2000);
+              updatePlayBtn(true);
+            }
+          }
         }
-      }
-    });
+      });
+    };
+
+    if (!isSlowerRepeat) {
+      audio.playPromptSound(startSpeaking);
+    } else {
+      startSpeaking();
+    }
     updatePlayBtn(true);
   }
 

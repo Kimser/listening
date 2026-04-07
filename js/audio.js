@@ -112,4 +112,36 @@ class AudioEngine {
     utt.onerror = () => { if (onEnd) onEnd(); };
     this.synth.speak(utt);
   }
+
+  playPromptSound(callback) {
+    try {
+      const Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return callback();
+      const ctx = new Ctx();
+      
+      const playNote = (freq, time) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(0, time);
+        gain.gain.linearRampToValueAtTime(0.2, time + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.2);
+        osc.start(time);
+        osc.stop(time + 0.2);
+      };
+      
+      playNote(880, ctx.currentTime); // A5 note
+      playNote(1108.73, ctx.currentTime + 0.15); // C#6 note
+      
+      setTimeout(() => {
+        ctx.close().catch(() => {});
+        callback();
+      }, 400); // Trigger callback after sound finishes
+    } catch(e) {
+      callback();
+    }
+  }
 }
