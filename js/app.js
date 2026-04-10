@@ -10,7 +10,7 @@
     typeFilter: 'all',
     levelFilter: 'all',
     playMode: 'sequential',
-    speed: 1,
+    speed: parseFloat(localStorage.getItem('lp_speed') || '1'),
     fontSize: parseInt(localStorage.getItem('lp_fontSize') || '18'),
     loopTimer: null,
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
@@ -296,12 +296,22 @@
 
   // ---- Speed Control ----
   function setupSpeed() {
+    const speedButtons = document.querySelectorAll('#speedControl .speed-btn');
+    const allowedSpeeds = Array.from(speedButtons).map(btn => parseFloat(btn.dataset.speed));
+    if (!allowedSpeeds.includes(state.speed)) {
+      state.speed = 1;
+    }
+    speedButtons.forEach(btn => {
+      btn.classList.toggle('active', parseFloat(btn.dataset.speed) === state.speed);
+    });
+    audio.setRate(state.speed);
     document.querySelectorAll('#speedControl .speed-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('#speedControl .speed-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         state.speed = parseFloat(btn.dataset.speed);
         audio.setRate(state.speed);
+        localStorage.setItem('lp_speed', state.speed);
       });
     });
   }

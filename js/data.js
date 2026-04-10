@@ -1291,8 +1291,37 @@ const DICTIONARY = {
   "isn't":{ipa:"/ˈɪzənt/",pos:"v.aux.",cn:"不是",ex:["Isn't it a beautiful day?"]},
   "aren't":{ipa:"/ɑːrnt/",pos:"v.aux.",cn:"不是",ex:["They aren't coming today."]},
   "can't":{ipa:"/kænt/",pos:"v.aux.",cn:"不能",ex:["I can't believe it.", "We can't wait."]},
+  "i'm":{ipa:"/aɪm/",pos:"contraction",cn:"我是；我正在",ex:["I'm a teacher.", "I'm calling to ask for your advice."]},
+  "you're":{ipa:"/jʊr/",pos:"contraction",cn:"你是；你正在",ex:["You're right.", "Are you sure you're ready?"]},
+  "i'll":{ipa:"/aɪl/",pos:"contraction",cn:"我会；我将",ex:["I'll help you fix your car.", "I'll call you later."]},
+  "it's":{ipa:"/ɪts/",pos:"contraction",cn:"它是；这是",ex:["It's hard for me to wake up early.", "It's no use worrying about the past."]},
+  "what's":{ipa:"/wɒts/",pos:"contraction",cn:"是什么；有什么",ex:["What's the weather like?", "What's the plan for today?"]},
+  "where's":{ipa:"/wɛrz/",pos:"contraction",cn:"在哪里",ex:["Where's the bathroom?", "Where's the exit?"]},
+  "that's":{ipa:"/ðæts/",pos:"contraction",cn:"那是；那就是",ex:["That's why I like it.", "That's a good idea."]},
+  "there's":{ipa:"/ðɛrz/",pos:"contraction",cn:"有；那里是",ex:["There's no signal here.", "There's a coffee shop nearby."]},
+  "let's":{ipa:"/lɛts/",pos:"contraction",cn:"让我们",ex:["Let's go for a walk.", "Let's start now."]},
+  "we're":{ipa:"/wɪr/",pos:"contraction",cn:"我们是；我们正在",ex:["We're in the middle of something.", "We're getting ready."]},
   "sure":{ipa:"/ʃʊər/",pos:"adj./adv.",cn:"肯定的；当然",ex:["Make sure you submit it.", "Yes, sure."]},
   "stay":{ipa:"/steɪ/",pos:"v./n.",cn:"停留；保持",ex:["Stay healthy.", "A short stay."]},
   "arise":{ipa:"/əˈraɪz/",pos:"v.",cn:"出现；产生",ex:["implications arise from advances.", "Problems arise."]},
   "arrives":{ipa:"/əˈraɪvz/",pos:"v.",cn:"到达（第三人称单数）",ex:["The train arrives at nine."]}
 };
+
+(() => {
+  const categorySentences = SENTENCES.filter(item => item.type === "category");
+  const tokenRegex = /[A-Za-z]+(?:['-][A-Za-z]+)*/g;
+  for (const item of categorySentences) {
+    const text = item.text || "";
+    const tokens = text.toLowerCase().match(tokenRegex) || [];
+    for (const token of tokens) {
+      if (!DICTIONARY[token]) {
+        DICTIONARY[token] = {
+          ipa: `/${token}/`,
+          pos: "word",
+          cn: "待补充",
+          ex: [item.text]
+        };
+      }
+    }
+  }
+})();
