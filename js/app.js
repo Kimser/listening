@@ -21,7 +21,7 @@
 
   const i18n = {
     en: {
-      type: "Type", all: "All", interrogative: "Interrogative", declarative: "Declarative", dialogue: "Dialogue",
+      type: "Type", all: "All", interrogative: "Interrogative", category: "Category", dialogue: "Dialogue",
       level: "Level", speed: "Speed", mode: "Mode", sequential: "Sequential", loop: "Loop",
       sentences: "Sentences", statsTitle: "Learning Stats", wordbookTitle: "Word Book",
       selectPrompt: "Select a sentence to start practicing",
@@ -32,7 +32,7 @@
       lvl_elementary: "Elementary", lvl_intermediate: "Intermediate", lvl_advanced: "Advanced"
     },
     zh: {
-      type: "类型", all: "全部", interrogative: "疑问句", declarative: "非疑问句", dialogue: "对话文章",
+      type: "类型", all: "全部", interrogative: "疑问句", category: "分类句型", dialogue: "对话文章",
       level: "难度等级", speed: "语速调节", mode: "播放模式", sequential: "顺序播放", loop: "单句循环",
       sentences: "语句列表", statsTitle: "学习统计", wordbookTitle: "生词本",
       selectPrompt: "请选择一个句子开始练习",
@@ -178,53 +178,79 @@
   }
 
   // ---- Play Controls ----
-  const SPEED_STEPS = [0.5, 0.75, 1, 1.25, 1.5];
-  function getNextSlowerSpeed(current) {
-    const idx = SPEED_STEPS.indexOf(parseFloat(current));
-    return idx > 0 ? SPEED_STEPS[idx - 1] : SPEED_STEPS[0];
+  function getPlaybackRates(baseSpeed) {
+    const first = Math.max(0.5, baseSpeed);
+    const second = Math.max(0.42, first - 0.15);
+    const third = Math.max(0.35, second - 0.15);
+    const chinese = Math.max(0.32, third - 0.08);
+    return { first, second, third, chinese };
   }
 
-  function playCurrent(passType = 'initial') {
+  function toDetachedSentence(text) {
+    const trimmed = (text || '').trim();
+    if (!trimmed) return '';
+    const hasEndingPunct = /[.!?]$/.test(trimmed);
+    const ending = hasEndingPunct ? trimmed.slice(-1) : '';
+    const body = hasEndingPunct ? trimmed.slice(0, -1) : trimmed;
+    const words = body.split(/\s+/).filter(Boolean);
+    const chunks = [];
+    for (let i = 0; i < words.length; i += 2) {
+      chunks.push(words.slice(i, i + 2).join(' '));
+    }
+    return `${chunks.join(', ')}${ending}`;
+  }
+
+  function playPasses(passes, onEnd, index = 0) {
+    if (index >= passes.length) {
+      onEnd();
+      return;
+    }
+    const pass = passes[index];
+    const handlePassEnd = () => {
+      if (index >= passes.length - 1) {
+        onEnd();
+        return;
+      }
+      state.loopTimer = setTimeout(() => playPasses(passes, onEnd, index + 1), 2200);
+      updatePlayBtn(true);
+    };
+    audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
+    audio.speak(pass.text, handlePassEnd, { lang: pass.lang, rate: pass.rate, pitch: pass.pitch || 1 });
+  }
+
+  function playCurrent(playReason = 'initial') {
     if (state.currentIndex < 0 || state.filtered.length === 0) return;
     const s = state.filtered[state.currentIndex];
-    
-    if (passType !== 'slower') {
-      state.stats.sentencesPlayed++;
-      saveStats();
-    }
 
-    const currentSpeed = passType === 'slower' ? getNextSlowerSpeed(state.speed) : state.speed;
-    audio.setRate(currentSpeed);
-    
-    audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
-    
+    state.stats.sentencesPlayed++;
+    saveStats();
+
+    const rates = getPlaybackRates(state.speed);
+    const passes = [
+      { text: s.text, lang: 'en-US', rate: rates.first, pitch: 1.01 },
+      { text: s.text, lang: 'en-US', rate: rates.second, pitch: 1.02 },
+      { text: toDetachedSentence(s.text), lang: 'en-US', rate: rates.third, pitch: 1.03 },
+      { text: s.cn || s.text, lang: 'zh-CN', rate: rates.chinese, pitch: 1.0 }
+    ];
+
     const startSpeaking = () => {
-      audio.speak(s.text, () => {
+      playPasses(passes, () => {
         updatePlayBtn(false);
-        
-        if (passType !== 'slower') {
-          // Trigger the slower repeat after a longer pause
-          state.loopTimer = setTimeout(() => playCurrent('slower'), 1500);
+        if (state.playMode === 'loop') {
+          state.loopTimer = setTimeout(() => playCurrent('loop'), 2600);
           updatePlayBtn(true);
-        } else {
-          // Finished slower repeat, switch according to mode
-          audio.setRate(state.speed); // reset global speed
-          if (state.playMode === 'loop') {
-            state.loopTimer = setTimeout(() => playCurrent('loop'), 2000);
-            updatePlayBtn(true);
-          } else if (state.playMode === 'sequential') {
-            if (state.currentIndex < state.filtered.length - 1) {
-              state.currentIndex++;
-              updateDisplay();
-              state.loopTimer = setTimeout(() => playCurrent('sequential'), 2000);
-              updatePlayBtn(true);
-            }
-          }
+          return;
+        }
+        if (state.playMode === 'sequential' && state.currentIndex < state.filtered.length - 1) {
+          state.currentIndex++;
+          updateDisplay();
+          state.loopTimer = setTimeout(() => playCurrent('sequential'), 2600);
+          updatePlayBtn(true);
         }
       });
     };
 
-    if (passType === 'initial' || passType === 'sequential') {
+    if (playReason === 'initial' || playReason === 'sequential') {
       audio.playPromptSound(startSpeaking);
     } else {
       startSpeaking();

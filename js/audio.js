@@ -6,6 +6,8 @@ class AudioEngine {
     this.isPlaying = false;
     this.rate = 1;
     this.voice = null;
+    this.voiceEn = null;
+    this.voiceZh = null;
     this.onEnd = null;
     this.onProgress = null;
     this.onBoundary = null;
@@ -18,27 +20,47 @@ class AudioEngine {
   _initVoice() {
     const loadVoices = () => {
       const voices = this.synth.getVoices();
-      this.voice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Google')) ||
-                   voices.find(v => v.lang.startsWith('en-US')) ||
-                   voices.find(v => v.lang.startsWith('en')) ||
-                   voices[0];
+      this.voiceEn = this._pickVoice(
+        voices,
+        ['en-us', 'en-gb', 'en'],
+        ['samantha', 'alex', 'ava', 'allison', 'daniel', 'karen', 'moira', 'google us english', 'google uk english', 'enhanced', 'premium', 'natural']
+      ) || voices[0];
+      this.voiceZh = this._pickVoice(
+        voices,
+        ['zh-cn', 'zh-hk', 'zh-tw', 'zh'],
+        ['tingting', 'mei-jia', 'sin-ji', 'xiaoxiao', 'xiaoyi', 'yunxi', 'google 中文', 'google 普通话', 'enhanced', 'premium', 'natural']
+      ) || this.voiceEn;
+      this.voice = this.voiceEn;
     };
     loadVoices();
     this.synth.onvoiceschanged = loadVoices;
   }
 
-  speak(text, onEnd) {
+  _pickVoice(voices, langPrefixes, preferredNames) {
+    const byLang = voices.filter(v => langPrefixes.some(p => v.lang.toLowerCase().startsWith(p)));
+    for (const name of preferredNames) {
+      const found = byLang.find(v => v.name.toLowerCase().includes(name));
+      if (found) return found;
+    }
+    return byLang[0] || null;
+  }
+
+  speak(text, onEnd, options = {}) {
     this.stop();
     this.onEnd = onEnd;
+    const lang = options.lang || 'en-US';
+    const rate = typeof options.rate === 'number' ? options.rate : this.rate;
+    const pitch = typeof options.pitch === 'number' ? options.pitch : 1;
+    const volume = typeof options.volume === 'number' ? options.volume : 1;
+    const voice = lang.startsWith('zh') ? this.voiceZh : this.voiceEn;
     this.utterance = new SpeechSynthesisUtterance(text);
-    if (this.voice) this.utterance.voice = this.voice;
-    this.utterance.rate = this.rate;
-    this.utterance.pitch = 1;
-    this.utterance.volume = 1;
-    this.utterance.lang = 'en-US';
+    if (voice) this.utterance.voice = voice;
+    this.utterance.rate = rate;
+    this.utterance.pitch = pitch;
+    this.utterance.volume = volume;
+    this.utterance.lang = lang;
 
-    // Estimate duration: ~150ms per character at rate 1
-    this._estDuration = (text.length * 150) / this.rate;
+    this._estDuration = (text.length * 150) / rate;
     this._startTime = Date.now();
 
     this.utterance.onend = () => {
@@ -103,9 +125,9 @@ class AudioEngine {
   speakWord(word, onEnd) {
     this.synth.cancel();
     const utt = new SpeechSynthesisUtterance(word);
-    if (this.voice) utt.voice = this.voice;
+    if (this.voiceEn) utt.voice = this.voiceEn;
     utt.rate = 0.8; // Speak words slowly for clarity
-    utt.pitch = 1;
+    utt.pitch = 1.02;
     utt.volume = 1;
     utt.lang = 'en-US';
     utt.onend = () => { if (onEnd) onEnd(); };

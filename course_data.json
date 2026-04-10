@@ -1,0 +1,2766 @@
+[
+  {
+    "id": 1,
+    "category": "1. 自我介绍 I'm a.",
+    "sentences": [
+      {
+        "zh": "我是一名教师。",
+        "en": "I'm a teacher."
+      },
+      {
+        "zh": "我是一名大学生。",
+        "en": "I'm a student at the university."
+      },
+      {
+        "zh": "我是一名医生。",
+        "en": "I'm a doctor."
+      },
+      {
+        "zh": "我是一名平面设计师。",
+        "en": "I'm a graphic designer."
+      },
+      {
+        "zh": "我是一名自由撰稿人。",
+        "en": "I'm a freelance writer."
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "category": "2. 一般疑问句 Are you...?",
+    "sentences": [
+      {
+        "zh": "你是吗？",
+        "en": "Are you?"
+      },
+      {
+        "zh": "你今晚要和我们一起来吗？",
+        "en": "Are you coming with us tonight?"
+      },
+      {
+        "zh": "你现在好点了吗？",
+        "en": "Are you feeling better now?"
+      },
+      {
+        "zh": "你准备好点餐了吗？",
+        "en": "Are you ready to order?"
+      },
+      {
+        "zh": "你确定吗？",
+        "en": "Are you sure about that?"
+      },
+      {
+        "zh": "你明天上班吗？",
+        "en": "Are you working tomorrow?"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "category": "3. 我在…… I'm in...",
+    "sentences": [
+      {
+        "zh": "我现在在开会。",
+        "en": "I'm in a meeting right now."
+      },
+      {
+        "zh": "我正忙着呢。",
+        "en": "I'm in the middle of something."
+      },
+      {
+        "zh": "我在赶时间。",
+        "en": "I'm in a hurry."
+      },
+      {
+        "zh": "我在篮球俱乐部。",
+        "en": "I'm in a basketball club."
+      },
+      {
+        "zh": "我正在搬家。",
+        "en": "I'm in the process of moving."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "category": "4. 我不喜欢…… I don't like...",
+    "sentences": [
+      {
+        "zh": "我不喜欢咖啡。",
+        "en": "I don't like coffee."
+      },
+      {
+        "zh": "我不喜欢迟到。",
+        "en": "I don't like being late."
+      },
+      {
+        "zh": "我不喜欢这个味道。",
+        "en": "I don't like how this tastes."
+      },
+      {
+        "zh": "我不喜欢早起。",
+        "en": "I don't like to wake up early."
+      },
+      {
+        "zh": "我不喜欢排队。",
+        "en": "I don't like waiting in line."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "category": "5. 我打电话来…… I'm calling to...",
+    "sentences": [
+      {
+        "zh": "我打电话来预订。",
+        "en": "I'm calling to make a reservation."
+      },
+      {
+        "zh": "我打电话来征求你的建议。",
+        "en": "I'm calling to ask for your advice."
+      },
+      {
+        "zh": "我打电话来看看你今晚是否有空。",
+        "en": "I'm calling to see if you're free tonight."
+      },
+      {
+        "zh": "我打电话来祝你生日快乐。",
+        "en": "I'm calling to wish you a happy birthday."
+      },
+      {
+        "zh": "我打电话来感谢你的帮助。",
+        "en": "I'm calling to say thank you for your help."
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "category": "6. 我可以要……吗？ Can I get...?",
+    "sentences": [
+      {
+        "zh": "我可以要一杯咖啡吗？",
+        "en": "Can I get a coffee, please?"
+      },
+      {
+        "zh": "我可以结账吗？",
+        "en": "Can I get the check?"
+      },
+      {
+        "zh": "我可以退款吗？",
+        "en": "Can I get a refund?"
+      },
+      {
+        "zh": "我可以听听你对这个的看法吗？",
+        "en": "Can I get your opinion on this?"
+      },
+      {
+        "zh": "我可以占用你一点时间吗？",
+        "en": "Can I get a moment of your time?"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "category": "7. 我正要/开始…… I'm getting...",
+    "sentences": [
+      {
+        "zh": "我要买一辆新车。",
+        "en": "I'm getting a new car."
+      },
+      {
+        "zh": "我要换一份新工作。",
+        "en": "I'm getting a new job."
+      },
+      {
+        "zh": "我头开始痛了。",
+        "en": "I'm getting a headache."
+      },
+      {
+        "zh": "我开始饿了。",
+        "en": "I'm getting hungry."
+      },
+      {
+        "zh": "我要去买咖啡，你要一杯吗？",
+        "en": "I'm getting a coffee. Do you want one?"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "category": "8. 我有…… I have...",
+    "sentences": [
+      {
+        "zh": "我中午有个会议。",
+        "en": "I have a meeting at noon."
+      },
+      {
+        "zh": "我有两张演唱会的票。",
+        "en": "I have two tickets to the concert."
+      },
+      {
+        "zh": "我有个问题想问你。",
+        "en": "I have a question for you."
+      },
+      {
+        "zh": "我感冒了。",
+        "en": "I have a cold."
+      },
+      {
+        "zh": "我有些好消息。",
+        "en": "I have some good news."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "category": "9. 我必须…… I have to...",
+    "sentences": [
+      {
+        "zh": "我得去接孩子放学。",
+        "en": "I have to pick up my kids from school."
+      },
+      {
+        "zh": "我得打个电话。",
+        "en": "I have to make a phone call."
+      },
+      {
+        "zh": "我得打扫我的房间。",
+        "en": "I have to clean my room."
+      },
+      {
+        "zh": "我得开始多做运动。",
+        "en": "I have to start exercising more."
+      },
+      {
+        "zh": "我明天得早起。",
+        "en": "I have to wake up early tomorrow."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "category": "10. 我迫不及待…… I'm dying to...",
+    "sentences": [
+      {
+        "zh": "我迫不及待想看那部新电影。",
+        "en": "I'm dying to see the new movie."
+      },
+      {
+        "zh": "我迫不及待想去度假。",
+        "en": "I'm dying to go on vacation."
+      },
+      {
+        "zh": "我迫不及待想试试那家新餐厅。",
+        "en": "I'm dying to try that new restaurant."
+      },
+      {
+        "zh": "我迫不及待想见她。",
+        "en": "I'm dying to meet her."
+      },
+      {
+        "zh": "我迫不及待想知道结果。",
+        "en": "I'm dying to know the results."
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "category": "11. 更礼貌：我可以要……吗？ Could I have...?",
+    "sentences": [
+      {
+        "zh": "我可以要一杯水吗？",
+        "en": "Could I have a glass of water?"
+      },
+      {
+        "zh": "可以给我你的邮箱吗？",
+        "en": "Could I have your email address?"
+      },
+      {
+        "zh": "我可以要收据吗？",
+        "en": "Could I have a receipt?"
+      },
+      {
+        "zh": "请问我可以要这个袋子吗？",
+        "en": "Could I have a bag for this, please?"
+      },
+      {
+        "zh": "请问我可以续杯吗？",
+        "en": "Could I have a refill, please?"
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "category": "12. 问：是什么…… What's the...?",
+    "sentences": [
+      {
+        "zh": "现在几点了？",
+        "en": "What's the time?"
+      },
+      {
+        "zh": "今天是几号？",
+        "en": "What's the date today?"
+      },
+      {
+        "zh": "天气怎么样？",
+        "en": "What's the weather like?"
+      },
+      {
+        "zh": "比分是多少？",
+        "en": "What's the score?"
+      },
+      {
+        "zh": "今天的计划是什么？",
+        "en": "What's the plan for today?"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "category": "13. 问：在哪里…… Where's the...?",
+    "sentences": [
+      {
+        "zh": "洗手间在哪里？",
+        "en": "Where's the bathroom?"
+      },
+      {
+        "zh": "最近的加油站在哪里？",
+        "en": "Where's the nearest gas station?"
+      },
+      {
+        "zh": "出口在哪里？",
+        "en": "Where's the exit?"
+      },
+      {
+        "zh": "经理在哪里？",
+        "en": "Where's the manager?"
+      },
+      {
+        "zh": "遥控器在哪里？",
+        "en": "Where's the remote control?"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "category": "14. 我会帮你…… I'll help you...",
+    "sentences": [
+      {
+        "zh": "我会帮你修车。",
+        "en": "I'll help you fix your car."
+      },
+      {
+        "zh": "我会帮你找工作。",
+        "en": "I'll help you find a job."
+      },
+      {
+        "zh": "我会帮你做晚饭。",
+        "en": "I'll help you cook dinner."
+      },
+      {
+        "zh": "我会帮你粉刷房间。",
+        "en": "I'll help you paint the room."
+      },
+      {
+        "zh": "我会帮你计划派对。",
+        "en": "I'll help you plan the party."
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "category": "15. 我很难…… It's hard for me to...",
+    "sentences": [
+      {
+        "zh": "我很难早起。",
+        "en": "It's hard for me to wake up early."
+      },
+      {
+        "zh": "我很难说不。",
+        "en": "It's hard for me to say no."
+      },
+      {
+        "zh": "我很难长时间集中注意力。",
+        "en": "It's hard for me to focus for long periods."
+      },
+      {
+        "zh": "我很难开口求助。",
+        "en": "It's hard for me to ask for help."
+      },
+      {
+        "zh": "我很难做决定。",
+        "en": "It's hard for me to make decisions."
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "category": "16. ……是没用的 It's no use...",
+    "sentences": [
+      {
+        "zh": "和他争论是没有用的。",
+        "en": "It's no use arguing with him."
+      },
+      {
+        "zh": "老是抱怨没用。",
+        "en": "It's no use complaining all the time."
+      },
+      {
+        "zh": "担心过去没用。",
+        "en": "It's no use worrying about the past."
+      },
+      {
+        "zh": "试图改变她的想法没用。",
+        "en": "It's no use trying to change her mind."
+      },
+      {
+        "zh": "不合适就别勉强。",
+        "en": "It's no use forcing it if it doesn't fit."
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "category": "17. 我正在做…… I'm working on...",
+    "sentences": [
+      {
+        "zh": "我正在修车。",
+        "en": "I'm working on fixing the car."
+      },
+      {
+        "zh": "我正在写论文。",
+        "en": "I'm working on my thesis."
+      },
+      {
+        "zh": "我正在提升我的技能。",
+        "en": "I'm working on improving my skills."
+      },
+      {
+        "zh": "我正在画画。",
+        "en": "I'm working on a painting."
+      },
+      {
+        "zh": "我正在整理办公室。",
+        "en": "I'm working on organizing my office."
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "category": "18. 我那时正忙着…… I was busy...",
+    "sentences": [
+      {
+        "zh": "我那时正忙着做晚餐。",
+        "en": "I was busy cooking dinner."
+      },
+      {
+        "zh": "我那时正忙着开会。",
+        "en": "I was busy with a meeting."
+      },
+      {
+        "zh": "我那时正忙着打扫房子。",
+        "en": "I was busy cleaning the house."
+      },
+      {
+        "zh": "我那时正忙着照顾孩子。",
+        "en": "I was busy taking care of the kids."
+      },
+      {
+        "zh": "我那时正忙着和老板谈话。",
+        "en": "I was busy talking with my boss."
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "category": "19. 我需要…… I need to...",
+    "sentences": [
+      {
+        "zh": "我需要打个电话。",
+        "en": "I need to make a phone call."
+      },
+      {
+        "zh": "我需要做完作业。",
+        "en": "I need to finish my homework."
+      },
+      {
+        "zh": "我需要去买杂货。",
+        "en": "I need to go grocery shopping."
+      },
+      {
+        "zh": "我需要睡一会儿。",
+        "en": "I need to get some sleep."
+      },
+      {
+        "zh": "我需要清理我的房间。",
+        "en": "I need to clean my room."
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "category": "20. 你的……是什么？ What's your...?",
+    "sentences": [
+      {
+        "zh": "你有什么事？",
+        "en": "What's your deal?"
+      },
+      {
+        "zh": "你的借口是什么？",
+        "en": "What's your excuse?"
+      },
+      {
+        "zh": "你的国籍是什么？",
+        "en": "What's your nationality?"
+      },
+      {
+        "zh": "你到底想说什么？",
+        "en": "What's your point?"
+      },
+      {
+        "zh": "你有什么问题？",
+        "en": "What's your problem?"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "category": "21. 我更喜欢…… I prefer...",
+    "sentences": [
+      {
+        "zh": "比起棒球，我更喜欢足球。",
+        "en": "I prefer soccer to baseball."
+      },
+      {
+        "zh": "我更喜欢坐船而不是坐飞机。",
+        "en": "I prefer going by ferry to flying."
+      },
+      {
+        "zh": "我更想单独和你说。",
+        "en": "I would prefer to speak to you alone."
+      },
+      {
+        "zh": "我宁愿自己去。",
+        "en": "I prefer to go by myself."
+      },
+      {
+        "zh": "如果你有果汁，我更想喝果汁。",
+        "en": "I prefer juice if you have some."
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "category": "22. 让我…… Let me...",
+    "sentences": [
+      {
+        "zh": "让我来处理这个。",
+        "en": "Let me handle this."
+      },
+      {
+        "zh": "让我检查一下。",
+        "en": "Let me check."
+      },
+      {
+        "zh": "让我过去。",
+        "en": "Let me through."
+      },
+      {
+        "zh": "不要让我失望。",
+        "en": "Don't let me down."
+      },
+      {
+        "zh": "告诉我你的想法。",
+        "en": "Let me know what you think."
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "category": "23. 感谢你…… Thank you for / Thanks for...",
+    "sentences": [
+      {
+        "zh": "感谢你的到来。",
+        "en": "Thanks for coming."
+      },
+      {
+        "zh": "感谢你所做的一切。",
+        "en": "Thank you for everything."
+      },
+      {
+        "zh": "感谢你的合作。",
+        "en": "Thank you for your cooperation."
+      },
+      {
+        "zh": "提前感谢你的帮助。",
+        "en": "Thanks in advance for your help."
+      },
+      {
+        "zh": "谢谢你的体贴。",
+        "en": "Thank you for your thoughtfulness."
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "category": "24. 别…… Don't be...",
+    "sentences": [
+      {
+        "zh": "别这么严肃。",
+        "en": "Don't be so serious."
+      },
+      {
+        "zh": "不要迟到。",
+        "en": "Don't be late."
+      },
+      {
+        "zh": "别傻了。",
+        "en": "Don't be silly."
+      },
+      {
+        "zh": "别那么刻薄。",
+        "en": "Don't be mean."
+      },
+      {
+        "zh": "别赶不上火车。",
+        "en": "Don't be late for the train."
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "category": "25. 我得到/收到…… I got...",
+    "sentences": [
+      {
+        "zh": "我收到了",
+        "en": "Mike 的一条短信。I got a text from Mike."
+      },
+      {
+        "zh": "我生日得到了一部新手机。",
+        "en": "I got a new phone for my birthday."
+      },
+      {
+        "zh": "我上学时成绩很好。",
+        "en": "I got good grades when I was school."
+      },
+      {
+        "zh": "这件衬衫我在中国买的。",
+        "en": "I got this shirt in China."
+      },
+      {
+        "zh": "我妈妈给我买了一个很贵的包。",
+        "en": "I got an expensive bag from my mom."
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "category": "26. 有…… There is / There are",
+    "sentences": [
+      {
+        "zh": "这是有原因的。",
+        "en": "There's a reason for this."
+      },
+      {
+        "zh": "我家有四口人。",
+        "en": "There are four people in my family."
+      },
+      {
+        "zh": "这里没有信号。",
+        "en": "There is no signal here."
+      },
+      {
+        "zh": "这本杂志里有很多有用的食谱。",
+        "en": "There are many useful recipes in this magazine."
+      },
+      {
+        "zh": "这附近没有银行。",
+        "en": "There aren't any banks around here."
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "category": "27. 我很乐意…… I'm happy to...",
+    "sentences": [
+      {
+        "zh": "听到这个我很高兴。",
+        "en": "I'm happy to hear that."
+      },
+      {
+        "zh": "再次见到你我很高兴。",
+        "en": "I'm happy to see you again."
+      },
+      {
+        "zh": "我很乐意回答问题。",
+        "en": "I'm always happy to answer questions."
+      },
+      {
+        "zh": "我很乐于帮助你。",
+        "en": "I'm happy to help you."
+      },
+      {
+        "zh": "我很高兴我考试通过了。",
+        "en": "I'm very happy that I passed the exam."
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "category": "28. 我打算…… I'm gonna / I'm going to",
+    "sentences": [
+      {
+        "zh": "我正打算去做。",
+        "en": "I'm gonna do it."
+      },
+      {
+        "zh": "我等会儿要去购物，你要来吗？",
+        "en": "I'm gonna go shopping later. Wanna come?"
+      },
+      {
+        "zh": "我现在要去剪头发。",
+        "en": "I'm going to have my hair cut now."
+      },
+      {
+        "zh": "我打算戒烟。",
+        "en": "I'm gonna stop smoking."
+      },
+      {
+        "zh": "我打算休息一下。",
+        "en": "I'm gonna take a break."
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "category": "29. I'd like to… 我想要……",
+    "sentences": [
+      {
+        "zh": "我想请你帮个忙。",
+        "en": "I'd like to ask you a favor."
+      },
+      {
+        "zh": "我希望有你的消息。",
+        "en": "I'd like to hear from you."
+      },
+      {
+        "zh": "我想要一杯咖啡。",
+        "en": "I'd like to have a cup of coffee."
+      },
+      {
+        "zh": "我想把航班改到第二天。",
+        "en": "I'd like to change my flight to the next day."
+      },
+      {
+        "zh": "我想要预约。",
+        "en": "I'd like to make a reservation."
+      }
+    ]
+  },
+  {
+    "id": 30,
+    "category": "30. I enjoyed… 我喜欢 / 我很享受……",
+    "sentences": [
+      {
+        "zh": "我喜欢和你聊天。",
+        "en": "I enjoyed talking with you."
+      },
+      {
+        "zh": "我玩得很开心。",
+        "en": "I enjoyed myself."
+      },
+      {
+        "zh": "我喜欢和你一起度过的时光。",
+        "en": "I enjoyed spending time with you."
+      },
+      {
+        "zh": "我喜欢你的陪伴。",
+        "en": "I enjoyed your company."
+      },
+      {
+        "zh": "我喜欢这顿晚餐。",
+        "en": "I enjoyed dinner."
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "category": "31. I'm ready… 我准备好了……",
+    "sentences": [
+      {
+        "zh": "我准备好出发了。",
+        "en": "I'm ready to go."
+      },
+      {
+        "zh": "我准备好点菜了。",
+        "en": "I'm ready to order."
+      },
+      {
+        "zh": "如果你准备好了，我也准备好了。",
+        "en": "I'm ready if you are."
+      },
+      {
+        "zh": "我准备好考试了。",
+        "en": "I'm ready for the test."
+      },
+      {
+        "zh": "我准备好应对任何事情。",
+        "en": "I'm ready for anything."
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "category": "32. I wonder… 我想知道……",
+    "sentences": [
+      {
+        "zh": "我想知道明天会不会下雨。",
+        "en": "I wonder if it's going to rain tomorrow."
+      },
+      {
+        "zh": "我想知道谁会来派对。",
+        "en": "I wonder who is coming to the party."
+      },
+      {
+        "zh": "我想知道他为什么这么晚。",
+        "en": "I wonder why he is so late."
+      },
+      {
+        "zh": "我想知道她今天为什么心情不好。",
+        "en": "I wonder why she is in a bad mood today."
+      },
+      {
+        "zh": "我想知道我什么时候会结婚。",
+        "en": "I wonder when I'm gonna get married."
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "category": "33. I mean… 我的意思是……",
+    "sentences": [
+      {
+        "zh": "我的意思是你很聪明。",
+        "en": "I mean you are smart."
+      },
+      {
+        "zh": "我的意思是这只是个建议。",
+        "en": "I mean it's just a suggestion."
+      },
+      {
+        "zh": "我的意思是我可能错了。",
+        "en": "I mean I could be wrong."
+      },
+      {
+        "zh": "我的意思是也许稍后吧。",
+        "en": "I mean maybe later."
+      },
+      {
+        "zh": "我的意思是这是可能的。",
+        "en": "I mean it's possible."
+      }
+    ]
+  },
+  {
+    "id": 34,
+    "category": "34. I'm trying to… 我正在尝试 / 努力……",
+    "sentences": [
+      {
+        "zh": "我正在尝试减肥。",
+        "en": "I'm trying to lose weight."
+      },
+      {
+        "zh": "我正在尝试和他交谈。",
+        "en": "I'm trying to talk to him."
+      },
+      {
+        "zh": "我正在努力学习。",
+        "en": "I'm trying to study hard."
+      },
+      {
+        "zh": "我正在尝试存钱。",
+        "en": "I'm trying to save money."
+      },
+      {
+        "zh": "我正在尝试少吃甜食。",
+        "en": "I'm trying to cut down on sweets."
+      }
+    ]
+  },
+  {
+    "id": 35,
+    "category": "35. make it 做到 / 赶上 / 出席",
+    "sentences": [
+      {
+        "zh": "你认为我们能做到吗？",
+        "en": "Do you think we can make it?"
+      },
+      {
+        "zh": "对不起，我今晚去不了。",
+        "en": "Sorry, I can't make it tonight."
+      },
+      {
+        "zh": "你能来我的生日派对吗？",
+        "en": "Can you make it to my birthday party?"
+      },
+      {
+        "zh": "我赶上火车了。",
+        "en": "I made it to the train."
+      },
+      {
+        "zh": "我会做到的。",
+        "en": "I will make it."
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "category": "36. see you 再见 / 回头见",
+    "sentences": [
+      {
+        "zh": "回头见。",
+        "en": "See you around."
+      },
+      {
+        "zh": "到时候见。",
+        "en": "See you then."
+      },
+      {
+        "zh": "很快见。",
+        "en": "See you soon."
+      },
+      {
+        "zh": "明天见。",
+        "en": "See you tomorrow."
+      },
+      {
+        "zh": "稍后见。",
+        "en": "See you later."
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "category": "37. It seems… 似乎 / 看起来",
+    "sentences": [
+      {
+        "zh": "这手机似乎坏了。",
+        "en": "It seems like this phone is broken."
+      },
+      {
+        "zh": "看起来明天会下雨。",
+        "en": "It seems that it will rain tomorrow."
+      },
+      {
+        "zh": "看起来他喜欢她。",
+        "en": "It seems that he likes her."
+      },
+      {
+        "zh": "你似乎什么都知道。",
+        "en": "It seems like you know everything."
+      },
+      {
+        "zh": "他看起来很忙。",
+        "en": "It seems that he is very busy."
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "category": "38. I used to… 我曾经……",
+    "sentences": [
+      {
+        "zh": "我曾经每天游泳。",
+        "en": "I used to swim daily."
+      },
+      {
+        "zh": "我曾经每天早上跑步。",
+        "en": "I used to run every morning."
+      },
+      {
+        "zh": "我曾经经常出去喝酒。",
+        "en": "I used to go out drinking a lot."
+      },
+      {
+        "zh": "我曾经喜欢他，但现在不了。",
+        "en": "I used to like him, but now I don't."
+      },
+      {
+        "zh": "我小时候经常睡过头。",
+        "en": "I used to oversleep when I was a child."
+      }
+    ]
+  },
+  {
+    "id": 39,
+    "category": "39. I'm used to… 我习惯了……",
+    "sentences": [
+      {
+        "zh": "我习惯了早上很早工作。",
+        "en": "I'm used to working early in the morning."
+      },
+      {
+        "zh": "我习惯了独自生活。",
+        "en": "I'm used to living alone."
+      },
+      {
+        "zh": "我习惯了坐公交。",
+        "en": "I'm used to taking the bus."
+      },
+      {
+        "zh": "我习惯了他的习惯。",
+        "en": "I'm used to his habits."
+      },
+      {
+        "zh": "我习惯了喝咖啡。",
+        "en": "I'm used to drinking coffee."
+      }
+    ]
+  },
+  {
+    "id": 40,
+    "category": "40. You must be… 你一定是……",
+    "sentences": [
+      {
+        "zh": "你一定很累。",
+        "en": "You must be tired."
+      },
+      {
+        "zh": "你这些天一定很忙。",
+        "en": "You must be really busy these days."
+      },
+      {
+        "zh": "你一定很兴奋。",
+        "en": "You must be so excited."
+      },
+      {
+        "zh": "你一定是他的朋友安迪。",
+        "en": "You must be his friend Andy."
+      },
+      {
+        "zh": "你一定为你的儿子感到非常自豪。",
+        "en": "You must be so proud of your son."
+      }
+    ]
+  },
+  {
+    "id": 41,
+    "category": "41. I'm afraid… 我恐怕 / 我担心",
+    "sentences": [
+      {
+        "zh": "我恐怕不行。",
+        "en": "I'm afraid I can't."
+      },
+      {
+        "zh": "我恐怕不能参加会议。",
+        "en": "I'm afraid I can't attend the meeting."
+      },
+      {
+        "zh": "我恐怕帮不了你。",
+        "en": "I'm afraid I can't help you."
+      },
+      {
+        "zh": "我担心你错了。",
+        "en": "I'm afraid you are wrong."
+      },
+      {
+        "zh": "我担心她不会来。",
+        "en": "I'm afraid she will not come."
+      }
+    ]
+  },
+  {
+    "id": 42,
+    "category": "42. I'm sure / I'm not sure 我确定 / 我不确定",
+    "sentences": [
+      {
+        "zh": "我确定你会通过考试。",
+        "en": "I'm sure you will pass the exam."
+      },
+      {
+        "zh": "我确定她能做到。",
+        "en": "I'm sure she can do it."
+      },
+      {
+        "zh": "我很确定她会喜欢这份礼物。",
+        "en": "I'm pretty sure she will love this present."
+      },
+      {
+        "zh": "我不确定该做什么。",
+        "en": "I'm not sure what to do."
+      },
+      {
+        "zh": "我不确定他是否会来。",
+        "en": "I'm not sure if he's coming."
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "category": "43. Have a nice… 祝你……愉快",
+    "sentences": [
+      {
+        "zh": "旅途愉快。",
+        "en": "Have a nice trip."
+      },
+      {
+        "zh": "祝你有美好的一天。",
+        "en": "Have a nice day."
+      },
+      {
+        "zh": "周末愉快。",
+        "en": "Have a nice weekend."
+      },
+      {
+        "zh": "玩得开心。",
+        "en": "Have a good time."
+      },
+      {
+        "zh": "假期愉快。",
+        "en": "Have a nice vacation."
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "category": "44. It's time to… 是时候……了",
+    "sentences": [
+      {
+        "zh": "是时候吃午饭了。",
+        "en": "It's time to eat lunch."
+      },
+      {
+        "zh": "是时候去睡觉了。",
+        "en": "It's time to go to bed."
+      },
+      {
+        "zh": "该学习了。",
+        "en": "It's time to study."
+      },
+      {
+        "zh": "是时候走了。",
+        "en": "It's time to go."
+      },
+      {
+        "zh": "该工作了。",
+        "en": "It's time to work."
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "category": "45. As a… 作为一名……",
+    "sentences": [
+      {
+        "zh": "作为一名学生，我需要努力学习。",
+        "en": "As a student, I need to study hard."
+      },
+      {
+        "zh": "作为你的朋友，我在这里支持你。",
+        "en": "As your friend, I'm here to support you."
+      },
+      {
+        "zh": "作为一名音乐家，我定期练习。",
+        "en": "As a musician, I practice regularly."
+      },
+      {
+        "zh": "作为一名家长，我担心我的孩子。",
+        "en": "As a parent, I worry about my kids."
+      },
+      {
+        "zh": "作为一名旅行者，我总在寻找新的冒险。",
+        "en": "As a traveler, I'm always looking for new adventures."
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "category": "46. I feel like… 我想要 / 我想……",
+    "sentences": [
+      {
+        "zh": "我想吃披萨。",
+        "en": "I feel like eating pizza."
+      },
+      {
+        "zh": "我今天想打网球。",
+        "en": "I feel like playing tennis today."
+      },
+      {
+        "zh": "我今天不想做任何事。",
+        "en": "I don't feel like doing anything today."
+      },
+      {
+        "zh": "我想小睡一会儿。",
+        "en": "I feel like taking a nap."
+      },
+      {
+        "zh": "我想去公园散步。",
+        "en": "I feel like going for a walk in the park."
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "category": "47. whatever 无论什么",
+    "sentences": [
+      {
+        "zh": "无论发生什么，你都会没事的。",
+        "en": "Whatever happens, you'll be okay."
+      },
+      {
+        "zh": "无论你做什么，我都会一直支持你。",
+        "en": "Whatever you do, I'll always be here for you."
+      },
+      {
+        "zh": "无论你决定什么，我都会支持你。",
+        "en": "Whatever you decide, I'll support you."
+      },
+      {
+        "zh": "无论你做什么，都要做好。",
+        "en": "Whatever you do, do it well."
+      },
+      {
+        "zh": "无论你说什么，我都相信你。",
+        "en": "Whatever you say, I believe you."
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "category": "48. I'm good at… 我擅长……",
+    "sentences": [
+      {
+        "zh": "我擅长烹饪。",
+        "en": "I'm good at cooking."
+      },
+      {
+        "zh": "我擅长打网球。",
+        "en": "I'm good at playing tennis."
+      },
+      {
+        "zh": "我英语不好。",
+        "en": "I'm not good at English."
+      },
+      {
+        "zh": "我擅长解谜。",
+        "en": "I'm good at solving puzzles."
+      },
+      {
+        "zh": "我擅长逗你笑。",
+        "en": "I'm good at making you smile."
+      }
+    ]
+  },
+  {
+    "id": 49,
+    "category": "49. don't have to 不需要",
+    "sentences": [
+      {
+        "zh": "你不需要读这本书。",
+        "en": "You don't have to read this book."
+      },
+      {
+        "zh": "我不需要做午饭。",
+        "en": "I don't have to make lunch."
+      },
+      {
+        "zh": "你不需要等我。",
+        "en": "You don't have to wait for me."
+      },
+      {
+        "zh": "我们不需要急。",
+        "en": "We don't have to rush."
+      },
+      {
+        "zh": "你不需要道歉。",
+        "en": "You don't have to apologize."
+      }
+    ]
+  },
+  {
+    "id": 50,
+    "category": "50. You'd better… 你最好……",
+    "sentences": [
+      {
+        "zh": "你最好小心。",
+        "en": "You'd better watch out."
+      },
+      {
+        "zh": "你最好不要哭。",
+        "en": "You'd better not cry."
+      },
+      {
+        "zh": "你最好问问别人。",
+        "en": "You'd better ask someone else."
+      },
+      {
+        "zh": "你最好带把伞。",
+        "en": "You'd better bring an umbrella."
+      },
+      {
+        "zh": "你最好不要忘记我们的承诺。",
+        "en": "You'd better not forget our promise."
+      }
+    ]
+  },
+  {
+    "id": 51,
+    "category": "51. if 如果",
+    "sentences": [
+      {
+        "zh": "如果你需要任何帮助，尽管告诉我。",
+        "en": "If you need any help, just let me know."
+      },
+      {
+        "zh": "如果我有时间，我会做完那个。",
+        "en": "If I have time, I'll finish that."
+      },
+      {
+        "zh": "如果他给我打电话，我应该去。",
+        "en": "If he calls me, I should go."
+      },
+      {
+        "zh": "如果我见到她，我会转告她你的问候。",
+        "en": "If I see her, I'll tell her you said hello."
+      },
+      {
+        "zh": "如果下雨，我会淋湿。",
+        "en": "I will get wet if it rains."
+      }
+    ]
+  },
+  {
+    "id": 52,
+    "category": "52. Can I…? 我可以……吗？",
+    "sentences": [
+      {
+        "zh": "我可以稍后给你打电话吗？",
+        "en": "Can I call you later?"
+      },
+      {
+        "zh": "我可以请你帮个忙吗？",
+        "en": "Can I ask you a favor?"
+      },
+      {
+        "zh": "我可以用一下你的洗手间吗",
+        "en": "Can I use your bathroom?"
+      }
+    ]
+  },
+  {
+    "id": 53,
+    "category": "53.问时间（What time…） What time is it? What time do you usually have lunch? What time do you go to bed? What time is it in New York now? What time does the restaurant close? What time does the movie start? 54.你觉得怎么样（How do you like…） How do you like my car? How do you like sports? How do you like the weather in your hometown? How do you like your new job so far? How do you like the dress I'm wearing? 55.你想…吗（Do you want to…） Do you want to meet me next Sunday? Do you want to come with me to the cinema? Do you want to walk with me? Do you want to grab a cup of coffee? Do you want to go out on a date with me? 56.你有…吗（Do you have…） Do you have a minute to talk? Do you have any questions? Do you have any siblings? Do you have a pen I can borrow? Do you have feelings for me? 57.是什么感觉（What is it like…） What is it like living in Japan? What is it like not having a smartphone? What is it like in India? What is it like to be in love? What is it like to have a pet? 58.你是怎么…的（How did you…） How did you do that? How did you get my number? How did you get here? How did you come up with that idea? How did you meet your best friend? 59.你准备好了吗（Are you ready…） Are you ready? Are you ready for this? Are you ready to order? Are you ready for bed? Are you ready for the test? Are you ready to go shopping? 60.为什么（How come…） How come you think so? How come you don't call me? How come I sweat so much? How come you're late again? How come you didn't tell me about the party? 61.你能…吗（Can you…） Can you tell me what I should do next? Can you show me your passport? Can you make it on time? Can you pass me the salt, please? Can you lend me a pen for a moment? 62. 你怎么看（What do you think of…） What do you think of that movie? What do you think of me? What do you think of my new haircut? What do you think of the latest episode of that TV show? What do you think of him as a potential partner? 63. 我应该…吗（Should I…） Should I stay? Should I go to the gym every day? Should I do it? Should I call and confirm our reservation? Should I apologize for what I said? 64. 你知道怎么…吗（Do you know how to…） Do you know how to get there? Do you know how to use them? Do you know how to bake a cake? Do you know how to fix a bike? Do you know how to read this word? 65. have you ever… 你曾经……吗",
+    "sentences": [
+      {
+        "zh": "你曾经吗？ →",
+        "en": "Have you ever…?"
+      },
+      {
+        "zh": "你曾经出过国吗？ →",
+        "en": "Have you ever been abroad?"
+      },
+      {
+        "zh": "你曾经看过她跳舞吗？ →",
+        "en": "Have you ever seen her dance?"
+      },
+      {
+        "zh": "你曾经骑过马吗？ →",
+        "en": "Have you ever ridden a horse?"
+      },
+      {
+        "zh": "你曾经见过名人吗？ →",
+        "en": "Have you ever met a famous person?"
+      },
+      {
+        "zh": "你曾经读过这本书吗？ →",
+        "en": "Have you ever read this book?"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "category": "66. how was… ……怎么样",
+    "sentences": [
+      {
+        "zh": "怎么样？ →",
+        "en": "How was…?"
+      },
+      {
+        "zh": "你这一天怎么样？ →",
+        "en": "How was your day?"
+      },
+      {
+        "zh": "你的假期怎么样？ →",
+        "en": "How was your holiday?"
+      },
+      {
+        "zh": "派对怎么样？ →",
+        "en": "How was the party?"
+      },
+      {
+        "zh": "你昨晚看的电影怎么样？ →",
+        "en": "How was the movie you watched last night?"
+      },
+      {
+        "zh": "你去纽约的旅行怎么样？ →",
+        "en": "How was your trip to New York?"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "category": "66. how about… ……怎么样 / 你呢",
+    "sentences": [
+      {
+        "zh": "怎么样？ →",
+        "en": "How about…?"
+      },
+      {
+        "zh": "你怎么样？ →",
+        "en": "How about you?"
+      },
+      {
+        "zh": "去散个步怎么样？ →",
+        "en": "How about going for a walk?"
+      },
+      {
+        "zh": "晚餐吃披萨怎么样？ →",
+        "en": "How about having pizza for dinner?"
+      },
+      {
+        "zh": "下个月去度假怎么样？ →",
+        "en": "How about taking a vacation next month?"
+      }
+    ]
+  },
+  {
+    "id": 67,
+    "category": "67. where can I… 我在哪里可以……",
+    "sentences": [
+      {
+        "zh": "我在哪里可以……？ →",
+        "en": "Where can I…?"
+      },
+      {
+        "zh": "我在哪里可以买邮票？ →",
+        "en": "Where can I buy stamps?"
+      },
+      {
+        "zh": "我在哪里可以使用苹果支付？ →",
+        "en": "Where can I use Apple Pay?"
+      },
+      {
+        "zh": "我附近在哪里可以踢足球？ →",
+        "en": "Where can I play football near me?"
+      },
+      {
+        "zh": "我在哪里可以找到最近的自动取款机？ →",
+        "en": "Where can I find the nearest ATM?"
+      },
+      {
+        "zh": "我在这附近哪里可以叫到出租车？ →",
+        "en": "Where can I get a taxi around here?"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "category": "68. how many… 多……",
+    "sentences": [
+      {
+        "zh": "你家有多少个房间？ →",
+        "en": "How many rooms are there in your house?"
+      },
+      {
+        "zh": "你会在那里待多少天？ →",
+        "en": "How many days will you stay there?"
+      },
+      {
+        "zh": "你去了多少次？ →",
+        "en": "How many times did you go?"
+      },
+      {
+        "zh": "你有多少兄弟姐妹？ →",
+        "en": "How many siblings do you have?"
+      },
+      {
+        "zh": "你通常睡多少个小时？ →",
+        "en": "How many hours of sleep do you usually get?"
+      }
+    ]
+  },
+  {
+    "id": 69,
+    "category": "69. Is it okay if I… 如果我……可以吗",
+    "sentences": [
+      {
+        "zh": "如果我给你打电话可以吗？ →",
+        "en": "Is it okay if I call you?"
+      },
+      {
+        "zh": "如果我在这里抽烟可以吗？ →",
+        "en": "Is it okay if I smoke here?"
+      },
+      {
+        "zh": "如果我借用你的手机可以吗？ →",
+        "en": "Is it okay if I borrow your phone?"
+      },
+      {
+        "zh": "如果我暂时借用你的笔可以吗？ →",
+        "en": "Is it okay if I borrow your pen for a moment?"
+      },
+      {
+        "zh": "如果我关掉空调可以吗？ →",
+        "en": "Is it okay if I turn off the air conditioner?"
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "category": "70. when can I… 我什么时候可以……",
+    "sentences": [
+      {
+        "zh": "我什么时候可以再见到你？ →",
+        "en": "When can I see you again?"
+      },
+      {
+        "zh": "我什么时候可以去日本？ →",
+        "en": "When can I go to Japan?"
+      },
+      {
+        "zh": "我什么时候可以出去？ →",
+        "en": "When can I go outside?"
+      },
+      {
+        "zh": "我什么时候可以得到你的回答？ →",
+        "en": "When can I expect your answer?"
+      },
+      {
+        "zh": "我什么时候可以离开家？ →",
+        "en": "When can I leave home?"
+      }
+    ]
+  },
+  {
+    "id": 71,
+    "category": "71. how can I… 我怎样才能……",
+    "sentences": [
+      {
+        "zh": "我怎样才能睡得更好？ →",
+        "en": "How can I sleep better?"
+      },
+      {
+        "zh": "我怎样才能联系他？ →",
+        "en": "How can I contact him?"
+      },
+      {
+        "zh": "我怎样才能快速减肥？ →",
+        "en": "How can I lose weight fast?"
+      },
+      {
+        "zh": "我怎样才能到那里？ →",
+        "en": "How can I get there?"
+      },
+      {
+        "zh": "我该怎样表达呢？ →",
+        "en": "How can I put it?"
+      }
+    ]
+  },
+  {
+    "id": 72,
+    "category": "72.do I have to… 我必须要……吗",
+    "sentences": [
+      {
+        "zh": "我必须要看医生吗？ →",
+        "en": "Do I have to see a doctor?"
+      },
+      {
+        "zh": "我必须要上大学吗？ →",
+        "en": "Do I have to go to college?"
+      },
+      {
+        "zh": "我必须要回答那个问题吗？ →",
+        "en": "Do I have to answer that question?"
+      },
+      {
+        "zh": "我必须要携带我的身份证吗？ →",
+        "en": "Do I have to carry my ID card?"
+      },
+      {
+        "zh": "我必须要填这个表格吗？ →",
+        "en": "Do I have to fill out the form?"
+      }
+    ]
+  },
+  {
+    "id": 73,
+    "category": "73. don’t you think… 你不认为……吗",
+    "sentences": [
+      {
+        "zh": "你不这么认为吗？ →",
+        "en": "Don’t you think so?"
+      },
+      {
+        "zh": "你不认为这很好吗？ →",
+        "en": "Don’t you think it is good?"
+      },
+      {
+        "zh": "你不认为他看起来很累吗？ →",
+        "en": "Don’t you think he looks tired?"
+      },
+      {
+        "zh": "你不认为我们应该告诉他吗？ →",
+        "en": "Don’t you think we should tell him?"
+      },
+      {
+        "zh": "你不认为我们需要度假吗？ →",
+        "en": "Don’t you think we need a vacation?"
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "category": "74. make sure 确保",
+    "sentences": [
+      {
+        "zh": "确保查收邮件。",
+        "en": "Make sure to check your email."
+      },
+      {
+        "zh": "确保关掉烤箱。",
+        "en": "Make sure the oven is turned off."
+      },
+      {
+        "zh": "确保保持距离。",
+        "en": "Make sure to keep a distance."
+      },
+      {
+        "zh": "确保锁上门。",
+        "en": "Make sure you lock the door."
+      },
+      {
+        "zh": "确保系好安全带。",
+        "en": "Make sure you wear your seat belt."
+      }
+    ]
+  },
+  {
+    "id": 75,
+    "category": "75. I’m planning to… 我打算……",
+    "sentences": [
+      {
+        "zh": "我打算去旅行。",
+        "en": "I’m planning to go on a trip."
+      },
+      {
+        "zh": "我打算拜访你。",
+        "en": "I’m planning to visit you."
+      },
+      {
+        "zh": "我打算今晚去派对。",
+        "en": "I’m planning to go to a party tonight."
+      },
+      {
+        "zh": "我打算下班后去买菜。",
+        "en": "I’m planning to go grocery shopping after work."
+      },
+      {
+        "zh": "我打算开始新的锻炼计划。",
+        "en": "I’m planning to start a new exercise program."
+      }
+    ]
+  },
+  {
+    "id": 76,
+    "category": "76. I hear that… 我听说……",
+    "sentences": [
+      {
+        "zh": "我听说你和她相处不好。",
+        "en": "I hear that you and her don’t get along."
+      },
+      {
+        "zh": "我听说你找了新工作。",
+        "en": "I hear that you got a new job."
+      },
+      {
+        "zh": "我听说你喜欢慢跑。",
+        "en": "I hear that you like jogging."
+      },
+      {
+        "zh": "我听说他最近生病了。",
+        "en": "I hear that he’s been ill recently."
+      },
+      {
+        "zh": "我听说她升职了。",
+        "en": "I hear that she got a promotion."
+      }
+    ]
+  },
+  {
+    "id": 77,
+    "category": "77. that’s what… 那正是……",
+    "sentences": [
+      {
+        "zh": "那正是我想的。",
+        "en": "That’s what I thought."
+      },
+      {
+        "zh": "那正是我的意思。",
+        "en": "That’s what I meant."
+      },
+      {
+        "zh": "那正是我在找的.",
+        "en": "That’s exactly what I was looking for."
+      },
+      {
+        "zh": "那正是我所希望的.",
+        "en": "That’s what I was hoping for."
+      },
+      {
+        "zh": "那正是我要说的.",
+        "en": "That’s what I’m talking about."
+      }
+    ]
+  },
+  {
+    "id": 78,
+    "category": "78. I didn’t mean to… 我不是故意……",
+    "sentences": [
+      {
+        "zh": "我不是故意催你.",
+        "en": "I didn’t mean to rush you."
+      },
+      {
+        "zh": "我不是故意伤害你.",
+        "en": "I didn’t mean to hurt you."
+      },
+      {
+        "zh": "我不是故意冒犯你.",
+        "en": "I didn’t mean to offend you."
+      },
+      {
+        "zh": "我不是故意忽略你的短信.",
+        "en": "I didn’t mean to ignore your text."
+      },
+      {
+        "zh": "我不是故意打碎你的杯子.",
+        "en": "I didn’t mean to break your mug."
+      }
+    ]
+  },
+  {
+    "id": 79,
+    "category": "79. I hope… 我希望……",
+    "sentences": [
+      {
+        "zh": "我希望明天是晴天.",
+        "en": "I hope it will be sunny tomorrow."
+      },
+      {
+        "zh": "我希望你能理解情况.",
+        "en": "I hope you understand the situation."
+      },
+      {
+        "zh": "我希望你早日康复.",
+        "en": "I hope you get well soon."
+      },
+      {
+        "zh": "我希望你有美好的一天.",
+        "en": "I hope you have a great day."
+      },
+      {
+        "zh": "我希望我们不久能见面.",
+        "en": "I hope we can meet up soon."
+      }
+    ]
+  },
+  {
+    "id": 80,
+    "category": "80. I should have… 我本应该……",
+    "sentences": [
+      {
+        "zh": "我本应该更明白.",
+        "en": "I should have known better."
+      },
+      {
+        "zh": "我本应该待在家里.",
+        "en": "I should have stayed at home."
+      },
+      {
+        "zh": "我本应该去那里.",
+        "en": "I should have gone there."
+      },
+      {
+        "zh": "我本应该听你的建议.",
+        "en": "I should have listened to your advice."
+      },
+      {
+        "zh": "我本应该多学习.",
+        "en": "I should have studied more."
+      }
+    ]
+  },
+  {
+    "id": 81,
+    "category": "81. according to 根据",
+    "sentences": [
+      {
+        "zh": "根据地图，我们在这里左转。",
+        "en": "According to the map, we turn left here."
+      },
+      {
+        "zh": "根据食谱，我们需要两个鸡蛋。",
+        "en": "According to the recipe, we need two eggs."
+      },
+      {
+        "zh": "根据时钟，快到离开的时间了。",
+        "en": "According to the clock, it's almost time to go."
+      },
+      {
+        "zh": "根据标识，公园日落时关闭。",
+        "en": "According to the sign, the park closes at sunset."
+      },
+      {
+        "zh": "根据新闻，今天交通拥挤。",
+        "en": "According to the news, traffic is heavy today."
+      }
+    ]
+  },
+  {
+    "id": 82,
+    "category": "82. I might have 我可能（已经）……",
+    "sentences": [
+      {
+        "zh": "我可能吃了不好的东西。",
+        "en": "I might have eaten something bad."
+      },
+      {
+        "zh": "我可能走了另一条路。",
+        "en": "I might have taken a different route."
+      },
+      {
+        "zh": "我可能丢了我的钱包。",
+        "en": "I might have lost my wallet."
+      },
+      {
+        "zh": "我可能误解了你。",
+        "en": "I might have misunderstood you."
+      },
+      {
+        "zh": "我可能把钥匙忘在家里了。",
+        "en": "I might have left my keys at home."
+      }
+    ]
+  },
+  {
+    "id": 83,
+    "category": "83. I'd rather 我宁愿 / 我更愿意",
+    "sentences": [
+      {
+        "zh": "我宁愿在家吃饭。",
+        "en": "I'd rather eat at home."
+      },
+      {
+        "zh": "我宁愿喝葡萄酒。",
+        "en": "I'd rather have wine."
+      },
+      {
+        "zh": "我更愿意看电视。",
+        "en": "I'd much rather watch TV."
+      },
+      {
+        "zh": "我宁愿出去散步，也不愿坐在里面。",
+        "en": "I'd rather go for a walk than sit inside."
+      },
+      {
+        "zh": "我更愿意直接表达我的感受。",
+        "en": "I'd rather express my feelings directly."
+      }
+    ]
+  },
+  {
+    "id": 85,
+    "category": "85.no matter 无论……",
+    "sentences": [
+      {
+        "zh": "无论你做什么，我都会信任你。",
+        "en": "No matter what you do, I will trust you."
+      },
+      {
+        "zh": "无论如何，我都会在那里支持你.",
+        "en": "No matter what, I'll be there for you."
+      },
+      {
+        "zh": "无论你去哪里，我都会跟随你.",
+        "en": "No matter where you go, I will follow you."
+      },
+      {
+        "zh": "无论有多困难，我从不放弃.",
+        "en": "No matter how hard it is, I never give up."
+      },
+      {
+        "zh": "无论何时，我总是准备好帮助.",
+        "en": "No matter when, I'm always ready to help."
+      }
+    ]
+  },
+  {
+    "id": 86,
+    "category": "86.you mean 你的意思是……",
+    "sentences": [
+      {
+        "zh": "你的意思是我只是你的朋友.",
+        "en": "You mean I'm just your friend."
+      },
+      {
+        "zh": "你的意思是我是个骗子.",
+        "en": "You mean I'm a liar."
+      },
+      {
+        "zh": "你的意思是你必须走.",
+        "en": "You mean you have to go."
+      },
+      {
+        "zh": "你的意思是你以前从未去过日本.",
+        "en": "You mean you've never been to Japan before."
+      },
+      {
+        "zh": "你的意思是你不来了.",
+        "en": "You mean you're not coming."
+      }
+    ]
+  },
+  {
+    "id": 87,
+    "category": "87. right 对吗",
+    "sentences": [
+      {
+        "zh": "你是第二名，对吗？",
+        "en": "You are second, right?"
+      },
+      {
+        "zh": "我能拿到票，对吗？",
+        "en": "I can get the ticket, right?"
+      },
+      {
+        "zh": "你明天来，对吗？",
+        "en": "You're coming tomorrow, right?"
+      },
+      {
+        "zh": "这是你的书，对吗？",
+        "en": "This is your book, right?"
+      },
+      {
+        "zh": "这是最后一集，对吗？",
+        "en": "This is the last episode, right?"
+      }
+    ]
+  },
+  {
+    "id": 88,
+    "category": "88. that's why 这就是为什么",
+    "sentences": [
+      {
+        "zh": "这就是为什么我喜欢它。",
+        "en": "That's why I like it."
+      },
+      {
+        "zh": "这就是为什么我在这里.",
+        "en": "That's why I'm here."
+      },
+      {
+        "zh": "这就是为什么我感到困惑.",
+        "en": "That's why I got confused."
+      },
+      {
+        "zh": "这就是为什么我迟到了.",
+        "en": "That's why I was late."
+      },
+      {
+        "zh": "这就是为什么我做志愿者.",
+        "en": "That's why I volunteer."
+      }
+    ]
+  },
+  {
+    "id": 89,
+    "category": "89. I told you 我告诉过你",
+    "sentences": [
+      {
+        "zh": "我跟你说了我动不了。",
+        "en": "I told you I can't move."
+      },
+      {
+        "zh": "我告诉过你别喝那么多可乐.",
+        "en": "I told you not to drink so much coke."
+      },
+      {
+        "zh": "我告诉过你很忙.",
+        "en": "I told you I was busy."
+      },
+      {
+        "zh": "我告诉过你别忘了带伞.",
+        "en": "I told you not to forget your umbrella."
+      },
+      {
+        "zh": "我告诉过你要小心.",
+        "en": "I told you to be careful."
+      }
+    ]
+  },
+  {
+    "id": 90,
+    "category": "90. as far as I know 据我所知",
+    "sentences": [
+      {
+        "zh": "据我所知，她正在度假.",
+        "en": "As far as I know, she's on vacation."
+      },
+      {
+        "zh": "据我所知，火车是准时的.",
+        "en": "As far as I know, the train is on time."
+      },
+      {
+        "zh": "据我所知，他不吃肉.",
+        "en": "As far as I know, he doesn't eat meat."
+      },
+      {
+        "zh": "据我所知，会议是明天.",
+        "en": "As far as I know, the meeting is tomorrow."
+      },
+      {
+        "zh": "据我所知，今天应该会下雨.",
+        "en": "As far as I know, it's supposed to rain today."
+      }
+    ]
+  },
+  {
+    "id": 91,
+    "category": "91.I'm looking forward to 我期待着……",
+    "sentences": [
+      {
+        "zh": "我期待着这件事.",
+        "en": "I'm looking forward to it."
+      },
+      {
+        "zh": "我期待着你的回复.",
+        "en": "I'm looking forward to your reply."
+      },
+      {
+        "zh": "我真的很期待我的假期.",
+        "en": "I'm really looking forward to my vacation."
+      },
+      {
+        "zh": "我期待着周末.",
+        "en": "I'm looking forward to the weekend."
+      },
+      {
+        "zh": "我期待着见到你.",
+        "en": "I'm looking forward to seeing you."
+      }
+    ]
+  },
+  {
+    "id": 92,
+    "category": "92.I want you to 我希望你……",
+    "sentences": [
+      {
+        "zh": "我希望你明白一件事.",
+        "en": "I want you to understand something."
+      },
+      {
+        "zh": "我希望你帮我打扫房间.",
+        "en": "I want you to help me clean the room."
+      },
+      {
+        "zh": "我希望你带我去车站.",
+        "en": "I want you to take me to the station."
+      },
+      {
+        "zh": "我希望你对我诚实.",
+        "en": "I want you to be honest with me."
+      },
+      {
+        "zh": "我希望你给我打电话.",
+        "en": "I want you to call me."
+      }
+    ]
+  },
+  {
+    "id": 93,
+    "category": "93. I've been to 我去过……",
+    "sentences": [
+      {
+        "zh": "我去过巴黎.",
+        "en": "I've been to Paris."
+      },
+      {
+        "zh": "我去过他家很多次.",
+        "en": "I've been to his house many times."
+      },
+      {
+        "zh": "我去过海滩.",
+        "en": "I've been to the beach."
+      },
+      {
+        "zh": "我去过音乐会.",
+        "en": "I've been to a concert."
+      },
+      {
+        "zh": "我去过图书馆.",
+        "en": "I've been to the library."
+      }
+    ]
+  },
+  {
+    "id": 94,
+    "category": "94. congratulations on 恭喜你……",
+    "sentences": [
+      {
+        "zh": "恭喜你晋升.",
+        "en": "Congratulations on your promotion."
+      },
+      {
+        "zh": "恭喜你毕业.",
+        "en": "Congratulations on your graduation."
+      },
+      {
+        "zh": "祝贺你们的 10 周年纪念.",
+        "en": "Congratulations on your tenth anniversary."
+      },
+      {
+        "zh": "恭喜你订婚.",
+        "en": "Congratulations on your engagement."
+      },
+      {
+        "zh": "恭喜你喜得贵子.",
+        "en": "Congratulations on your new baby."
+      }
+    ]
+  },
+  {
+    "id": 95,
+    "category": "95. why don't you 你为什么不……",
+    "sentences": [
+      {
+        "zh": "你为什么不试试呢？",
+        "en": "Why don't you try it?"
+      },
+      {
+        "zh": "你为什么不在花园里练习呢？",
+        "en": "Why don't you practice in the garden?"
+      },
+      {
+        "zh": "你为什么不今天就此结束呢？",
+        "en": "Why don't you call it a day?"
+      },
+      {
+        "zh": "你为什么不休息一下呢？",
+        "en": "Why don't you take a break?"
+      },
+      {
+        "zh": "你为什么不开始写日记呢？",
+        "en": "Why don't you start a journal?"
+      }
+    ]
+  },
+  {
+    "id": 96,
+    "category": "96. kind of 有点 / 稍微",
+    "sentences": [
+      {
+        "zh": "我这周有点忙.",
+        "en": "I'm kind of busy this week."
+      },
+      {
+        "zh": "我有点困.",
+        "en": "I'm kind of sleepy."
+      },
+      {
+        "zh": "穿这件制服我有点热.",
+        "en": "I'm kind of hot in this uniform."
+      },
+      {
+        "zh": "今天我有点累.",
+        "en": "I'm kind of tired today."
+      },
+      {
+        "zh": "这部电影有点好笑.",
+        "en": "The movie was kind of funny."
+      }
+    ]
+  },
+  {
+    "id": 97,
+    "category": "97. you know 你知道",
+    "sentences": [
+      {
+        "zh": "你知道他是我的同学.",
+        "en": "You know he was my classmate."
+      },
+      {
+        "zh": "你知道我真的很喜欢这首歌.",
+        "en": "You know I really like this song."
+      },
+      {
+        "zh": "你知道她要搬到一个新城市.",
+        "en": "You know she's moving to a new city."
+      },
+      {
+        "zh": "你知道这里比我预期的要冷.",
+        "en": "You know it's colder here than I expected."
+      }
+    ]
+  },
+  {
+    "id": 98,
+    "category": "98. I know but 我知道，但是",
+    "sentences": [
+      {
+        "zh": "我知道，但我还是很紧张.",
+        "en": "I know but I'm still nervous."
+      },
+      {
+        "zh": "我知道，但我忘买了.",
+        "en": "I know but I forgot to buy it."
+      },
+      {
+        "zh": "我知道，但它太贵了.",
+        "en": "I know but it's too expensive."
+      },
+      {
+        "zh": "我知道，但我感觉不舒服.",
+        "en": "I know but I don't feel well."
+      },
+      {
+        "zh": "我知道，但我讨厌它.",
+        "en": "I know but I hate it."
+      }
+    ]
+  },
+  {
+    "id": 99,
+    "category": "99. I was about to 我正要……",
+    "sentences": [
+      {
+        "zh": "我正要给你打电话.",
+        "en": "I was just about to call you."
+      },
+      {
+        "zh": "我正要离开.",
+        "en": "I was just about to leave."
+      },
+      {
+        "zh": "我正要结束游戏.",
+        "en": "I was just about to finish the game."
+      },
+      {
+        "zh": "我正要查邮件.",
+        "en": "I was about to check my emails."
+      },
+      {
+        "zh": "我正要给植物浇水.",
+        "en": "I was about to water the plants."
+      }
+    ]
+  },
+  {
+    "id": 100,
+    "category": "100. it depends on 这取决于……",
+    "sentences": [
+      {
+        "zh": "这取决于你怎么看待它.",
+        "en": "It depends on how you look at it."
+      },
+      {
+        "zh": "这取决于你什么时候去.",
+        "en": "It depends on when you go."
+      },
+      {
+        "zh": "这取决于问题本身.",
+        "en": "It depends on the question."
+      },
+      {
+        "zh": "这取决于价格.",
+        "en": "It depends on the price."
+      },
+      {
+        "zh": "这取决于天气.",
+        "en": "It depends on the weather."
+      }
+    ]
+  },
+  {
+    "id": 101,
+    "category": "101. I'm into 我很喜欢 / 我对……感兴趣",
+    "sentences": [
+      {
+        "zh": "我很喜欢日本料理.",
+        "en": "I'm into Japanese food."
+      },
+      {
+        "zh": "最近我真的很喜欢摄影.",
+        "en": "I'm really into photography lately."
+      },
+      {
+        "zh": "我真的很喜欢在健身房锻炼.",
+        "en": "I'm really into working out at the gym."
+      },
+      {
+        "zh": "我对爵士音乐很感兴趣.",
+        "en": "I'm into jazz music."
+      },
+      {
+        "zh": "我对学习新语言很感兴趣.",
+        "en": "I'm into learning new languages."
+      }
+    ]
+  },
+  {
+    "id": 102,
+    "category": "102. get along with 与……相处融洽",
+    "sentences": [
+      {
+        "zh": "我与我的同事相处得很好.",
+        "en": "I get along with my co"
+      },
+      {
+        "zh": "",
+        "en": "workers."
+      },
+      {
+        "zh": "她与邻居相处得很好.",
+        "en": "She gets along with her neighbors."
+      },
+      {
+        "zh": "我们与同学相处得很好.",
+        "en": "We get along with our classmates."
+      },
+      {
+        "zh": "他与兄弟姐妹相处得很好.",
+        "en": "He gets along with his siblings."
+      },
+      {
+        "zh": "你和你的老板相处得好吗？",
+        "en": "Do you get along with your boss?"
+      }
+    ]
+  },
+  {
+    "id": 103,
+    "category": "103. I'm on… 我在…… / 我正在……",
+    "sentences": [
+      {
+        "zh": "我现在在火车上.",
+        "en": "I'm on the train right now."
+      },
+      {
+        "zh": "我正在节食.",
+        "en": "I'm on a diet."
+      },
+      {
+        "zh": "我在回家的路上.",
+        "en": "I'm on my way home."
+      },
+      {
+        "zh": "我今天日程很紧.",
+        "en": "I'm on a tight schedule today."
+      },
+      {
+        "zh": "我正在开电话会议.",
+        "en": "I'm on a conference call."
+      }
+    ]
+  },
+  {
+    "id": 104,
+    "category": "104. you look… / you look like 你看起来……",
+    "sentences": [
+      {
+        "zh": "你看起来很困.",
+        "en": "You look sleepy."
+      },
+      {
+        "zh": "你看起来比以前更放松了.",
+        "en": "You look more relaxed than before."
+      },
+      {
+        "zh": "你的狗长什么样？",
+        "en": "What does your dog look like?"
+      },
+      {
+        "zh": "你看起来像你的父亲.",
+        "en": "You look like your father."
+      },
+      {
+        "zh": "你看起来很担心.",
+        "en": "You look worried."
+      }
+    ]
+  },
+  {
+    "id": 105,
+    "category": "105. in my opinion 在我看来",
+    "sentences": [
+      {
+        "zh": "在我看来，他是个好人.",
+        "en": "In my opinion, he is a good man."
+      },
+      {
+        "zh": "在我看来，这是最好的咖啡.",
+        "en": "In my opinion, this is the best coffee."
+      },
+      {
+        "zh": "在我看来，我们应该早点离开.",
+        "en": "In my opinion, we should leave earlier."
+      },
+      {
+        "zh": "在我看来，他是个很棒的老师.",
+        "en": "In my opinion, he's a great teacher."
+      },
+      {
+        "zh": "在我看来，这是个公道的价格.",
+        "en": "In my opinion, it's a fair price."
+      }
+    ]
+  },
+  {
+    "id": 106,
+    "category": "106. it doesn't matter 没关系",
+    "sentences": [
+      {
+        "zh": "你什么时候来都没关系.",
+        "en": "It doesn't matter when you come."
+      },
+      {
+        "zh": "你住在哪里对我来说都没关系.",
+        "en": "It doesn't matter to me where you live."
+      },
+      {
+        "zh": "现在已经没关系了.",
+        "en": "It doesn't matter anymore."
+      },
+      {
+        "zh": "我们晚餐吃什么都没关系.",
+        "en": "It doesn't matter what we eat for dinner."
+      },
+      {
+        "zh": "我们稍微迟到一点也没关系.",
+        "en": "It doesn't matter if we're a little late."
+      }
+    ]
+  },
+  {
+    "id": 107,
+    "category": "107. make sense 有道理",
+    "sentences": [
+      {
+        "zh": "这对你来说有道理吗？",
+        "en": "Does it make sense to you?"
+      },
+      {
+        "zh": "那有道理.",
+        "en": "That makes sense."
+      },
+      {
+        "zh": "那没有道理.",
+        "en": "It doesn't make sense."
+      },
+      {
+        "zh": "你的解释真的很有道理.",
+        "en": "Your explanation really makes sense."
+      },
+      {
+        "zh": "为旅行存钱是明智的.",
+        "en": "It makes sense to save money for the trip."
+      }
+    ]
+  },
+  {
+    "id": 108,
+    "category": "108. Be careful.小心。",
+    "sentences": [
+      {
+        "zh": "开车时要小心.",
+        "en": "Be careful when you drive a car."
+      },
+      {
+        "zh": "过马路时要小心.",
+        "en": "Be careful crossing the busy street."
+      },
+      {
+        "zh": "小心别伤到自己.",
+        "en": "Be careful not to hurt yourself."
+      },
+      {
+        "zh": "小心别把咖啡洒出来.",
+        "en": "Be careful not to spill your coffee."
+      },
+      {
+        "zh": "小心保护你的个人信息.",
+        "en": "Be careful with your personal information."
+      }
+    ]
+  },
+  {
+    "id": 109,
+    "category": "109. 询问意愿 Would you like…? 你想要……吗？",
+    "sentences": [
+      {
+        "zh": "你想要咖啡还是茶？",
+        "en": "Would you like coffee or tea?"
+      },
+      {
+        "zh": "你想要点喝的吗？",
+        "en": "Would you like something to drink?"
+      },
+      {
+        "zh": "你想要再来点面包吗？",
+        "en": "Would you like more bread?"
+      },
+      {
+        "zh": "你想看电影吗？",
+        "en": "Would you like to watch a movie?"
+      },
+      {
+        "zh": "你想和我们一起吃晚饭吗？",
+        "en": "Would you like to join us for dinner?"
+      }
+    ]
+  },
+  {
+    "id": 110,
+    "category": "110. 委婉请求 / 介意吗 Would you mind if…? 如果你……你介意吗？",
+    "sentences": [
+      {
+        "zh": "如果我坐在这里你介意吗？",
+        "en": "Would you mind if I sit here?"
+      },
+      {
+        "zh": "如果我告诉她这件事你介意吗？",
+        "en": "Would you mind if I told her about it?"
+      },
+      {
+        "zh": "如果我早点离开你介意吗？",
+        "en": "Would you mind if I left early?"
+      },
+      {
+        "zh": "如果我抽烟你介意吗？",
+        "en": "Would you mind if I smoked?"
+      },
+      {
+        "zh": "如果我拍张照你介意吗？",
+        "en": "Would you mind if I took a photo?"
+      }
+    ]
+  },
+  {
+    "id": 111,
+    "category": "111. 道歉 I apologize for… 我为……道歉。",
+    "sentences": [
+      {
+        "zh": "我为此造成的不便道歉.",
+        "en": "I apologize for the inconvenience."
+      },
+      {
+        "zh": "很抱歉我延误了.",
+        "en": "I apologize for the delay."
+      },
+      {
+        "zh": "我很抱歉文件出错了.",
+        "en": "I apologize for the incorrect documents."
+      },
+      {
+        "zh": "我很抱歉吵到你.",
+        "en": "I apologize for the noise."
+      },
+      {
+        "zh": "我很抱歉回复晚了.",
+        "en": "I apologize for the late response."
+      }
+    ]
+  },
+  {
+    "id": 112,
+    "category": "112. 打扰别人 Sorry to bother you, but… 对不起打扰你，但是……",
+    "sentences": [
+      {
+        "zh": "对不起打扰你，你能帮我个忙吗？",
+        "en": "Sorry to bother you, but would you do me a favor?"
+      },
+      {
+        "zh": "对不起打扰你，你能重复一遍吗？",
+        "en": "Sorry to bother you, but can you repeat that?"
+      },
+      {
+        "zh": "对不起打扰你，这把椅子你还用吗？",
+        "en": "Sorry to bother you, but are you using this chair?"
+      },
+      {
+        "zh": "对不起打扰你，你能挪一下车吗？",
+        "en": "Sorry to bother you, but can you move your car?"
+      },
+      {
+        "zh": "对不起打扰你，邮件来了吗？",
+        "en": "Sorry to bother you, but did the mail come?"
+      }
+    ]
+  },
+  {
+    "id": 113,
+    "category": "113. 礼貌客套 It’s a pleasure to… 很荣幸……",
+    "sentences": [
+      {
+        "zh": "很荣幸见到你.",
+        "en": "It’s a pleasure to meet you."
+      },
+      {
+        "zh": "很荣幸与你合作.",
+        "en": "It’s a pleasure to work with you."
+      },
+      {
+        "zh": "很荣幸联系你.",
+        "en": "It’s a pleasure to contact you."
+      },
+      {
+        "zh": "很荣幸帮到你.",
+        "en": "It’s a pleasure to help you."
+      },
+      {
+        "zh": "很荣幸来到这里.",
+        "en": "It’s a pleasure to be here."
+      }
+    ]
+  },
+  {
+    "id": 114,
+    "category": "114. 请求帮助 Could you…? 你能……吗？",
+    "sentences": [
+      {
+        "zh": "你能关上门吗？",
+        "en": "Could you close the door, please?"
+      },
+      {
+        "zh": "你能做到吗？",
+        "en": "Could you make it?"
+      },
+      {
+        "zh": "你能告诉我怎么使用这个吗？",
+        "en": "Could you tell me how to use this?"
+      },
+      {
+        "zh": "你能给我指个路吗？",
+        "en": "Could you give me directions?"
+      },
+      {
+        "zh": "你能说大声一点吗？",
+        "en": "Could you speak a bit louder?"
+      }
+    ]
+  },
+  {
+    "id": 115,
+    "category": "115. 征求许可 May I…? 我可以……吗？",
+    "sentences": [
+      {
+        "zh": "我可以问一下是谁打来的吗？",
+        "en": "May I ask who’s calling?"
+      },
+      {
+        "zh": "我可以请你帮个忙吗？",
+        "en": "May I ask you a favor?"
+      },
+      {
+        "zh": "我可以请你留意一下吗？",
+        "en": "May I have your attention, please?"
+      },
+      {
+        "zh": "我可以占用你一点时间吗？",
+        "en": "May I have a moment of your time?"
+      },
+      {
+        "zh": "我可以借一下你的笔吗？",
+        "en": "May I borrow your pen, please?"
+      }
+    ]
+  },
+  {
+    "id": 116,
+    "category": "116. 打扰一下 Excuse me, but… 打扰一下，……",
+    "sentences": [
+      {
+        "zh": "对不起，我想这是我的座位.",
+        "en": "Excuse me, but I think this is my seat."
+      },
+      {
+        "zh": "打扰一下，图书馆在哪里？",
+        "en": "Excuse me, but where is the library?"
+      },
+      {
+        "zh": "打扰一下，这是您掉的吗？",
+        "en": "Excuse me, but did you drop this?"
+      },
+      {
+        "zh": "打扰一下，我可以过一下吗？",
+        "en": "Excuse me, but can I pass through?"
+      },
+      {
+        "zh": "打扰一下，您是在排队吗？",
+        "en": "Excuse me, but are you in line?"
+      }
+    ]
+  },
+  {
+    "id": 117,
+    "category": "117. 感谢与欣赏 I appreciate… 我很感激……",
+    "sentences": [
+      {
+        "zh": "我很感激你的配合.",
+        "en": "I appreciate your cooperation."
+      },
+      {
+        "zh": "我很感激你的体贴.",
+        "en": "I appreciate your consideration."
+      },
+      {
+        "zh": "我很感激你的赞美.",
+        "en": "I appreciate the compliment."
+      },
+      {
+        "zh": "我很感激你的理解.",
+        "en": "I appreciate your understanding."
+      },
+      {
+        "zh": "我很感激你在这个项目上的努力.",
+        "en": "I appreciate your hard work on this project."
+      }
+    ]
+  },
+  {
+    "id": 118,
+    "category": "118. 委婉拒绝 I’d love to, but… 我很想，但是……",
+    "sentences": [
+      {
+        "zh": "我很想加入你们，但我还有别的约会.",
+        "en": "I’d love to join you, but I have another appointment."
+      },
+      {
+        "zh": "我很想去看电影，但我今晚需要学习.",
+        "en": "I’d love to watch the movie, but I need to study tonight."
+      },
+      {
+        "zh": "我很想帮忙，但我在这方面不太擅长.",
+        "en": "I’d love to help, but I’m not very skilled at this."
+      },
+      {
+        "zh": "我很想去参加派对，但我已经有其他计划了.",
+        "en": "I’d love to come to the party, but I already have plans."
+      },
+      {
+        "zh": "一、我很想买那条裙子，但它超出我的预算",
+        "en": "I’d love to buy that dress, but it’s out of my budget."
+      }
+    ]
+  }
+]
