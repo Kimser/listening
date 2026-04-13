@@ -293,6 +293,19 @@ body::before {
   padding: 20px;
   margin-bottom: 20px;
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  max-height: 300px; /* Adjust based on content */
+  opacity: 1;
+}
+
+.player-section.collapsed {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  max-height: 0;
+  border-color: transparent;
+  opacity: 0;
 }
 
 .progress-bar-wrap {
@@ -429,8 +442,13 @@ body::before {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  max-height: 50vh;
+  max-height: 45vh;
   overflow-y: auto;
+  transition: max-height 0.3s ease-in-out;
+}
+
+body.player-collapsed .sentence-list {
+  max-height: 70vh;
 }
 
 .sentence-list::-webkit-scrollbar {

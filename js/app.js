@@ -17,7 +17,8 @@
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
     lang: localStorage.getItem('lp_lang') || 'zh',
     showCn: localStorage.getItem('lp_showCn') === 'true',
-    accent: localStorage.getItem('lp_accent') || 'uk'
+    accent: localStorage.getItem('lp_accent') || 'uk',
+    isPlayerCollapsed: localStorage.getItem('lp_playerCollapsed') === 'true'
   };
 
   const i18n = {
@@ -63,6 +64,9 @@
   const wordbookModal = $('wordbookModal');
   const settingsDrawer = $('settingsDrawer');
   const settingsOverlay = $('settingsOverlay');
+  const playerSection = $('playerSection');
+  const playerToggleIcon = $('playerToggleIcon');
+  const btnTogglePlayer = $('btnTogglePlayer');
 
   function getEnglishLang() {
     return state.accent === 'uk' ? 'en-GB' : 'en-US';
@@ -436,6 +440,29 @@
     });
   }
 
+  // ---- Player Collapse ----
+  function setupPlayerCollapse() {
+    const updatePlayerCollapse = () => {
+      if (state.isPlayerCollapsed) {
+        playerSection.classList.add('collapsed');
+        playerToggleIcon.className = 'ri-arrow-down-s-line';
+        document.body.classList.add('player-collapsed');
+      } else {
+        playerSection.classList.remove('collapsed');
+        playerToggleIcon.className = 'ri-arrow-up-s-line';
+        document.body.classList.remove('player-collapsed');
+      }
+    };
+    
+    updatePlayerCollapse();
+
+    btnTogglePlayer.addEventListener('click', () => {
+      state.isPlayerCollapsed = !state.isPlayerCollapsed;
+      localStorage.setItem('lp_playerCollapsed', state.isPlayerCollapsed);
+      updatePlayerCollapse();
+    });
+  }
+
   // ---- Word Popup ----
   function showWordPopup(word) {
     if (!word) return;
@@ -637,6 +664,7 @@
     setupSpeed();
     setupPlayMode();
     setupFontSize();
+    setupPlayerCollapse();
     
     $('btnToggleCn').addEventListener('click', () => {
       state.showCn = !state.showCn;

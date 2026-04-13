@@ -101,6 +101,13 @@
           <div class="card-meta">
             <span id="sentenceIndex">0 / 0</span>
             <div style="display: flex; gap: 8px">
+              <button
+                id="btnTogglePlayer"
+                class="icon-btn-sm"
+                title="Toggle Player"
+              >
+                <i class="ri-arrow-down-s-line" id="playerToggleIcon"></i>
+              </button>
               <button id="btnToggleCn" class="icon-btn-sm" title="Toggle EN/CN">
                 <i class="ri-translate"></i>
               </button>
@@ -112,7 +119,7 @@
         </section>
 
         <!-- Player Controls -->
-        <section class="player-section">
+        <section class="player-section" id="playerSection">
           <div class="progress-bar-wrap" id="progressWrap">
             <div class="progress-bar" id="progressBar"></div>
           </div>
