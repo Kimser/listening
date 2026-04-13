@@ -178,26 +178,43 @@
   }
 
   // ---- Play Controls ----
+  function getSelectedSpeed() {
+    const activeBtn = document.querySelector('#speedControl .speed-btn.active');
+    const activeSpeed = activeBtn ? parseFloat(activeBtn.dataset.speed) : NaN;
+    if (Number.isFinite(activeSpeed)) return activeSpeed;
+    return Number.isFinite(state.speed) ? state.speed : 1;
+  }
+
   function getPlaybackRates(baseSpeed) {
-    const first = Math.max(0.5, baseSpeed);
-    const second = Math.max(0.42, first - 0.15);
-    const third = Math.max(0.35, second - 0.15);
-    const chinese = Math.max(0.32, third - 0.08);
+    const first = Math.max(0.6, baseSpeed);
+    const second = Math.max(0.52, first - 0.12);
+    const third = Math.max(0.46, second - 0.1);
+    // Chinese keeps clearer articulation by avoiding overly slow rates.
+    const chinese = Math.max(0.72, Math.min(1.05, first - 0.02));
     return { first, second, third, chinese };
   }
 
-  function toDetachedSentence(text) {
-    const trimmed = (text || '').trim();
-    if (!trimmed) return '';
-    const hasEndingPunct = /[.!?]$/.test(trimmed);
-    const ending = hasEndingPunct ? trimmed.slice(-1) : '';
-    const body = hasEndingPunct ? trimmed.slice(0, -1) : trimmed;
-    const words = body.split(/\s+/).filter(Boolean);
-    const chunks = [];
-    for (let i = 0; i < words.length; i += 2) {
-      chunks.push(words.slice(i, i + 2).join(' '));
+  function speakWordByWordLikeSentence(text, rate, onEnd, index = 0, tokens = null) {
+    const stream = tokens || ((text || '').match(/[A-Za-z]+(?:['-][A-Za-z]+)*|[.,!?;:]/g) || []);
+    if (index >= stream.length) {
+      onEnd();
+      return;
     }
-    return `${chunks.join(', ')}${ending}`;
+    const token = stream[index];
+    if (/^[.,!?;:]$/.test(token)) {
+      state.loopTimer = setTimeout(() => speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream), 140);
+      return;
+    }
+    const speakToken = token.toLowerCase() === 'a' ? 'uh' : token;
+    audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
+    audio.speak(speakToken, () => {
+      state.loopTimer = setTimeout(() => speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream), 85);
+      updatePlayBtn(true);
+    }, { lang: 'en-US', rate, pitch: 1.03 });
+  }
+
+  function normalizeStandaloneArticleA(text) {
+    return (text || '').replace(/\ba(?=\s*[.!?,;:]?\s*$)/gi, 'uh');
   }
 
   function playPasses(passes, onEnd, index = 0) {
@@ -214,8 +231,13 @@
       state.loopTimer = setTimeout(() => playPasses(passes, onEnd, index + 1), 2200);
       updatePlayBtn(true);
     };
+    if (pass.mode === 'word_by_word') {
+      speakWordByWordLikeSentence(pass.text, pass.rate, handlePassEnd);
+      return;
+    }
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
-    audio.speak(pass.text, handlePassEnd, { lang: pass.lang, rate: pass.rate, pitch: pass.pitch || 1 });
+    const spokenText = pass.normalizeA ? normalizeStandaloneArticleA(pass.text) : pass.text;
+    audio.speak(spokenText, handlePassEnd, { lang: pass.lang, rate: pass.rate, pitch: pass.pitch || 1, volume: pass.volume || 1 });
   }
 
   function playCurrent(playReason = 'initial') {
@@ -225,13 +247,23 @@
     state.stats.sentencesPlayed++;
     saveStats();
 
+    const selectedSpeed = getSelectedSpeed();
+    console.log(selectedSpeed, state.speed);
+    if (selectedSpeed !== state.speed) {
+      state.speed = selectedSpeed;
+      localStorage.setItem('lp_speed', state.speed);
+    }
+    audio.setRate(state.speed);
     const rates = getPlaybackRates(state.speed);
-    const passes = [
-      { text: s.text, lang: 'en-US', rate: rates.first, pitch: 1.01 },
-      { text: s.text, lang: 'en-US', rate: rates.second, pitch: 1.02 },
-      { text: toDetachedSentence(s.text), lang: 'en-US', rate: rates.third, pitch: 1.03 },
-      { text: s.cn || s.text, lang: 'zh-CN', rate: rates.chinese, pitch: 1.0 }
-    ];
+    const isCategoryParent = s.type === 'category' && (s.parentId === undefined || s.parentId === null);
+    const passes = isCategoryParent
+      ? [{ text: s.text, lang: 'en-US', rate: rates.first, pitch: 1.01, normalizeA: true }]
+      : [
+        { text: s.text, lang: 'en-US', rate: rates.first, pitch: 1.01 },
+        { text: s.text, lang: 'en-US', rate: rates.second, pitch: 1.02 },
+        { text: s.text, lang: 'en-US', rate: Math.max(0.62, rates.third + 0.08), mode: 'word_by_word' },
+        { text: s.cn || s.text, lang: 'zh-CN', rate: rates.chinese, pitch: 1.08, volume: 1 }
+      ];
 
     const startSpeaking = () => {
       playPasses(passes, () => {
@@ -276,6 +308,12 @@
 
   function clearLoopTimer() {
     if (state.loopTimer) { clearTimeout(state.loopTimer); state.loopTimer = null; }
+  }
+
+  function interruptMainPlayback() {
+    audio.stop();
+    clearLoopTimer();
+    updatePlayBtn(false);
   }
 
   function playPrev() {
@@ -367,6 +405,7 @@
     $('popupSpeak').addEventListener('click', () => {
       const word = $('popupWord').textContent;
       if (!word) return;
+      interruptMainPlayback();
       const btn = $('popupSpeak');
       btn.classList.add('speaking');
       audio.speakWord(word, () => {
@@ -435,6 +474,7 @@
       list.querySelectorAll('.wb-speak').forEach(btn => {
         btn.addEventListener('click', () => {
           const w = btn.dataset.word;
+          interruptMainPlayback();
           btn.style.transform = 'scale(1.2)';
           audio.speakWord(w, () => {
             btn.style.transform = 'scale(1)';

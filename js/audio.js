@@ -28,7 +28,7 @@ class AudioEngine {
       this.voiceZh = this._pickVoice(
         voices,
         ['zh-cn', 'zh-hk', 'zh-tw', 'zh'],
-        ['tingting', 'mei-jia', 'sin-ji', 'xiaoxiao', 'xiaoyi', 'yunxi', 'google 中文', 'google 普通话', 'enhanced', 'premium', 'natural']
+        ['mei-jia', 'tingting', 'xiaoxiao', 'xiaoyi', 'sin-ji', 'yunxi', 'siri', 'female', 'google 中文', 'google 普通话', 'enhanced', 'premium', 'natural']
       ) || this.voiceEn;
       this.voice = this.voiceEn;
     };
@@ -124,7 +124,8 @@ class AudioEngine {
 
   speakWord(word, onEnd) {
     this.synth.cancel();
-    const utt = new SpeechSynthesisUtterance(word);
+    const speakText = (word || '').toLowerCase() === 'a' ? 'uh' : word;
+    const utt = new SpeechSynthesisUtterance(speakText);
     if (this.voiceEn) utt.voice = this.voiceEn;
     utt.rate = 0.8; // Speak words slowly for clarity
     utt.pitch = 1.02;
