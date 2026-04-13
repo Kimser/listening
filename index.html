@@ -34,6 +34,9 @@
       <header class="app-header">
         <div class="logo"><i class="ri-headphone-fill"></i> ListenPro</div>
         <div class="header-actions">
+          <button id="btnPersonalize" class="icon-btn" title="Personalize">
+            <i class="ri-settings-3-line"></i>
+          </button>
           <button id="btnLang" class="icon-btn" title="Toggle Language">
             <i class="ri-translate-2"></i>
           </button>
@@ -166,20 +169,51 @@
       <div class="word-popup" id="wordPopup">
         <div class="popup-header">
           <span class="popup-word" id="popupWord"></span>
-          <button class="popup-speak" id="popupSpeak" title="Pronounce">
-            <i class="ri-volume-up-fill"></i>
-          </button>
-          <button class="popup-fav" id="popupFav">
-            <i class="ri-star-line"></i>
-          </button>
-          <button class="popup-close" id="popupClose">
-            <i class="ri-close-line"></i>
-          </button>
+          <div class="popup-actions">
+            <button class="popup-fav" id="popupFav" title="Save Word">
+              <i class="ri-star-line"></i>
+            </button>
+            <button class="popup-close" id="popupClose" title="Close">
+              <i class="ri-close-line"></i>
+            </button>
+          </div>
         </div>
-        <div class="popup-phonetic" id="popupPhonetic"></div>
+        <div class="popup-pronunciations" id="popupPronunciations"></div>
         <div class="popup-meaning" id="popupMeaning"></div>
         <div class="popup-examples" id="popupExamples"></div>
       </div>
+
+      <!-- Personalization Drawer -->
+      <div class="drawer-overlay" id="settingsOverlay"></div>
+      <aside class="settings-drawer" id="settingsDrawer">
+        <div class="drawer-header">
+          <h3 data-i18n="personalizeTitle">Personalization</h3>
+          <button class="popup-close" id="closeSettingsDrawer">
+            <i class="ri-close-line"></i>
+          </button>
+        </div>
+        <div class="drawer-section">
+          <label class="drawer-label" data-i18n="accentLabel"
+            >English Accent</label
+          >
+          <div class="seg-control" id="accentControl">
+            <button
+              class="seg-btn accent-btn"
+              data-accent="us"
+              data-i18n="accentUs"
+            >
+              US
+            </button>
+            <button
+              class="seg-btn accent-btn"
+              data-accent="uk"
+              data-i18n="accentUk"
+            >
+              UK
+            </button>
+          </div>
+        </div>
+      </aside>
 
       <!-- Stats Modal -->
       <div class="modal-overlay" id="statsModal">

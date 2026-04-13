@@ -7,7 +7,10 @@ class AudioEngine {
     this.rate = 1;
     this.voice = null;
     this.voiceEn = null;
+    this.voiceEnUs = null;
+    this.voiceEnUk = null;
     this.voiceZh = null;
+    this.englishVariant = 'us';
     this.onEnd = null;
     this.onProgress = null;
     this.onBoundary = null;
@@ -20,7 +23,17 @@ class AudioEngine {
   _initVoice() {
     const loadVoices = () => {
       const voices = this.synth.getVoices();
-      this.voiceEn = this._pickVoice(
+      this.voiceEnUs = this._pickVoice(
+        voices,
+        ['en-us'],
+        ['samantha', 'alex', 'ava', 'allison', 'daniel', 'karen', 'google us english', 'enhanced', 'premium', 'natural']
+      );
+      this.voiceEnUk = this._pickVoice(
+        voices,
+        ['en-gb'],
+        ['serena', 'daniel', 'kate', 'google uk english', 'enhanced', 'premium', 'natural']
+      );
+      this.voiceEn = this.voiceEnUs || this.voiceEnUk || this._pickVoice(
         voices,
         ['en-us', 'en-gb', 'en'],
         ['samantha', 'alex', 'ava', 'allison', 'daniel', 'karen', 'moira', 'google us english', 'google uk english', 'enhanced', 'premium', 'natural']
@@ -45,6 +58,11 @@ class AudioEngine {
     return byLang[0] || null;
   }
 
+  _getEnglishVoice(variant = this.englishVariant) {
+    if (variant === 'uk') return this.voiceEnUk || this.voiceEnUs || this.voiceEn;
+    return this.voiceEnUs || this.voiceEnUk || this.voiceEn;
+  }
+
   speak(text, onEnd, options = {}) {
     this.stop();
     this.onEnd = onEnd;
@@ -52,7 +70,9 @@ class AudioEngine {
     const rate = typeof options.rate === 'number' ? options.rate : this.rate;
     const pitch = typeof options.pitch === 'number' ? options.pitch : 1;
     const volume = typeof options.volume === 'number' ? options.volume : 1;
-    const voice = lang.startsWith('zh') ? this.voiceZh : this.voiceEn;
+    const isEnglish = lang.toLowerCase().startsWith('en');
+    const variant = options.voiceVariant || this.englishVariant;
+    const voice = lang.startsWith('zh') ? this.voiceZh : (isEnglish ? this._getEnglishVoice(variant) : this.voiceEn);
     this.utterance = new SpeechSynthesisUtterance(text);
     if (voice) this.utterance.voice = voice;
     this.utterance.rate = rate;
@@ -122,15 +142,21 @@ class AudioEngine {
     this.rate = rate;
   }
 
-  speakWord(word, onEnd) {
+  setEnglishVariant(variant) {
+    this.englishVariant = variant === 'uk' ? 'uk' : 'us';
+  }
+
+  speakWord(word, onEnd, options = {}) {
     this.synth.cancel();
     const speakText = (word || '').toLowerCase() === 'a' ? 'uh' : word;
+    const variant = options.voiceVariant || this.englishVariant;
     const utt = new SpeechSynthesisUtterance(speakText);
-    if (this.voiceEn) utt.voice = this.voiceEn;
+    const voice = this._getEnglishVoice(variant);
+    if (voice) utt.voice = voice;
     utt.rate = 0.8; // Speak words slowly for clarity
     utt.pitch = 1.02;
     utt.volume = 1;
-    utt.lang = 'en-US';
+    utt.lang = variant === 'uk' ? 'en-GB' : 'en-US';
     utt.onend = () => { if (onEnd) onEnd(); };
     utt.onerror = () => { if (onEnd) onEnd(); };
     this.synth.speak(utt);

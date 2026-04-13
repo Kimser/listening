@@ -16,7 +16,8 @@
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
     lang: localStorage.getItem('lp_lang') || 'zh',
-    showCn: localStorage.getItem('lp_showCn') === 'true'
+    showCn: localStorage.getItem('lp_showCn') === 'true',
+    accent: localStorage.getItem('lp_accent') || 'uk'
   };
 
   const i18n = {
@@ -29,7 +30,8 @@
       statsTotal: "Total Sentences", statsDict: "Dictionary Words",
       noDef: "No definition available",
       noWords: "No words saved yet.<br>Tap any word to add it.",
-      lvl_elementary: "Elementary", lvl_intermediate: "Intermediate", lvl_advanced: "Advanced"
+      lvl_elementary: "Elementary", lvl_intermediate: "Intermediate", lvl_advanced: "Advanced",
+      personalizeTitle: "Personalization", accentLabel: "English Accent", accentUs: "US", accentUk: "UK"
     },
     zh: {
       type: "类型", all: "全部", interrogative: "疑问句", category: "分类句型", dialogue: "对话文章",
@@ -40,7 +42,8 @@
       statsTotal: "总句子数", statsDict: "词典总词汇",
       noDef: "暂无释义",
       noWords: "暂无保存的单词。<br>点击任意单词即可添加。",
-      lvl_elementary: "入门级", lvl_intermediate: "进阶级", lvl_advanced: "高级"
+      lvl_elementary: "入门级", lvl_intermediate: "进阶级", lvl_advanced: "高级",
+      personalizeTitle: "个性化设置", accentLabel: "英语口音", accentUs: "美音", accentUk: "英音"
     }
   };
 
@@ -58,6 +61,59 @@
   const wordPopup = $('wordPopup');
   const statsModal = $('statsModal');
   const wordbookModal = $('wordbookModal');
+  const settingsDrawer = $('settingsDrawer');
+  const settingsOverlay = $('settingsOverlay');
+
+  function getEnglishLang() {
+    return state.accent === 'uk' ? 'en-GB' : 'en-US';
+  }
+
+  function getIpaText(entry, accent = state.accent) {
+    if (!entry) return '';
+    if (entry.ipa && typeof entry.ipa === 'object') {
+      const text = accent === 'uk' ? entry.ipa.uk : entry.ipa.us;
+      return text || entry.ipa.us || entry.ipa.uk || '';
+    }
+    if (entry.ipa && typeof entry.ipa === 'string') return entry.ipa;
+    const fallback = accent === 'uk' ? entry.ipa_uk : entry.ipa_us;
+    return fallback || entry.ipa_us || entry.ipa_uk || '';
+  }
+
+  function renderWordPronunciations(word, entry) {
+    const holder = $('popupPronunciations');
+    if (!entry) {
+      holder.innerHTML = '';
+      return;
+    }
+    const usIpa = getIpaText(entry, 'us');
+    const ukIpa = getIpaText(entry, 'uk');
+    holder.innerHTML = `
+      <button class="pron-btn ${state.accent === 'us' ? 'active' : ''}" data-accent="us">
+        <div class="pron-top">
+          <span class="tag">${i18n[state.lang].accentUs}</span>
+          <i class="ri-volume-up-fill"></i>
+        </div>
+        <span class="ipa">${usIpa || '-'}</span>
+      </button>
+      <button class="pron-btn ${state.accent === 'uk' ? 'active' : ''}" data-accent="uk">
+        <div class="pron-top">
+          <span class="tag">${i18n[state.lang].accentUk}</span>
+          <i class="ri-volume-up-fill"></i>
+        </div>
+        <span class="ipa">${ukIpa || '-'}</span>
+      </button>
+    `;
+    holder.querySelectorAll('.pron-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        interruptMainPlayback();
+        const accent = btn.dataset.accent === 'uk' ? 'uk' : 'us';
+        btn.classList.add('speaking');
+        audio.speakWord(word, () => {
+          btn.classList.remove('speaking');
+        }, { voiceVariant: accent });
+      });
+    });
+  }
 
   // ---- Filter Logic ----
   function applyFilters() {
@@ -194,23 +250,28 @@
     return { first, second, third, chinese };
   }
 
+  function buildWordByWordStream(text) {
+    return ((text || '').match(/[A-Za-z]+(?:['-][A-Za-z]+)*|[.,!?;:]/g) || []);
+  }
+
   function speakWordByWordLikeSentence(text, rate, onEnd, index = 0, tokens = null) {
-    const stream = tokens || ((text || '').match(/[A-Za-z]+(?:['-][A-Za-z]+)*|[.,!?;:]/g) || []);
+    const stream = tokens || buildWordByWordStream(text);
     if (index >= stream.length) {
       onEnd();
       return;
     }
     const token = stream[index];
     if (/^[.,!?;:]$/.test(token)) {
-      state.loopTimer = setTimeout(() => speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream), 140);
+      state.loopTimer = setTimeout(() => speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream), 110);
       return;
     }
     const speakToken = token.toLowerCase() === 'a' ? 'uh' : token;
+    const tokenRate = token.length <= 4 ? Math.max(0.75, rate - 0.08) : rate;
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
     audio.speak(speakToken, () => {
-      state.loopTimer = setTimeout(() => speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream), 85);
+      state.loopTimer = setTimeout(() => speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream), 95);
       updatePlayBtn(true);
-    }, { lang: 'en-US', rate, pitch: 1.03 });
+    }, { lang: getEnglishLang(), rate: tokenRate, pitch: 1.03, voiceVariant: state.accent });
   }
 
   function normalizeStandaloneArticleA(text) {
@@ -237,7 +298,7 @@
     }
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
     const spokenText = pass.normalizeA ? normalizeStandaloneArticleA(pass.text) : pass.text;
-    audio.speak(spokenText, handlePassEnd, { lang: pass.lang, rate: pass.rate, pitch: pass.pitch || 1, volume: pass.volume || 1 });
+    audio.speak(spokenText, handlePassEnd, { lang: pass.lang, rate: pass.rate, pitch: pass.pitch || 1, volume: pass.volume || 1, voiceVariant: pass.voiceVariant });
   }
 
   function playCurrent(playReason = 'initial') {
@@ -248,7 +309,6 @@
     saveStats();
 
     const selectedSpeed = getSelectedSpeed();
-    console.log(selectedSpeed, state.speed);
     if (selectedSpeed !== state.speed) {
       state.speed = selectedSpeed;
       localStorage.setItem('lp_speed', state.speed);
@@ -257,11 +317,11 @@
     const rates = getPlaybackRates(state.speed);
     const isCategoryParent = s.type === 'category' && (s.parentId === undefined || s.parentId === null);
     const passes = isCategoryParent
-      ? [{ text: s.text, lang: 'en-US', rate: rates.first, pitch: 1.01, normalizeA: true }]
+      ? [{ text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1.01, normalizeA: true, voiceVariant: state.accent }]
       : [
-        { text: s.text, lang: 'en-US', rate: rates.first, pitch: 1.01 },
-        { text: s.text, lang: 'en-US', rate: rates.second, pitch: 1.02 },
-        { text: s.text, lang: 'en-US', rate: Math.max(0.62, rates.third + 0.08), mode: 'word_by_word' },
+        { text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1.01, voiceVariant: state.accent },
+        { text: s.text, lang: getEnglishLang(), rate: rates.second, pitch: 1.02, voiceVariant: state.accent },
+        { text: s.text, lang: getEnglishLang(), rate: Math.max(0.86, rates.third + 0.08), mode: 'word_by_word', voiceVariant: state.accent },
         { text: s.cn || s.text, lang: 'zh-CN', rate: rates.chinese, pitch: 1.08, volume: 1 }
       ];
 
@@ -381,11 +441,11 @@
     $('popupWord').textContent = word;
 
     if (entry) {
-      $('popupPhonetic').textContent = entry.ipa;
+      renderWordPronunciations(word, entry);
       $('popupMeaning').innerHTML = `<strong>${entry.pos}</strong> ${entry.cn}`;
       $('popupExamples').innerHTML = entry.ex.map(e => `<p>• ${e}</p>`).join('');
     } else {
-      $('popupPhonetic').textContent = '';
+      renderWordPronunciations(word, null);
       $('popupMeaning').innerHTML = `<em>${i18n[state.lang].noDef}</em>`;
       $('popupExamples').innerHTML = '';
     }
@@ -400,18 +460,6 @@
 
   function setupWordPopup() {
     $('popupClose').addEventListener('click', () => wordPopup.classList.remove('show'));
-
-    // Speak the word
-    $('popupSpeak').addEventListener('click', () => {
-      const word = $('popupWord').textContent;
-      if (!word) return;
-      interruptMainPlayback();
-      const btn = $('popupSpeak');
-      btn.classList.add('speaking');
-      audio.speakWord(word, () => {
-        btn.classList.remove('speaking');
-      });
-    });
 
     $('popupFav').addEventListener('click', () => {
       const word = $('popupWord').textContent;
@@ -459,7 +507,8 @@
     } else {
       list.innerHTML = state.wordbook.map(w => {
         const entry = DICTIONARY[w];
-        const ipa = entry && entry.ipa ? ` <span style="color:var(--accent);font-size:12px;margin-left:6px;font-style:italic">${entry.ipa}</span>` : '';
+        const ipaText = getIpaText(entry);
+        const ipa = ipaText ? ` <span style="color:var(--accent);font-size:12px;margin-left:6px;font-style:italic">${ipaText}</span>` : '';
         const meaning = entry ? entry.cn : '—';
         return `
           <li class="wordbook-item">
@@ -478,7 +527,7 @@
           btn.style.transform = 'scale(1.2)';
           audio.speakWord(w, () => {
             btn.style.transform = 'scale(1)';
-          });
+          }, { voiceVariant: state.accent });
         });
       });
 
@@ -528,6 +577,10 @@
     if (state.currentIndex < 0 || state.filtered.length === 0) {
       sentenceText.innerHTML = i18n[state.lang].selectPrompt;
     }
+    const popupWord = $('popupWord').textContent;
+    if (wordPopup.classList.contains('show') && popupWord) {
+      renderWordPronunciations(popupWord, DICTIONARY[popupWord] || null);
+    }
   }
 
   function setupLanguage() {
@@ -539,9 +592,45 @@
     });
   }
 
+  function closeSettingsDrawer() {
+    settingsDrawer.classList.remove('show');
+    settingsOverlay.classList.remove('show');
+  }
+
+  function setupPersonalization() {
+    audio.setEnglishVariant(state.accent);
+    const accentButtons = document.querySelectorAll('#accentControl .accent-btn');
+    const syncAccentActive = () => {
+      accentButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.accent === state.accent));
+    };
+    syncAccentActive();
+
+    $('btnPersonalize').addEventListener('click', () => {
+      settingsDrawer.classList.add('show');
+      settingsOverlay.classList.add('show');
+    });
+    $('closeSettingsDrawer').addEventListener('click', closeSettingsDrawer);
+    settingsOverlay.addEventListener('click', closeSettingsDrawer);
+
+    accentButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.accent = btn.dataset.accent === 'uk' ? 'uk' : 'us';
+        localStorage.setItem('lp_accent', state.accent);
+        audio.setEnglishVariant(state.accent);
+        syncAccentActive();
+        
+        const popupWord = $('popupWord').textContent;
+        if (wordPopup.classList.contains('show') && popupWord) {
+          renderWordPronunciations(popupWord, DICTIONARY[popupWord] || null);
+        }
+      });
+    });
+  }
+
   // ---- Initialize ----
   function init() {
     setupLanguage();
+    setupPersonalization();
     setupFilters();
     setupSpeed();
     setupPlayMode();
