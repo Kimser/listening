@@ -117,10 +117,12 @@
 
   // ---- Filter Logic ----
   function applyFilters() {
+    const isCategoryParent = s => s.type === 'category' && (s.parentId === undefined || s.parentId === null);
     state.filtered = state.sentences.filter(s => {
       const typeMatch = state.typeFilter === 'all' || s.type === state.typeFilter;
       const levelMatch = state.levelFilter === 'all' || s.level === state.levelFilter;
-      return typeMatch && levelMatch;
+      const hideParentInAll = state.typeFilter === 'all' && isCategoryParent(s);
+      return typeMatch && levelMatch && !hideParentInAll;
     });
     renderList();
     listCount.textContent = state.filtered.length;

@@ -528,7 +528,7 @@ const SENTENCES = [
   {"id":5269,"text":"How was the movie you watched last night?","type":"category","sub":"sentence","level":"elementary","cn":"你昨晚看的电影怎么样？ →","parentId":4053},
   {"id":5270,"text":"How was your trip to New York?","type":"category","sub":"sentence","level":"elementary","cn":"你去纽约的旅行怎么样？ →","parentId":4053},
 {"id":4054,"text":"how about…","type":"category","sub":"sentences","level":"elementary","cn":"66. ……怎么样 / 你呢"},
-  {"id":5271,"text":"How about…?","type":"category","sub":"sentence","level":"elementary","cn":"怎么样？ →","parentId":4054},
+  // {"id":5271,"text":"How about…?","type":"category","sub":"sentence","level":"elementary","cn":"怎么样？ →","parentId":4054},
   {"id":5272,"text":"How about you?","type":"category","sub":"sentence","level":"elementary","cn":"你怎么样？ →","parentId":4054},
   {"id":5273,"text":"How about going for a walk?","type":"category","sub":"sentence","level":"elementary","cn":"去散个步怎么样？ →","parentId":4054},
   {"id":5274,"text":"How about having pizza for dinner?","type":"category","sub":"sentence","level":"elementary","cn":"晚餐吃披萨怎么样？ →","parentId":4054},
