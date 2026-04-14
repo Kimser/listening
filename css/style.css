@@ -200,8 +200,8 @@ body::before {
   position: sticky;
   top: 72px; /* Ensure this is perfectly under the header */
   z-index: 90;
-  background: var(--bg);
-  padding: 8px 0 4px; /* a tiny bit of breathing room */
+  background: transparent;
+  padding: 8px 0 0; /* a tiny bit of breathing room */
   margin: -8px 0 0;
 }
 
