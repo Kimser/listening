@@ -18,7 +18,8 @@
     lang: localStorage.getItem('lp_lang') || 'zh',
     showCn: localStorage.getItem('lp_showCn') === 'true',
     accent: localStorage.getItem('lp_accent') || 'uk',
-    isPlayerCollapsed: localStorage.getItem('lp_playerCollapsed') === 'true'
+    isPlayerCollapsed: localStorage.getItem('lp_playerCollapsed') === 'true',
+    theme: localStorage.getItem('lp_theme') || 'dark'
   };
 
   const i18n = {
@@ -536,15 +537,31 @@
     } else {
       list.innerHTML = state.wordbook.map(w => {
         const entry = DICTIONARY[w];
-        const ipaText = getIpaText(entry);
-        const ipa = ipaText ? ` <span style="color:var(--accent);font-size:12px;margin-left:6px;font-style:italic">${ipaText}</span>` : '';
+        const usIpa = getIpaText(entry, 'us');
+        const ukIpa = getIpaText(entry, 'uk');
         const meaning = entry ? entry.cn : '—';
         return `
           <li class="wordbook-item">
-            <div><span class="wb-word">${w}</span>${ipa}<br><span class="wb-meaning">${meaning}</span></div>
-            <div style="display:flex; gap:12px;">
-              <button class="wb-speak" data-word="${w}" style="background:none;border:none;color:var(--primary);cursor:pointer;font-size:18px;transition:all 0.2s;"><i class="ri-volume-up-fill"></i></button>
-              <button class="wb-remove" data-word="${w}" style="background:none;border:none;color:var(--accent2);cursor:pointer;font-size:18px;transition:all 0.2s;"><i class="ri-delete-bin-line"></i></button>
+            <div class="wb-header">
+              <span class="wb-word">${w}</span>
+              <button class="wb-remove" data-word="${w}" title="Remove"><i class="ri-delete-bin-line"></i></button>
+            </div>
+            <div class="wb-meaning">${meaning}</div>
+            <div class="popup-pronunciations wb-pronunciations">
+              <button class="pron-btn wb-speak ${state.accent === 'us' ? 'active' : ''}" data-accent="us" data-word="${w}">
+                <div class="pron-top">
+                  <span class="tag">${i18n[state.lang].accentUs}</span>
+                  <i class="ri-volume-up-fill"></i>
+                </div>
+                <span class="ipa">${usIpa || '-'}</span>
+              </button>
+              <button class="pron-btn wb-speak ${state.accent === 'uk' ? 'active' : ''}" data-accent="uk" data-word="${w}">
+                <div class="pron-top">
+                  <span class="tag">${i18n[state.lang].accentUk}</span>
+                  <i class="ri-volume-up-fill"></i>
+                </div>
+                <span class="ipa">${ukIpa || '-'}</span>
+              </button>
             </div>
           </li>`;
       }).join('');
@@ -552,11 +569,12 @@
       list.querySelectorAll('.wb-speak').forEach(btn => {
         btn.addEventListener('click', () => {
           const w = btn.dataset.word;
+          const accent = btn.dataset.accent;
           interruptMainPlayback();
-          btn.style.transform = 'scale(1.2)';
+          btn.classList.add('speaking');
           audio.speakWord(w, () => {
-            btn.style.transform = 'scale(1)';
-          }, { voiceVariant: state.accent });
+            btn.classList.remove('speaking');
+          }, { voiceVariant: accent });
         });
       });
 
@@ -656,8 +674,36 @@
     });
   }
 
+  // ---- Theme ----
+  function setupTheme() {
+    const applyTheme = (animate = false) => {
+      if (animate) {
+        document.documentElement.classList.add('theme-transition');
+        setTimeout(() => document.documentElement.classList.remove('theme-transition'), 500);
+      }
+      if (state.theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        $('themeIcon').className = 'ri-moon-line'; // the icon to switch *back* to dark mode is usually a moon
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        $('themeIcon').className = 'ri-sun-line'; // icon to switch to light mode is sun
+      }
+      const metaThemeColor = document.querySelector('meta[name="theme-color"]');
+      if (metaThemeColor) {
+        metaThemeColor.setAttribute('content', state.theme === 'light' ? '#f1f5f9' : '#0f0e17');
+      }
+    };
+    applyTheme(false);
+    $('btnTheme').addEventListener('click', () => {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('lp_theme', state.theme);
+      applyTheme(true);
+    });
+  }
+
   // ---- Initialize ----
   function init() {
+    setupTheme();
     setupLanguage();
     setupPersonalization();
     setupFilters();
