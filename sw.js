@@ -1,4 +1,4 @@
-const CACHE_NAME = 'listen-pro-v1.2';
+const CACHE_NAME = 'listen-pro-v1.5';
 const ASSETS = [
   './', 
   './index.html', 
@@ -6,7 +6,8 @@ const ASSETS = [
   './js/data.js', 
   './js/audio.js', 
   './js/app.js',
-  './manifest.json'
+  './manifest.json',
+  './icon.svg?v=2'
 ];
 
 self.addEventListener('install', e => {
