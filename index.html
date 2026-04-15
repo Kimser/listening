@@ -100,7 +100,19 @@
           </p>
           <div class="card-meta">
             <span id="sentenceIndex">0 / 0</span>
-            <div style="display: flex; gap: 8px">
+            <div style="display: flex; gap: 8px; align-items: center">
+              <!-- Mini Player Controls (visible only when collapsed) -->
+              <div class="mini-player-controls" id="miniPlayerControls">
+                <button id="btnMiniPrev" class="icon-btn-sm">
+                  <i class="ri-skip-back-fill"></i>
+                </button>
+                <button id="btnMiniPlay" class="icon-btn-sm">
+                  <i class="ri-play-fill" id="miniPlayIcon"></i>
+                </button>
+                <button id="btnMiniNext" class="icon-btn-sm">
+                  <i class="ri-skip-forward-fill"></i>
+                </button>
+              </div>
               <button
                 id="btnTogglePlayer"
                 class="icon-btn-sm"
@@ -166,8 +178,17 @@
       <!-- Sentence List -->
       <section class="sentence-list-section">
         <div class="list-header">
-          <h2 data-i18n="sentences">Sentences</h2>
-          <span class="count-badge" id="listCount">0</span>
+          <div style="display: flex; align-items: center; gap: 8px">
+            <h2 data-i18n="sentences">Sentences</h2>
+            <span class="count-badge" id="listCount">0</span>
+          </div>
+          <button
+            id="btnLocate"
+            class="icon-btn-sm"
+            title="Locate Current Sentence"
+          >
+            <i class="ri-focus-3-line"></i>
+          </button>
         </div>
         <ul class="sentence-list" id="sentenceList"></ul>
       </section>

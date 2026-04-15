@@ -68,6 +68,7 @@
   const sentenceText = $('sentenceText');
   const sentenceList = $('sentenceList');
   const playIcon = $('playIcon');
+  const miniPlayIcon = $('miniPlayIcon');
   const progressBar = $('progressBar');
   const cardBadge = $('cardBadge');
   const sentenceIndex = $('sentenceIndex');
@@ -318,11 +319,9 @@
     document.querySelectorAll('.sentence-item').forEach((el, i) => {
       el.classList.toggle('active', i === state.currentIndex);
     });
-
-    // Scroll active item into view
-    const activeItem = sentenceList.querySelector('.sentence-item.active');
-    if (activeItem) activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-
+    // // Scroll active item into view
+    // const activeItem = sentenceList.querySelector('.sentence-item.active');
+    // if (activeItem) activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     // Wire up word clicks if in English mode
     if (!state.showCn) {
       sentenceText.querySelectorAll('.word').forEach(el => {
@@ -474,7 +473,9 @@
   }
 
   function updatePlayBtn(playing) {
-    playIcon.className = playing ? 'ri-pause-fill' : 'ri-play-fill';
+    const iconClass = playing ? 'ri-pause-fill' : 'ri-play-fill';
+    playIcon.className = iconClass;
+    if (miniPlayIcon) miniPlayIcon.className = iconClass;
   }
 
   function clearLoopTimer() {
@@ -830,8 +831,17 @@
     $('btnPlay').addEventListener('click', togglePlay);
     $('btnPrev').addEventListener('click', playPrev);
     $('btnNext').addEventListener('click', playNext);
+    
+    if ($('btnMiniPlay')) $('btnMiniPlay').addEventListener('click', togglePlay);
+    if ($('btnMiniPrev')) $('btnMiniPrev').addEventListener('click', playPrev);
+    if ($('btnMiniNext')) $('btnMiniNext').addEventListener('click', playNext);
+
     $('btnStats').addEventListener('click', showStats);
     $('btnWordbook').addEventListener('click', showWordbook);
+    $('btnLocate').addEventListener('click', () => {
+      const activeItem = sentenceList.querySelector('.sentence-item.active');
+      if (activeItem) activeItem.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
     $('closeStats').addEventListener('click', () => statsModal.classList.remove('show'));
     $('closeWordbook').addEventListener('click', () => wordbookModal.classList.remove('show'));
 
