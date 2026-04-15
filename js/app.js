@@ -33,7 +33,13 @@
       noDef: "No definition available",
       noWords: "No words saved yet.<br>Tap any word to add it.",
       lvl_elementary: "Elementary", lvl_intermediate: "Intermediate", lvl_advanced: "Advanced",
-      personalizeTitle: "Personalization", accentLabel: "English Accent", accentUs: "US", accentUk: "UK"
+      personalizeTitle: "Personalization", accentLabel: "English Accent", accentUs: "US", accentUk: "UK",
+      installTitle: "Install App",
+      installDescNative: "Add this app to your home screen for a faster fullscreen experience.",
+      installDescIosSafari: "Tap Share, then choose Add to Home Screen.",
+      installDescIosOther: "Open in Safari, tap Share, then choose Add to Home Screen.",
+      installNow: "Install Now",
+      installLater: "Later"
     },
     zh: {
       type: "类型", all: "全部", interrogative: "疑问句", category: "分类句型", dialogue: "对话文章",
@@ -45,7 +51,13 @@
       noDef: "暂无释义",
       noWords: "暂无保存的单词。<br>点击任意单词即可添加。",
       lvl_elementary: "入门级", lvl_intermediate: "进阶级", lvl_advanced: "高级",
-      personalizeTitle: "个性化设置", accentLabel: "英语口音", accentUs: "美音", accentUk: "英音"
+      personalizeTitle: "个性化设置", accentLabel: "英语口音", accentUs: "美音", accentUk: "英音",
+      installTitle: "添加到桌面",
+      installDescNative: "将应用添加到桌面，获得更快的全屏使用体验。",
+      installDescIosSafari: "点击下方分享按钮，再选择“添加到主屏幕”。",
+      installDescIosOther: "请先在 Safari 打开，再点击分享并选择“添加到主屏幕”。",
+      installNow: "立即安装",
+      installLater: "稍后"
     }
   };
 
@@ -68,6 +80,98 @@
   const playerSection = $('playerSection');
   const playerToggleIcon = $('playerToggleIcon');
   const btnTogglePlayer = $('btnTogglePlayer');
+  let deferredInstallPrompt = null;
+  let installPromptEl = null;
+  const INSTALL_DISMISS_KEY = 'lp_install_prompt_dismissed_v1';
+
+  function isStandaloneMode() {
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  }
+
+  function isIosDevice() {
+    return /iphone|ipad|ipod/i.test(window.navigator.userAgent || '');
+  }
+
+  function isSafariBrowser() {
+    const ua = window.navigator.userAgent || '';
+    const isWebkit = /webkit/i.test(ua);
+    const isExcluded = /crios|fxios|edgios|opios|mercury/i.test(ua);
+    return isWebkit && !isExcluded;
+  }
+
+  function dismissInstallPrompt(persist = true) {
+    if (installPromptEl) {
+      installPromptEl.remove();
+      installPromptEl = null;
+    }
+    if (persist) localStorage.setItem(INSTALL_DISMISS_KEY, 'true');
+  }
+
+  function shouldShowInstallPrompt() {
+    const dismissed = localStorage.getItem(INSTALL_DISMISS_KEY) === 'true';
+    if (dismissed) return false;
+    if (isStandaloneMode()) return false;
+    return !!deferredInstallPrompt || isIosDevice();
+  }
+
+  function renderInstallPrompt() {
+    if (!shouldShowInstallPrompt()) {
+      dismissInstallPrompt(false);
+      return;
+    }
+    const langPack = i18n[state.lang] || i18n.zh;
+    const ios = isIosDevice();
+    const safari = isSafariBrowser();
+    const canNativeInstall = !!deferredInstallPrompt;
+    const desc = canNativeInstall
+      ? langPack.installDescNative
+      : (ios ? (safari ? langPack.installDescIosSafari : langPack.installDescIosOther) : langPack.installDescNative);
+    const actionLabel = canNativeInstall ? langPack.installNow : langPack.installLater;
+    if (!installPromptEl) {
+      installPromptEl = document.createElement('div');
+      installPromptEl.className = 'install-prompt';
+      document.body.appendChild(installPromptEl);
+    }
+    installPromptEl.innerHTML = `
+      <button class="install-close" aria-label="Close"><i class="ri-close-line"></i></button>
+      <div class="install-prompt-title">${langPack.installTitle}</div>
+      <div class="install-prompt-desc">${desc}</div>
+      <div class="install-prompt-actions">
+        <button class="install-action">${actionLabel}</button>
+      </div>
+    `;
+    const actionBtn = installPromptEl.querySelector('.install-action');
+    const closeBtn = installPromptEl.querySelector('.install-close');
+    actionBtn.addEventListener('click', async () => {
+      if (!deferredInstallPrompt) {
+        dismissInstallPrompt(true);
+        return;
+      }
+      deferredInstallPrompt.prompt();
+      try {
+        await deferredInstallPrompt.userChoice;
+      } catch (_) {}
+      deferredInstallPrompt = null;
+      dismissInstallPrompt(true);
+    });
+    closeBtn.addEventListener('click', () => dismissInstallPrompt(true));
+  }
+
+  function setupInstallPrompt() {
+    if (isStandaloneMode()) return;
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredInstallPrompt = e;
+      renderInstallPrompt();
+    });
+    window.addEventListener('appinstalled', () => {
+      deferredInstallPrompt = null;
+      dismissInstallPrompt(true);
+    });
+    setTimeout(() => {
+      renderInstallPrompt();
+    }, 500);
+  }
 
   function getEnglishLang() {
     return state.accent === 'uk' ? 'en-GB' : 'en-US';
@@ -628,6 +732,7 @@
     if (wordPopup.classList.contains('show') && popupWord) {
       renderWordPronunciations(popupWord, DICTIONARY[popupWord] || null);
     }
+    renderInstallPrompt();
   }
 
   function setupLanguage() {
@@ -711,6 +816,7 @@
     setupPlayMode();
     setupFontSize();
     setupPlayerCollapse();
+    setupInstallPrompt();
     
     $('btnToggleCn').addEventListener('click', () => {
       state.showCn = !state.showCn;
