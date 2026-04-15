@@ -1,4 +1,4 @@
-const CACHE_NAME = 'listen-pro-v1.1';
+const CACHE_NAME = 'listen-pro-v1.2';
 const ASSETS = [
   './', 
   './index.html', 
@@ -14,7 +14,14 @@ self.addEventListener('install', e => {
 });
 
 self.addEventListener('fetch', e => {
-  e.respondWith(caches.match(e.request).then(r => r || fetch(e.request)));
+  const request = e.request;
+  if (request.mode === 'navigate') {
+    e.respondWith(
+      fetch(request).catch(() => caches.match('./index.html'))
+    );
+    return;
+  }
+  e.respondWith(caches.match(request).then(r => r || fetch(request)));
 });
 
 self.addEventListener('activate', e => {
