@@ -17,6 +17,9 @@ class AudioEngine {
     this._progressTimer = null;
     this._startTime = 0;
     this._estDuration = 0;
+    this._speakToken = 0;
+    this._pendingSpeakTimer = null;
+    this._transitionGapMs = 120;
     this._initVoice();
   }
 
@@ -64,7 +67,8 @@ class AudioEngine {
   }
 
   speak(text, onEnd, options = {}) {
-    this.stop();
+    this.stop(true);
+    const speakToken = ++this._speakToken;
     this.onEnd = onEnd;
     const lang = options.lang || 'en-US';
     const rate = typeof options.rate === 'number' ? options.rate : this.rate;
@@ -81,9 +85,9 @@ class AudioEngine {
     this.utterance.lang = lang;
 
     this._estDuration = (text.length * 150) / rate;
-    this._startTime = Date.now();
 
     this.utterance.onend = () => {
+      if (this._speakToken !== speakToken) return;
       this.isPlaying = false;
       this._stopProgress();
       if (this.onProgress) this.onProgress(100);
@@ -91,17 +95,28 @@ class AudioEngine {
     };
 
     this.utterance.onerror = () => {
+      if (this._speakToken !== speakToken) return;
       this.isPlaying = false;
       this._stopProgress();
     };
 
     this.utterance.onboundary = (e) => {
+      if (this._speakToken !== speakToken) return;
       if (this.onBoundary) this.onBoundary(e);
     };
 
-    this.synth.speak(this.utterance);
-    this.isPlaying = true;
-    this._startProgress();
+    if (this._pendingSpeakTimer) {
+      clearTimeout(this._pendingSpeakTimer);
+      this._pendingSpeakTimer = null;
+    }
+    this._pendingSpeakTimer = setTimeout(() => {
+      if (this._speakToken !== speakToken) return;
+      this._startTime = Date.now();
+      this.synth.speak(this.utterance);
+      this.isPlaying = true;
+      this._startProgress();
+      this._pendingSpeakTimer = null;
+    }, this._transitionGapMs);
   }
 
   _startProgress() {
@@ -121,11 +136,16 @@ class AudioEngine {
     }
   }
 
-  stop() {
+  stop(silent = false) {
+    if (this._pendingSpeakTimer) {
+      clearTimeout(this._pendingSpeakTimer);
+      this._pendingSpeakTimer = null;
+    }
+    this._speakToken++;
     this.synth.cancel();
     this.isPlaying = false;
     this._stopProgress();
-    if (this.onProgress) this.onProgress(0);
+    if (!silent && this.onProgress) this.onProgress(0);
   }
 
   pause() {
@@ -147,6 +167,11 @@ class AudioEngine {
   }
 
   speakWord(word, onEnd, options = {}) {
+    if (this._pendingSpeakTimer) {
+      clearTimeout(this._pendingSpeakTimer);
+      this._pendingSpeakTimer = null;
+    }
+    this._speakToken++;
     this.synth.cancel();
     const speakText = (word || '').toLowerCase() === 'a' ? 'uh' : word;
     const variant = options.voiceVariant || this.englishVariant;

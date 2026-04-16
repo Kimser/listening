@@ -352,12 +352,21 @@
   }
 
   function getPlaybackRates(baseSpeed) {
-    const first = Math.max(0.6, baseSpeed);
-    const second = Math.max(0.52, first - 0.12);
-    const third = Math.max(0.46, second - 0.1);
-    // Chinese keeps clearer articulation by avoiding overly slow rates.
-    const chinese = Math.max(0.72, Math.min(1.05, first - 0.02));
-    return { first, second, third, chinese };
+    // Support full speed tiers: 0.5 / 0.75 / 1 / 1.25 / 1.5 with clear differences.
+    const first = Math.max(0.46, Math.min(1.46, baseSpeed - 0.04));
+    const second = Math.max(0.38, first - 0.14);
+    const chinese = Math.max(0.62, Math.min(1.18, first - 0.06));
+    return { first, second, chinese };
+  }
+
+  function buildClearEnglishSpeechText(text) {
+    // Keep speech clear but natural: pause by phrase, not by every single word.
+    return (text || '')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .replace(/([,;:])\s*/g, '$1 ')
+      .replace(/([.!?])\s*/g, '$1 ')
+      .replace(/\s*[—-]\s*/g, ', ');
   }
 
   function buildWordByWordStream(text) {
@@ -407,7 +416,8 @@
       return;
     }
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
-    const spokenText = pass.normalizeA ? normalizeStandaloneArticleA(pass.text) : pass.text;
+    let spokenText = pass.normalizeA ? normalizeStandaloneArticleA(pass.text) : pass.text;
+    if (pass.clearSpeech) spokenText = buildClearEnglishSpeechText(spokenText);
     audio.speak(spokenText, handlePassEnd, { lang: pass.lang, rate: pass.rate, pitch: pass.pitch || 1, volume: pass.volume || 1, voiceVariant: pass.voiceVariant });
   }
 
@@ -427,11 +437,10 @@
     const rates = getPlaybackRates(state.speed);
     const isCategoryParent = s.type === 'category' && (s.parentId === undefined || s.parentId === null);
     const passes = isCategoryParent
-      ? [{ text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1.01, normalizeA: true, voiceVariant: state.accent }]
+      ? [{ text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1, normalizeA: true, clearSpeech: true, voiceVariant: state.accent }]
       : [
-        { text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1.01, voiceVariant: state.accent },
-        { text: s.text, lang: getEnglishLang(), rate: rates.second, pitch: 1.02, voiceVariant: state.accent },
-        { text: s.text, lang: getEnglishLang(), rate: Math.max(0.86, rates.third + 0.08), mode: 'word_by_word', voiceVariant: state.accent },
+        { text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1, clearSpeech: true, voiceVariant: state.accent },
+        { text: s.text, lang: getEnglishLang(), rate: rates.second, pitch: 1, clearSpeech: true, voiceVariant: state.accent },
         { text: s.cn || s.text, lang: 'zh-CN', rate: rates.chinese, pitch: 1.08, volume: 1 }
       ];
 
