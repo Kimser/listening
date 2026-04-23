@@ -352,11 +352,15 @@
   }
 
   function getPlaybackRates(baseSpeed) {
-    // Support full speed tiers: 0.5 / 0.75 / 1 / 1.25 / 1.5 with clear differences.
-    const first = Math.max(0.46, Math.min(1.46, baseSpeed - 0.04));
-    const second = Math.max(0.38, first - 0.14);
-    const chinese = Math.max(0.62, Math.min(1.18, first - 0.06));
-    return { first, second, chinese };
+    // Pass 1: natural fluency at user-selected speed
+    // Pass 2: moderately slowed, full sentence — clearer phrasing
+    // Pass 3: slowest full-sentence read — deliberate but not word-by-word overhead
+    // Chinese: comfortable comprehension speed
+    const first  = Math.max(0.5,  Math.min(1.5,  baseSpeed));
+    const second = Math.max(0.5,  Math.min(1.2,  baseSpeed - 0.15));
+    const third  = Math.max(0.6,  Math.min(1.3,  baseSpeed - 0.1));
+    const chinese = Math.max(0.6,  Math.min(1.1,  baseSpeed - 0.1));
+    return { first, second, third, chinese };
   }
 
   function buildClearEnglishSpeechText(text) {
@@ -381,16 +385,17 @@
     }
     const token = stream[index];
     if (/^[.,!?;:]$/.test(token)) {
-      state.loopTimer = setTimeout(() => speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream), 110);
+      speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream);
       return;
     }
     const speakToken = token.toLowerCase() === 'a' ? 'uh' : token;
-    const tokenRate = token.length <= 4 ? Math.max(0.75, rate - 0.08) : rate;
+    // Use the given rate uniformly; avoid extra slowdown that causes swallowed sounds
+    const tokenRate = Math.max(0.45, rate);
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
     audio.speak(speakToken, () => {
-      state.loopTimer = setTimeout(() => speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream), 95);
+      speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream);
       updatePlayBtn(true);
-    }, { lang: getEnglishLang(), rate: tokenRate, pitch: 1.03, voiceVariant: state.accent });
+    }, { lang: getEnglishLang(), rate: tokenRate, pitch: 1.1, voiceVariant: state.accent });
   }
 
   function normalizeStandaloneArticleA(text) {
@@ -437,11 +442,19 @@
     const rates = getPlaybackRates(state.speed);
     const isCategoryParent = s.type === 'category' && (s.parentId === undefined || s.parentId === null);
     const passes = isCategoryParent
-      ? [{ text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1, normalizeA: true, clearSpeech: true, voiceVariant: state.accent }]
+      ? [
+          { text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1.1, normalizeA: true, clearSpeech: true, voiceVariant: state.accent },
+          { text: s.cn || s.text, lang: 'zh-CN', rate: rates.chinese, pitch: 1.05, volume: 1 }
+        ]
       : [
-        { text: s.text, lang: getEnglishLang(), rate: rates.first, pitch: 1, clearSpeech: true, voiceVariant: state.accent },
-        { text: s.text, lang: getEnglishLang(), rate: rates.second, pitch: 1, clearSpeech: true, voiceVariant: state.accent },
-        { text: s.cn || s.text, lang: 'zh-CN', rate: rates.chinese, pitch: 1.08, volume: 1 }
+        // Pass 1: natural fluency at user-selected speed
+        { text: s.text, lang: getEnglishLang(), rate: rates.first,  pitch: 1.1, clearSpeech: true, voiceVariant: state.accent },
+        // Pass 2: moderately slowed, full sentence — clearer phrasing
+        { text: s.text, lang: getEnglishLang(), rate: rates.second, pitch: 1.1, clearSpeech: true, voiceVariant: state.accent },
+        // Pass 3: word-by-word, deliberate & clear
+        { text: s.text, lang: getEnglishLang(), rate: rates.third,  pitch: 1.1, mode: 'word_by_word', voiceVariant: state.accent },
+        // Pass 4: Chinese translation
+        { text: s.cn || s.text, lang: 'zh-CN', rate: rates.chinese, pitch: 1.05, volume: 1 }
       ];
 
     const startSpeaking = () => {

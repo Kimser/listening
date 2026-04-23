@@ -29,17 +29,17 @@ class AudioEngine {
       this.voiceEnUs = this._pickVoice(
         voices,
         ['en-us'],
-        ['samantha', 'alex', 'ava', 'allison', 'daniel', 'karen', 'google us english', 'enhanced', 'premium', 'natural']
+        ['samantha', 'ava', 'allison', 'karen', 'susan', 'victoria', 'zoe', 'google us english', 'enhanced', 'premium', 'natural']
       );
       this.voiceEnUk = this._pickVoice(
         voices,
         ['en-gb'],
-        ['serena', 'daniel', 'kate', 'google uk english', 'enhanced', 'premium', 'natural']
+        ['serena', 'kate', 'moira', 'google uk english', 'enhanced', 'premium', 'natural']
       );
       this.voiceEn = this.voiceEnUs || this.voiceEnUk || this._pickVoice(
         voices,
         ['en-us', 'en-gb', 'en'],
-        ['samantha', 'alex', 'ava', 'allison', 'daniel', 'karen', 'moira', 'google us english', 'google uk english', 'enhanced', 'premium', 'natural']
+        ['samantha', 'ava', 'allison', 'karen', 'susan', 'serena', 'kate', 'moira', 'google us english', 'google uk english', 'enhanced', 'premium', 'natural']
       ) || voices[0];
       this.voiceZh = this._pickVoice(
         voices,
