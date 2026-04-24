@@ -7,7 +7,7 @@
     sentences: [...SENTENCES],
     filtered: [...SENTENCES],
     currentIndex: -1,
-    typeFilter: 'all',
+    typeFilter: 'category',
     levelFilter: 'all',
     playMode: 'sequential',
     speed: parseFloat(localStorage.getItem('lp_speed') || '1'),
@@ -24,7 +24,7 @@
 
   const i18n = {
     en: {
-      type: "Type", all: "All", interrogative: "Interrogative", category: "Category", dialogue: "Dialogue",
+      type: "Type", all: "All", category: "Category", dialogue: "Dialogue",
       level: "Level", speed: "Speed", mode: "Mode", sequential: "Sequential", loop: "Loop",
       sentences: "Sentences", statsTitle: "Learning Stats", wordbookTitle: "Word Book",
       selectPrompt: "Select a sentence to start practicing",
@@ -50,7 +50,7 @@
       titleFont: "Font Size"
     },
     zh: {
-      type: "类型", all: "全部", interrogative: "疑问句", category: "分类句型", dialogue: "对话文章",
+      type: "类型", all: "全部", category: "分类句型", dialogue: "对话文章",
       level: "难度等级", speed: "语速调节", mode: "播放模式", sequential: "顺序播放", loop: "单句循环",
       sentences: "语句列表", statsTitle: "学习统计", wordbookTitle: "生词本",
       selectPrompt: "请选择一个句子开始练习",
