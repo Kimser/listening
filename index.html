@@ -42,24 +42,32 @@
       <header class="app-header">
         <div class="logo"><i class="ri-headphone-fill"></i> ListenPro</div>
         <div class="header-actions">
-          <button id="btnPersonalize" class="icon-btn" title="Personalize">
-            <i class="ri-settings-3-line"></i>
-          </button>
-          <button id="btnTheme" class="icon-btn" title="Toggle Theme">
+          <button id="btnTheme" class="icon-btn" data-i18n-title="titleTheme" title="Toggle Theme">
             <i class="ri-moon-line" id="themeIcon"></i>
           </button>
-          <button id="btnLang" class="icon-btn" title="Toggle Language">
-            <i class="ri-translate-2"></i>
-          </button>
-          <button id="btnStats" class="icon-btn" title="Statistics">
-            <i class="ri-bar-chart-2-fill"></i>
-          </button>
-          <button id="btnWordbook" class="icon-btn" title="Word Book">
-            <i class="ri-book-mark-fill"></i>
-          </button>
-          <button id="btnLogout" class="icon-btn" title="退出登录">
-            <i class="ri-logout-circle-r-line"></i>
-          </button>
+          <div class="dropdown" id="headerDropdown">
+            <button id="btnMore" class="icon-btn" data-i18n-title="titleMore" title="More Options">
+              <i class="ri-more-2-fill"></i>
+            </button>
+            <div class="dropdown-menu">
+              <button id="btnPersonalize" class="dropdown-item">
+                <i class="ri-settings-3-line"></i> <span data-i18n="personalizeTitle">Personalize</span>
+              </button>
+              <button id="btnLang" class="dropdown-item">
+                <i class="ri-translate-2"></i> <span data-i18n="language">Language</span>
+              </button>
+              <button id="btnStats" class="dropdown-item">
+                <i class="ri-bar-chart-2-fill"></i> <span data-i18n="statsTitle">Statistics</span>
+              </button>
+              <button id="btnWordbook" class="dropdown-item">
+                <i class="ri-book-mark-fill"></i> <span data-i18n="wordbookTitle">Word Book</span>
+              </button>
+              <div class="dropdown-divider"></div>
+              <button id="btnLogout" class="dropdown-item text-danger">
+                <i class="ri-logout-circle-r-line"></i> <span data-i18n="logout">Logout</span>
+              </button>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -130,14 +138,15 @@
               <button
                 id="btnTogglePlayer"
                 class="icon-btn-sm"
+                data-i18n-title="titlePlayer"
                 title="Toggle Player"
               >
                 <i class="ri-arrow-down-s-line" id="playerToggleIcon"></i>
               </button>
-              <button id="btnToggleCn" class="icon-btn-sm" title="Toggle EN/CN">
+              <button id="btnToggleCn" class="icon-btn-sm" data-i18n-title="titleTrans" title="Toggle EN/CN">
                 <i class="ri-translate"></i>
               </button>
-              <button id="btnFontSize" class="icon-btn-sm" title="Font Size">
+              <button id="btnFontSize" class="icon-btn-sm" data-i18n-title="titleFont" title="Font Size">
                 <i class="ri-font-size-2"></i>
               </button>
             </div>
@@ -199,6 +208,7 @@
           <button
             id="btnLocate"
             class="icon-btn-sm"
+            data-i18n-title="titleLocate"
             title="Locate Current Sentence"
           >
             <i class="ri-focus-3-line"></i>

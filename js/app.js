@@ -39,7 +39,15 @@
       installDescIosSafari: "Tap Share, then choose Add to Home Screen.",
       installDescIosOther: "Open in Safari, tap Share, then choose Add to Home Screen.",
       installNow: "Install Now",
-      installLater: "Later"
+      installLater: "Later",
+      language: "Language",
+      logout: "Logout",
+      titleTheme: "Toggle Theme",
+      titleMore: "More Options",
+      titleLocate: "Locate Current Sentence",
+      titlePlayer: "Toggle Player",
+      titleTrans: "Toggle EN/CN",
+      titleFont: "Font Size"
     },
     zh: {
       type: "类型", all: "全部", interrogative: "疑问句", category: "分类句型", dialogue: "对话文章",
@@ -57,7 +65,15 @@
       installDescIosSafari: "点击下方分享按钮，再选择“添加到主屏幕”。",
       installDescIosOther: "请先在 Safari 打开，再点击分享并选择“添加到主屏幕”。",
       installNow: "立即安装",
-      installLater: "稍后"
+      installLater: "稍后",
+      language: "中英切换",
+      logout: "退出登录",
+      titleTheme: "切换主题",
+      titleMore: "更多选项",
+      titleLocate: "定位到当前句子",
+      titlePlayer: "展开/收起播放器",
+      titleTrans: "中英切换",
+      titleFont: "字体大小"
     }
   };
 
@@ -730,14 +746,23 @@
 
   // ---- Language ----
   function updateI18n() {
+    const dict = i18n[state.lang];
+    if (!dict) return;
+
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const key = el.dataset.i18n;
-      // Do not overwrite the main sentence display if a sentence is currently playing
       if (key === 'selectPrompt' && state.currentIndex >= 0 && state.filtered.length > 0) return;
-      
-      if (i18n[state.lang] && i18n[state.lang][key]) {
-        el.textContent = i18n[state.lang][key];
-      }
+      if (dict[key]) el.textContent = dict[key];
+    });
+
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+      const key = el.dataset.i18nTitle;
+      if (dict[key]) el.title = dict[key];
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.dataset.i18nPlaceholder;
+      if (dict[key]) el.placeholder = dict[key];
     });
 
     // Update dynamic texts
@@ -829,9 +854,32 @@
     });
   }
 
+  // ---- Dropdown Menu ----
+  function setupDropdown() {
+    const dropdown = $('headerDropdown');
+    const btnMore = $('btnMore');
+    if (!dropdown || !btnMore) return;
+    
+    document.addEventListener('click', (e) => {
+      if (btnMore.contains(e.target)) {
+        dropdown.classList.toggle('show');
+      } else if (!dropdown.contains(e.target) || e.target.closest('.dropdown-item')) {
+        dropdown.classList.remove('show');
+      }
+    });
+
+    // Hide dropdown on scroll
+    window.addEventListener('scroll', () => {
+      if (dropdown.classList.contains('show')) {
+        dropdown.classList.remove('show');
+      }
+    }, { passive: true, capture: true });
+  }
+
   // ---- Initialize ----
   function init() {
     setupTheme();
+    setupDropdown();
     setupLanguage();
     setupPersonalization();
     setupFilters();

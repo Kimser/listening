@@ -91,8 +91,16 @@
   // ---- 3. Logout button ----
   var btnLogout = document.getElementById('btnLogout');
   if (btnLogout) {
-    btnLogout.addEventListener('click', function () {
-      Auth.logout();
+    btnLogout.addEventListener('click', function (e) {
+      e.preventDefault();
+      var originalHtml = btnLogout.innerHTML;
+      btnLogout.innerHTML = '<i class="ri-loader-4-line ri-spin"></i>';
+      btnLogout.style.pointerEvents = 'none';
+      
+      // Small delay to allow spinner to render, avoiding the "frozen" feeling
+      setTimeout(function () {
+        Auth.logout();
+      }, 150);
     });
   }
 })();
