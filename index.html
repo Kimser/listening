@@ -24,6 +24,17 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Auth guard: runs before page renders to avoid flash of protected content -->
+    <script src="js/auth.js"></script>
+    <script>
+      // Immediately redirect if no session in storage (fast, synchronous check)
+      // Full re-verification against users.json happens asynchronously via auth-guard.js
+      (function() {
+        if (!Auth.getSession()) {
+          Auth.redirectToLogin();
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="app">
@@ -45,6 +56,9 @@
           </button>
           <button id="btnWordbook" class="icon-btn" title="Word Book">
             <i class="ri-book-mark-fill"></i>
+          </button>
+          <button id="btnLogout" class="icon-btn" title="退出登录">
+            <i class="ri-logout-circle-r-line"></i>
           </button>
         </div>
       </header>
@@ -273,6 +287,7 @@
     <script src="js/data.js"></script>
     <script src="js/audio.js"></script>
     <script src="js/app.js"></script>
+    <script src="js/auth-guard.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         let refreshing = false;
