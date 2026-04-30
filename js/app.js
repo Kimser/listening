@@ -288,14 +288,12 @@
 
   // ---- Render Sentence List ----
   function renderList() {
-    sentenceList.innerHTML = '';
-    state.filtered.forEach((s, i) => {
-      const li = document.createElement('li');
-      li.className = 'sentence-item' + (i === state.currentIndex ? ' active' : '');
-      li.innerHTML = `<span class="num">${i + 1}</span><span class="text">${s.text}</span><span class="level-dot ${s.level}"></span>`;
-      li.addEventListener('click', () => selectSentence(i));
-      sentenceList.appendChild(li);
-    });
+    const html = state.filtered.map((s, i) => 
+      `<li class="sentence-item${i === state.currentIndex ? ' active' : ''}" data-index="${i}">` +
+      `<span class="num">${i + 1}</span><span class="text">${s.text}</span><span class="level-dot ${s.level}"></span>` +
+      `</li>`
+    ).join('');
+    sentenceList.innerHTML = html;
   }
 
   // ---- Display Current Sentence ----
@@ -332,9 +330,11 @@
     sentenceIndex.textContent = `${state.currentIndex + 1} / ${state.filtered.length}`;
 
     // Highlight active in list
-    document.querySelectorAll('.sentence-item').forEach((el, i) => {
-      el.classList.toggle('active', i === state.currentIndex);
-    });
+    const activeItem = sentenceList.querySelector('.sentence-item.active');
+    if (activeItem) activeItem.classList.remove('active');
+    if (state.currentIndex >= 0 && sentenceList.children[state.currentIndex]) {
+      sentenceList.children[state.currentIndex].classList.add('active');
+    }
     // // Scroll active item into view
     // const activeItem = sentenceList.querySelector('.sentence-item.active');
     // if (activeItem) activeItem.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
@@ -920,6 +920,17 @@
       modal.addEventListener('click', (e) => {
         if (e.target === modal) modal.classList.remove('show');
       });
+    });
+
+    // Event delegation for sentence list
+    sentenceList.addEventListener('click', (e) => {
+      const li = e.target.closest('.sentence-item');
+      if (li) {
+        const index = parseInt(li.dataset.index, 10);
+        if (!isNaN(index)) {
+          selectSentence(index);
+        }
+      }
     });
 
     applyFilters();

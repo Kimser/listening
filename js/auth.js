@@ -119,6 +119,66 @@
     window.location.replace(base + 'index.html');
   }
 
+  function clearSession() {
+    sessionStorage.removeItem(AUTH_KEY);
+  }
+
+  function showAuthToastAndRedirect() {
+    if (window.location.href.includes('login.html')) {
+      redirectToLogin();
+      return;
+    }
+    
+    var currentLang = localStorage.getItem('lp_lang') || 'zh';
+    var msg = currentLang === 'en' 
+      ? 'Login expired or password changed.' 
+      : '登录已过期或密码已修改。';
+      
+    var toast = document.createElement('div');
+    toast.innerHTML = '<i class="ri-error-warning-line" style="margin-right: 8px; font-size: 18px; color: var(--accent2); display: flex; align-items: center;"></i>' + 
+                      '<span>' + msg + '</span>';
+    toast.style.position = 'fixed';
+    toast.style.top = '24px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.backgroundColor = 'var(--surface)';
+    toast.style.color = 'var(--text)';
+    toast.style.border = '1px solid var(--border)';
+    toast.style.backdropFilter = 'blur(20px)';
+    toast.style.WebkitBackdropFilter = 'blur(20px)';
+    toast.style.padding = '12px';
+    toast.style.minWidth = '300px';
+    toast.style.display = 'flex';
+    toast.style.alignItems = 'center';
+    toast.style.justifyContent = 'center';
+    toast.style.borderRadius = 'var(--radius-sm, 12px)';
+    toast.style.zIndex = '99999';
+    toast.style.boxShadow = 'var(--card-shadow, 0 8px 32px rgba(0,0,0,0.2))';
+    toast.style.fontFamily = 'var(--font, "Inter", -apple-system, sans-serif)';
+    toast.style.fontSize = '14px';
+    toast.style.fontWeight = '500';
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+    // Start slightly higher
+    toast.style.transform = 'translate(-50%, -20px)';
+    
+    document.body.appendChild(toast);
+    
+    // Animate in
+    requestAnimationFrame(function() {
+      toast.style.opacity = '1';
+      toast.style.transform = 'translate(-50%, 0)';
+    });
+    
+    // setTimeout(function() {
+    //   toast.style.opacity = '0';
+    //   toast.style.transform = 'translate(-50%, -10px)';
+    //   setTimeout(function() {
+    //     redirectToLogin();
+    //   }, 300);
+    // }, 2000);
+  }
+
   /**
    * Guard function: call on every protected page load and on play/switch.
    * If session is invalid, redirects to login.
@@ -127,8 +187,9 @@
   function guard(onFail) {
     return verifySession().then(function (valid) {
       if (!valid) {
+        clearSession();
         if (typeof onFail === 'function') onFail();
-        else redirectToLogin();
+        else showAuthToastAndRedirect();
       }
       return valid;
     });
@@ -138,10 +199,12 @@
   window.Auth = {
     login: login,
     logout: logout,
+    clearSession: clearSession,
     guard: guard,
     verifySession: verifySession,
     getSession: getSession,
     redirectToLogin: redirectToLogin,
+    showAuthToastAndRedirect: showAuthToastAndRedirect,
     redirectToHome: redirectToHome
   };
 })();

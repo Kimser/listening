@@ -12,10 +12,7 @@
   'use strict';
 
   // ---- 1. Full verify on page load ----
-  Auth.guard(function () {
-    // Called if session is invalid
-    Auth.redirectToLogin();
-  });
+  Auth.guard();
 
   // ---- 2. Intercept play / sentence switch ----
   // Strategy: wrap the buttons' click handlers with a guard check.
@@ -24,9 +21,7 @@
   function withAuthGuard(fn) {
     return function (e) {
       // Run the guard asynchronously; if it fails, redirect and abort
-      Auth.guard(function () {
-        Auth.redirectToLogin();
-      }).then(function (valid) {
+      Auth.guard().then(function (valid) {
         if (valid && typeof fn === 'function') fn(e);
       });
     };
@@ -41,9 +36,7 @@
 
     // Re-attach the same visual/audio actions via a guarded dispatch
     clone.addEventListener('click', function (e) {
-      Auth.guard(function () {
-        Auth.redirectToLogin();
-      }).then(function (valid) {
+      Auth.guard().then(function (valid) {
         if (!valid) return;
         // Dispatch a custom event so app.js can listen (or we fire a native click on the original)
         // Since we replaced the element, dispatch a named event
@@ -71,7 +64,11 @@
       }
       // Async re-verify (non-blocking for UX; if it fails mid-play, guard catches it)
       Auth.verifySession && Auth.verifySession().then(function (valid) {
-        if (!valid) Auth.redirectToLogin();
+        if (!valid) {
+          if (Auth.clearSession) Auth.clearSession();
+          if (Auth.showAuthToastAndRedirect) Auth.showAuthToastAndRedirect();
+          else Auth.redirectToLogin();
+        }
       }).catch(function () {});
     }, true); // capture phase — runs before app.js listeners
   });

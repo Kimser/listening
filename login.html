@@ -672,8 +672,12 @@
         const session = Auth.getSession();
         if (session) {
           // Quick verify and redirect
-          Auth.guard(null).then(function (valid) {
-            if (valid) Auth.redirectToHome();
+          Auth.verifySession().then(function (valid) {
+            if (valid) {
+              Auth.redirectToHome();
+            } else {
+              Auth.clearSession();
+            }
           });
         }
 
