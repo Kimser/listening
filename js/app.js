@@ -404,7 +404,9 @@
       speakWordByWordLikeSentence(text, rate, onEnd, index + 1, stream);
       return;
     }
-    const speakToken = token.toLowerCase() === 'a' ? 'uh' : token;
+    const lowerToken = token.toLowerCase();
+    // Normalize standalone one-letter function words to avoid unstable TTS pronunciation.
+    const speakToken = lowerToken === 'a' ? 'uh' : (lowerToken === 'i' ? 'eye' : token);
     // Use the given rate uniformly; avoid extra slowdown that causes swallowed sounds
     const tokenRate = Math.max(0.45, rate);
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
