@@ -843,7 +843,6 @@ const SENTENCES = [
   {"id":5445,"text":"I'm into learning new languages.","type":"category","sub":"sentence","level":"elementary","cn":"我对学习新语言很感兴趣.","parentId":4088},
 {"id":4089,"text":"Get along with","type":"category","sub":"sentences","level":"elementary","cn":"与……相处融洽"},
   {"id":5446,"text":"I get along with my co","type":"category","sub":"sentence","level":"elementary","cn":"我与我的同事相处得很好.","parentId":4089},
-  {"id":5447,"text":"Workers.","type":"category","sub":"sentence","level":"elementary","cn":"","parentId":4089},
   {"id":5448,"text":"She gets along with her neighbors.","type":"category","sub":"sentence","level":"elementary","cn":"她与邻居相处得很好.","parentId":4089},
   {"id":5449,"text":"We get along with our classmates.","type":"category","sub":"sentence","level":"elementary","cn":"我们与同学相处得很好.","parentId":4089},
   {"id":5450,"text":"He gets along with his siblings.","type":"category","sub":"sentence","level":"elementary","cn":"他与兄弟姐妹相处得很好.","parentId":4089},
