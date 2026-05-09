@@ -34,12 +34,12 @@ class AudioEngine {
       this.voiceEnUk = this._pickVoice(
         voices,
         ['en-gb'],
-        ['serena', 'kate', 'moira', 'google uk english', 'enhanced', 'premium', 'natural']
+        ['uk english male', 'serena', 'kate', 'moira', 'google uk english', 'enhanced', 'premium', 'natural']
       );
       this.voiceEn = this.voiceEnUs || this.voiceEnUk || this._pickVoice(
         voices,
         ['en-us', 'en-gb', 'en'],
-        ['samantha', 'ava', 'allison', 'karen', 'susan', 'serena', 'kate', 'moira', 'google us english', 'google uk english', 'enhanced', 'premium', 'natural']
+        ['uk english male', 'samantha', 'ava', 'allison', 'karen', 'susan', 'serena', 'kate', 'moira', 'google us english', 'google uk english', 'enhanced', 'premium', 'natural']
       ) || voices[0];
       this.voiceZh = this._pickVoice(
         voices,
@@ -164,6 +164,52 @@ class AudioEngine {
 
   setEnglishVariant(variant) {
     this.englishVariant = variant === 'uk' ? 'uk' : 'us';
+  }
+
+  /**
+   * Returns all available browser voices for a given language prefix.
+   * @param {string} [langPrefix='en'] - e.g. 'en', 'zh'
+   * @returns {SpeechSynthesisVoice[]}
+   */
+  getAvailableVoices(langPrefix = 'en') {
+    const voices = this.synth.getVoices();
+    return voices.filter(v => v.lang.toLowerCase().startsWith(langPrefix));
+  }
+
+  /**
+   * Override the currently active English voice by exact voice name.
+   * Saves the preference to localStorage for persistence across reloads.
+   * Pass null / '' to reset to auto-selected default.
+   * @param {string|null} name - SpeechSynthesisVoice.name
+   */
+  setVoiceByName(name) {
+    if (!name) {
+      // Reset: re-run auto selection
+      this._initVoice();
+      localStorage.removeItem('lp_voiceName');
+      return;
+    }
+    const voices = this.synth.getVoices();
+    const found = voices.find(v => v.name === name);
+    if (!found) return;
+    localStorage.setItem('lp_voiceName', name);
+    // Determine which slot to assign based on lang
+    if (found.lang.toLowerCase().startsWith('en-gb')) {
+      this.voiceEnUk = found;
+    } else {
+      this.voiceEnUs = found;
+    }
+    // Always update the active voice reference
+    this.voiceEn = found;
+  }
+
+  /**
+   * Returns the name of the currently active English voice (auto or manually set).
+   * @returns {string}
+   */
+  getCurrentVoiceName() {
+    const v = this._getEnglishVoice(this.englishVariant);
+    return v ? v.name : '';
   }
 
   speakWord(word, onEnd, options = {}) {

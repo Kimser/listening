@@ -8,9 +8,9 @@
     filtered: [...SENTENCES],
     currentIndex: -1,
     typeFilter: 'category',
-    levelFilter: 'all',
+    levelFilter: 'elementary',
     playMode: 'sequential',
-    speed: parseFloat(localStorage.getItem('lp_speed') || '1'),
+    speed: parseFloat(localStorage.getItem('lp_speed') || '0.75'),
     fontSize: parseInt(localStorage.getItem('lp_fontSize') || '18'),
     loopTimer: null,
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
@@ -19,7 +19,8 @@
     showCn: localStorage.getItem('lp_showCn') === 'true',
     accent: localStorage.getItem('lp_accent') || 'uk',
     isPlayerCollapsed: localStorage.getItem('lp_playerCollapsed') === 'true',
-    theme: localStorage.getItem('lp_theme') || 'dark'
+    theme: localStorage.getItem('lp_theme') || 'dark',
+    voiceName: localStorage.getItem('lp_voiceName') || 'UK English Male'
   };
 
   const i18n = {
@@ -34,6 +35,7 @@
       noWords: "No words saved yet.<br>Tap any word to add it.",
       lvl_elementary: "Elementary", lvl_intermediate: "Intermediate", lvl_advanced: "Advanced",
       personalizeTitle: "Personalization", accentLabel: "English Accent", accentUs: "US", accentUk: "UK",
+      voiceLabel: "Voice", voiceDefault: "Auto (Recommended)", voiceLoading: "Loading voices…", voicePreviewTitle: "Preview Voice",
       installTitle: "Install App",
       installDescNative: "Add this app to your home screen for a faster fullscreen experience.",
       installDescIosSafari: "Tap Share, then choose Add to Home Screen.",
@@ -45,6 +47,7 @@
       titleTheme: "Toggle Theme",
       titleMore: "More Options",
       titleLocate: "Locate Current Sentence",
+      titleTop: "Back to Top",
       titlePlayer: "Toggle Player",
       titleTrans: "Toggle EN/CN",
       titleFont: "Font Size"
@@ -60,6 +63,7 @@
       noWords: "暂无保存的单词。<br>点击任意单词即可添加。",
       lvl_elementary: "入门级", lvl_intermediate: "进阶级", lvl_advanced: "高级",
       personalizeTitle: "个性化设置", accentLabel: "英语口音", accentUs: "美音", accentUk: "英音",
+      voiceLabel: "音色", voiceDefault: "自动（推荐）", voiceLoading: "加载音色中…", voicePreviewTitle: "试听音色",
       installTitle: "添加到桌面",
       installDescNative: "将应用添加到桌面，获得更快的全屏使用体验。",
       installDescIosSafari: "点击下方分享按钮，再选择“添加到主屏幕”。",
@@ -71,6 +75,7 @@
       titleTheme: "切换主题",
       titleMore: "更多选项",
       titleLocate: "定位到当前句子",
+      titleTop: "回到顶部",
       titlePlayer: "展开/收起播放器",
       titleTrans: "中英切换",
       titleFont: "字体大小"
@@ -791,6 +796,7 @@
       state.lang = state.lang === 'en' ? 'zh' : 'en';
       localStorage.setItem('lp_lang', state.lang);
       updateI18n();
+      populateVoiceSelect(); // refresh "Auto" option label
     });
   }
 
@@ -818,15 +824,158 @@
       btn.addEventListener('click', () => {
         state.accent = btn.dataset.accent === 'uk' ? 'uk' : 'us';
         localStorage.setItem('lp_accent', state.accent);
-        audio.setEnglishVariant(state.accent);
+        // NOTE: accent only affects IPA display and lang tag (en-US / en-GB).
+        // Voice selection is independent and controlled solely by the voice dropdown.
         syncAccentActive();
-        
+        // Refresh word popup pronunciations if open
         const popupWord = $('popupWord').textContent;
         if (wordPopup.classList.contains('show') && popupWord) {
           renderWordPronunciations(popupWord, DICTIONARY[popupWord] || null);
         }
       });
     });
+  }
+
+  // ---- Voice Select ----
+  function populateVoiceSelect() {
+    const container = $('voiceOptions');
+    const triggerValue = document.querySelector('.select-value');
+    if (!container) return;
+
+    const langPack = i18n[state.lang] || i18n.zh;
+    const voices = audio.getAvailableVoices('en');
+    container.innerHTML = '';
+    
+    // Helper to create an option
+    const createOption = (v) => {
+      const opt = document.createElement('div');
+      opt.className = 'custom-option';
+      if (v.name === state.voiceName) opt.classList.add('selected');
+      
+      let displayName = v.name
+        .replace(/Microsoft\s+/g, '')
+        .replace(/Google\s+/g, '')
+        .replace(/Apple\s+/g, '')
+        .replace(/\s*-\s*English\s*\(.*\)/gi, '')
+        .replace(/\s*\(.*\)/g, '')
+        .trim();
+        
+      opt.textContent = v.localService ? displayName : (displayName + ' ☁');
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        state.voiceName = v.name;
+        localStorage.setItem('lp_voiceName', v.name);
+        audio.setVoiceByName(v.name);
+        triggerValue.textContent = opt.textContent;
+        $('voiceSelect').classList.remove('open');
+        populateVoiceSelect(); // Refresh selected state
+      });
+      return opt;
+    };
+
+    // Auto option
+    const autoOpt = document.createElement('div');
+    autoOpt.className = 'custom-option';
+    if (!state.voiceName) autoOpt.classList.add('selected');
+    autoOpt.textContent = langPack.voiceDefault;
+    autoOpt.addEventListener('click', (e) => {
+      e.stopPropagation();
+      state.voiceName = '';
+      localStorage.removeItem('lp_voiceName');
+      audio.setVoiceByName(null);
+      triggerValue.textContent = langPack.voiceDefault;
+      $('voiceSelect').classList.remove('open');
+      populateVoiceSelect();
+    });
+    container.appendChild(autoOpt);
+    
+    // Grouped voices
+    const usVoices = voices.filter(v => {
+      const lc = v.lang.toLowerCase();
+      return lc.startsWith('en-us') || lc.startsWith('en-ca');
+    });
+    const ukVoices = voices.filter(v => {
+      const lc = v.lang.toLowerCase();
+      return !lc.startsWith('en-us') && !lc.startsWith('en-ca');
+    });
+
+    if (usVoices.length) {
+      const label = document.createElement('div');
+      label.className = 'option-group-label';
+      label.textContent = state.lang === 'zh' ? '🇺🇸 美式英语 (US)' : '🇺🇸 US English';
+      container.appendChild(label);
+      usVoices.forEach(v => container.appendChild(createOption(v)));
+    }
+
+    if (ukVoices.length) {
+      const label = document.createElement('div');
+      label.className = 'option-group-label';
+      label.textContent = state.lang === 'zh' ? '🇬🇧 英式/其他 (UK)' : '🇬🇧 UK / Other';
+      container.appendChild(label);
+      ukVoices.forEach(v => container.appendChild(createOption(v)));
+    }
+
+    // Set initial trigger value
+    if (state.voiceName) {
+      const currentVoice = voices.find(v => v.name === state.voiceName);
+      if (currentVoice) {
+        let displayName = currentVoice.name.replace(/Microsoft\s+|Google\s+|Apple\s+/g, '').replace(/\s*-\s*English\s*\(.*\)/gi, '').replace(/\s*\(.*\)/g, '').trim();
+        triggerValue.textContent = currentVoice.localService ? displayName : (displayName + ' ☁');
+      } else {
+        triggerValue.textContent = langPack.voiceDefault;
+      }
+    } else {
+      triggerValue.textContent = langPack.voiceDefault;
+    }
+  }
+
+  function setupVoiceSelect() {
+    const select = $('voiceSelect');
+    const trigger = select ? select.querySelector('.select-trigger') : null;
+    const previewBtn = $('btnPreviewVoice');
+    if (!select || !trigger) return;
+
+    populateVoiceSelect();
+
+    trigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      select.classList.toggle('open');
+      
+      // Close other dropdowns if any
+      if (select.classList.contains('open')) {
+        const moreMenu = $('headerDropdown');
+        if (moreMenu) moreMenu.classList.remove('show');
+      }
+    });
+
+    document.addEventListener('click', () => {
+      select.classList.remove('open');
+    });
+
+    // Re-populate when browser finishes loading all voices
+    const synth = window.speechSynthesis;
+    synth.onvoiceschanged = () => populateVoiceSelect();
+
+    // Restore saved voice after engine is ready
+    if (state.voiceName) {
+      setTimeout(() => audio.setVoiceByName(state.voiceName), 400);
+    }
+
+    if (previewBtn) {
+      previewBtn.addEventListener('click', () => {
+        const voices = synth.getVoices();
+        const selVoice = state.voiceName ? voices.find(v => v.name === state.voiceName) : null;
+        const utt = new SpeechSynthesisUtterance('Hello, this is a voice preview.');
+        if (selVoice) utt.voice = selVoice;
+        utt.lang = selVoice ? selVoice.lang : (state.accent === 'uk' ? 'en-GB' : 'en-US');
+        utt.rate = 0.9;
+        utt.pitch = 1;
+        previewBtn.classList.add('speaking');
+        utt.onend = utt.onerror = () => previewBtn.classList.remove('speaking');
+        synth.cancel();
+        synth.speak(utt);
+      });
+    }
   }
 
   // ---- Theme ----
@@ -884,6 +1033,7 @@
     setupDropdown();
     setupLanguage();
     setupPersonalization();
+    setupVoiceSelect();
     setupFilters();
     setupSpeed();
     setupPlayMode();
@@ -913,6 +1063,13 @@
     $('btnLocate').addEventListener('click', () => {
       const activeItem = sentenceList.querySelector('.sentence-item.active');
       if (activeItem) activeItem.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
+    $('btnBackToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const sentenceListEl = $('sentenceList');
+      if (sentenceListEl) {
+        sentenceListEl.scrollTo({ top: 0, behavior: 'smooth' });
+      }
     });
     $('closeStats').addEventListener('click', () => statsModal.classList.remove('show'));
     $('closeWordbook').addEventListener('click', () => wordbookModal.classList.remove('show'));

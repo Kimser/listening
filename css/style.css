@@ -284,7 +284,7 @@ body::before {
   border: none;
   background: transparent;
   color: var(--text2);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   font-family: var(--font);
   cursor: pointer;
@@ -912,7 +912,7 @@ body.player-collapsed .sentence-list {
 .settings-drawer {
   position: fixed;
   left: 50%;
-  bottom: -260px;
+  bottom: -380px;
   transform: translateX(-50%);
   width: calc(100% - 20px);
   max-width: 460px;
@@ -945,12 +945,224 @@ body.player-collapsed .sentence-list {
 
 .drawer-label {
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   color: var(--text2);
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.drawer-section {
+  margin-bottom: 18px;
+}
+
+/* Voice Selector */
+.voice-select-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Custom Select Styling */
+.custom-select {
+  flex: 1;
+  position: relative;
+  user-select: none;
+}
+
+.select-trigger {
+  height: 52px;
+  padding: 0 18px;
+  border-radius: 16px;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.select-trigger:hover {
+  background: var(--surface-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.custom-select.open .select-trigger {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+  background: var(--bg2);
+}
+
+.select-trigger i {
+  font-size: 20px;
+  color: var(--text2);
+  transition: transform 0.3s ease;
+}
+
+.custom-select.open .select-trigger i {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+.select-options {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
+  right: 0;
+  background: var(--bg2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  max-height: 340px;
+  overflow-y: auto;
+  z-index: 500;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px) scale(0.96);
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.05);
+  padding: 8px;
+}
+
+.custom-select.open .select-options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.option-group-label {
+  padding: 16px 14px 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.option-group-label::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+}
+
+.custom-option {
+  padding: 14px 16px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text2);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.custom-option:last-child {
+  margin-bottom: 0;
+}
+
+.custom-option:hover {
+  background: var(--surface-hover);
+  color: var(--text);
+  padding-left: 20px;
+}
+
+.custom-option.selected {
+  background: var(--item-active-bg);
+  color: var(--primary);
+  font-weight: 600;
+  padding-left: 20px;
+}
+
+.custom-option.selected::after {
+  content: "\eb7b"; /* remixicon check mark */
+  font-family: "remixicon";
+  font-size: 20px;
+  animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.voice-preview-btn {
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  border: 1px solid var(--btn-border);
+  background: var(--btn-bg);
+  color: var(--primary);
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.voice-preview-btn:hover {
+  background: var(--btn-hover);
+  border-color: var(--primary);
+  transform: scale(1.06) translateY(-1px);
+  box-shadow: 0 4px 12px var(--primary-glow);
+}
+
+.voice-preview-btn:active {
+  transform: scale(0.94);
+}
+
+.voice-preview-btn.speaking i {
+  animation: pulse 0.8s ease-in-out infinite;
+}
+
+[data-theme="light"] .select-trigger {
+  background: #fff;
+  border-color: #d1d5db;
+  color: #1a1a2e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .select-options {
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="light"] .option-group-label {
+  color: #6b46c1;
+  background: #f8fafc;
+  margin: 4px 0;
+  border-radius: 4px;
+}
+
+[data-theme="light"] .custom-option:hover {
+  background: #f1f5f9;
 }
 
 /* Modals */

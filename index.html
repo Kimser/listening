@@ -29,7 +29,7 @@
     <script>
       // Immediately redirect if no session in storage (fast, synchronous check)
       // Full re-verification against users.json happens asynchronously via auth-guard.js
-      (function() {
+      (function () {
         if (!Auth.getSession()) {
           Auth.redirectToLogin();
         }
@@ -42,29 +42,48 @@
       <header class="app-header">
         <div class="logo"><i class="ri-headphone-fill"></i> ListenPro</div>
         <div class="header-actions">
-          <button id="btnTheme" class="icon-btn" data-i18n-title="titleTheme" title="Toggle Theme">
+          <button
+            id="btnPersonalize"
+            class="icon-btn"
+            data-i18n-title="personalizeTitle"
+            title="Personalize"
+          >
+            <i class="ri-settings-3-line"></i>
+          </button>
+          <button
+            id="btnTheme"
+            class="icon-btn"
+            data-i18n-title="titleTheme"
+            title="Toggle Theme"
+          >
             <i class="ri-moon-line" id="themeIcon"></i>
           </button>
           <div class="dropdown" id="headerDropdown">
-            <button id="btnMore" class="icon-btn" data-i18n-title="titleMore" title="More Options">
+            <button
+              id="btnMore"
+              class="icon-btn"
+              data-i18n-title="titleMore"
+              title="More Options"
+            >
               <i class="ri-more-2-fill"></i>
             </button>
             <div class="dropdown-menu">
-              <button id="btnPersonalize" class="dropdown-item">
-                <i class="ri-settings-3-line"></i> <span data-i18n="personalizeTitle">Personalize</span>
-              </button>
               <button id="btnLang" class="dropdown-item">
-                <i class="ri-translate-2"></i> <span data-i18n="language">Language</span>
+                <i class="ri-translate-2"></i>
+                <span data-i18n="language">Language</span>
               </button>
               <button id="btnStats" class="dropdown-item">
-                <i class="ri-bar-chart-2-fill"></i> <span data-i18n="statsTitle">Statistics</span>
+                <i class="ri-bar-chart-2-fill"></i>
+                <span data-i18n="statsTitle">Statistics</span>
               </button>
               <button id="btnWordbook" class="dropdown-item">
-                <i class="ri-book-mark-fill"></i> <span data-i18n="wordbookTitle">Word Book</span>
+                <i class="ri-book-mark-fill"></i>
+                <span data-i18n="wordbookTitle">Word Book</span>
               </button>
               <div class="dropdown-divider"></div>
               <button id="btnLogout" class="dropdown-item text-danger">
-                <i class="ri-logout-circle-r-line"></i> <span data-i18n="logout">Logout</span>
+                <i class="ri-logout-circle-r-line"></i>
+                <span data-i18n="logout">Logout</span>
               </button>
             </div>
           </div>
@@ -76,7 +95,11 @@
         <div class="filter-group">
           <label data-i18n="type">Type</label>
           <div class="seg-control" id="typeFilter">
-            <button class="seg-btn active" data-value="category" data-i18n="category">
+            <button
+              class="seg-btn active"
+              data-value="category"
+              data-i18n="category"
+            >
               Category
             </button>
             <button class="seg-btn" data-value="dialogue" data-i18n="dialogue">
@@ -87,10 +110,10 @@
         <div class="filter-group">
           <label data-i18n="level">Level</label>
           <div class="seg-control" id="levelFilter">
-            <button class="seg-btn active" data-value="all" data-i18n="all">
+            <!-- <button class="seg-btn" data-value="all" data-i18n="all">
               All
-            </button>
-            <button class="seg-btn" data-value="elementary">
+            </button> -->
+            <button class="seg-btn active" data-value="elementary">
               <i class="ri-seedling-line"></i> A1-A2
             </button>
             <button class="seg-btn" data-value="intermediate">
@@ -133,10 +156,20 @@
               >
                 <i class="ri-arrow-down-s-line" id="playerToggleIcon"></i>
               </button>
-              <button id="btnToggleCn" class="icon-btn-sm" data-i18n-title="titleTrans" title="Toggle EN/CN">
+              <button
+                id="btnToggleCn"
+                class="icon-btn-sm"
+                data-i18n-title="titleTrans"
+                title="Toggle EN/CN"
+              >
                 <i class="ri-translate"></i>
               </button>
-              <button id="btnFontSize" class="icon-btn-sm" data-i18n-title="titleFont" title="Font Size">
+              <button
+                id="btnFontSize"
+                class="icon-btn-sm"
+                data-i18n-title="titleFont"
+                title="Font Size"
+              >
                 <i class="ri-font-size-2"></i>
               </button>
             </div>
@@ -164,8 +197,10 @@
               <label data-i18n="speed">Speed</label>
               <div class="speed-control" id="speedControl">
                 <button class="speed-btn" data-speed="0.5">0.5x</button>
-                <button class="speed-btn" data-speed="0.75">0.75x</button>
-                <button class="speed-btn active" data-speed="1">1x</button>
+                <button class="speed-btn active" data-speed="0.75">
+                  0.75x
+                </button>
+                <button class="speed-btn" data-speed="1">1x</button>
                 <button class="speed-btn" data-speed="1.25">1.25x</button>
                 <button class="speed-btn" data-speed="1.5">1.5x</button>
               </div>
@@ -195,14 +230,24 @@
             <h2 data-i18n="sentences">Sentences</h2>
             <span class="count-badge" id="listCount">0</span>
           </div>
-          <button
-            id="btnLocate"
-            class="icon-btn-sm"
-            data-i18n-title="titleLocate"
-            title="Locate Current Sentence"
-          >
-            <i class="ri-focus-3-line"></i>
-          </button>
+          <div style="display: flex; gap: 8px">
+            <button
+              id="btnBackToTop"
+              class="icon-btn-sm"
+              data-i18n-title="titleTop"
+              title="Back to Top"
+            >
+              <i class="ri-arrow-up-line"></i>
+            </button>
+            <button
+              id="btnLocate"
+              class="icon-btn-sm"
+              data-i18n-title="titleLocate"
+              title="Locate Current Sentence"
+            >
+              <i class="ri-focus-3-line"></i>
+            </button>
+          </div>
         </div>
         <ul class="sentence-list" id="sentenceList"></ul>
       </section>
@@ -252,6 +297,28 @@
               data-i18n="accentUk"
             >
               UK
+            </button>
+          </div>
+        </div>
+        <div class="drawer-section">
+          <label class="drawer-label" data-i18n="voiceLabel">Voice</label>
+          <div class="voice-select-wrap">
+            <div class="custom-select" id="voiceSelect">
+              <div class="select-trigger">
+                <span class="select-value" data-i18n="voiceLoading"
+                  >Loading voices…</span
+                >
+                <i class="ri-arrow-down-s-line"></i>
+              </div>
+              <div class="select-options" id="voiceOptions"></div>
+            </div>
+            <button
+              id="btnPreviewVoice"
+              class="voice-preview-btn"
+              data-i18n-title="voicePreviewTitle"
+              title="Preview Voice"
+            >
+              <i class="ri-volume-up-line"></i>
             </button>
           </div>
         </div>
