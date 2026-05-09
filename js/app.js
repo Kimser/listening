@@ -17,10 +17,10 @@
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
     lang: localStorage.getItem('lp_lang') || 'zh',
     showCn: localStorage.getItem('lp_showCn') === 'true',
-    accent: localStorage.getItem('lp_accent') || 'uk',
+    accent: localStorage.getItem('lp_accent') || 'us',
     isPlayerCollapsed: localStorage.getItem('lp_playerCollapsed') === 'true',
     theme: localStorage.getItem('lp_theme') || 'dark',
-    voiceName: localStorage.getItem('lp_voiceName') || 'UK English Male'
+    voiceName: localStorage.getItem('lp_voiceName') || 'Samantha'
   };
 
   const i18n = {
@@ -236,11 +236,20 @@
     `;
     holder.querySelectorAll('.pron-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        interruptMainPlayback();
+        // Record whether main playback was active before interrupting
+        const wasPlaying = audio.isPlaying;
+        const resumeIndex = state.currentIndex;
+        audio.stop(true); // silent stop — don't reset progress bar
+        clearLoopTimer();
         const accent = btn.dataset.accent === 'uk' ? 'uk' : 'us';
         btn.classList.add('speaking');
         audio.speakWord(word, () => {
           btn.classList.remove('speaking');
+          // Resume sentence playback if it was running before
+          if (wasPlaying && resumeIndex === state.currentIndex) {
+            playCurrent('loop');
+            updatePlayBtn(true);
+          }
         }, { voiceVariant: accent });
       });
     });
@@ -720,10 +729,17 @@
         btn.addEventListener('click', () => {
           const w = btn.dataset.word;
           const accent = btn.dataset.accent;
-          interruptMainPlayback();
+          const wasPlaying = audio.isPlaying;
+          const resumeIndex = state.currentIndex;
+          audio.stop(true);
+          clearLoopTimer();
           btn.classList.add('speaking');
           audio.speakWord(w, () => {
             btn.classList.remove('speaking');
+            if (wasPlaying && resumeIndex === state.currentIndex) {
+              playCurrent('loop');
+              updatePlayBtn(true);
+            }
           }, { voiceVariant: accent });
         });
       });
@@ -837,13 +853,27 @@
   }
 
   // ---- Voice Select ----
+  // Novelty / gimmick voice names to exclude from the list
+  const NOVELTY_VOICE_BLACKLIST = [
+    'albert', 'bad news', 'bahh', 'bells', 'boing', 'bubbles', 'cellos',
+    'deranged', 'good news', 'hysterical', 'jester', 'organ', 'pipe organ',
+    'princess', 'trinoids', 'whisper', 'wobble', 'zarvox', 'superstar',
+    'ralph', 'fred', 'junior', 'kathy', 'vicki', 'victoria',
+    'ghost', 'creaky', 'alien', 'robot', 'ethereal', 'spooky'
+  ];
+
+  function isNormalVoice(voice) {
+    const nameLc = voice.name.toLowerCase();
+    return !NOVELTY_VOICE_BLACKLIST.some(kw => nameLc.includes(kw));
+  }
+
   function populateVoiceSelect() {
     const container = $('voiceOptions');
     const triggerValue = document.querySelector('.select-value');
     if (!container) return;
 
     const langPack = i18n[state.lang] || i18n.zh;
-    const voices = audio.getAvailableVoices('en');
+    const voices = audio.getAvailableVoices('en').filter(isNormalVoice);
     container.innerHTML = '';
     
     // Helper to create an option
