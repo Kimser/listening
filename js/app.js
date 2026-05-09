@@ -236,20 +236,21 @@
     `;
     holder.querySelectorAll('.pron-btn').forEach(btn => {
       btn.addEventListener('click', () => {
+        interruptMainPlayback();
         // Record whether main playback was active before interrupting
-        const wasPlaying = audio.isPlaying;
-        const resumeIndex = state.currentIndex;
-        audio.stop(true); // silent stop — don't reset progress bar
-        clearLoopTimer();
+        // const wasPlaying = audio.isPlaying;
+        // const resumeIndex = state.currentIndex;
+        // audio.stop(true); // silent stop — don't reset progress bar
+        // clearLoopTimer();
         const accent = btn.dataset.accent === 'uk' ? 'uk' : 'us';
         btn.classList.add('speaking');
         audio.speakWord(word, () => {
           btn.classList.remove('speaking');
           // Resume sentence playback if it was running before
-          if (wasPlaying && resumeIndex === state.currentIndex) {
-            playCurrent('loop');
-            updatePlayBtn(true);
-          }
+          // if (wasPlaying && resumeIndex === state.currentIndex) {
+          //   playCurrent('loop');
+          //   updatePlayBtn(true);
+          // }
         }, { voiceVariant: accent });
       });
     });
