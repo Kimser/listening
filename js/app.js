@@ -20,7 +20,8 @@
     accent: localStorage.getItem('lp_accent') || 'us',
     isPlayerCollapsed: localStorage.getItem('lp_playerCollapsed') === 'true',
     theme: localStorage.getItem('lp_theme') || 'dark',
-    voiceName: localStorage.getItem('lp_voiceName') || 'Samantha'
+    voiceName: localStorage.getItem('lp_voiceName') || 'Samantha',
+    renderedCount: 0
   };
 
   const i18n = {
@@ -265,8 +266,8 @@
       const hideParentInAll = state.typeFilter === 'all' && isCategoryParent(s);
       return typeMatch && levelMatch && !hideParentInAll;
     });
-    renderList();
-    listCount.textContent = state.filtered.length;
+    
+    renderList(true);
     if (state.currentIndex >= state.filtered.length) {
       state.currentIndex = state.filtered.length > 0 ? 0 : -1;
     }
@@ -301,14 +302,78 @@
     });
   }
 
-  // ---- Render Sentence List ----
-  function renderList() {
-    const html = state.filtered.map((s, i) => 
-      `<li class="sentence-item${i === state.currentIndex ? ' active' : ''}" data-index="${i}">` +
-      `<span class="num">${i + 1}</span><span class="text">${s.text}</span><span class="level-dot ${s.level}"></span>` +
-      `</li>`
-    ).join('');
-    sentenceList.innerHTML = html;
+  // ---- Render Sentence List (Lazy Loading) ----
+  let listObserver = null;
+  const LIST_BATCH_SIZE = 50;
+
+  function renderList(reset = true) {
+    if (reset) {
+      sentenceList.innerHTML = '';
+      state.renderedCount = 0;
+      if (listObserver) {
+        listObserver.disconnect();
+        listObserver = null;
+      }
+    }
+
+    const start = state.renderedCount;
+    const end = Math.min(start + LIST_BATCH_SIZE, state.filtered.length);
+    
+    if (start >= state.filtered.length) {
+      listCount.textContent = state.filtered.length;
+      return;
+    }
+
+    const fragment = document.createDocumentFragment();
+    for (let i = start; i < end; i++) {
+      const s = state.filtered[i];
+      const li = document.createElement('li');
+      li.className = `sentence-item${i === state.currentIndex ? ' active' : ''}`;
+      li.dataset.index = i;
+      
+      const numSpan = document.createElement('span');
+      numSpan.className = 'num';
+      numSpan.textContent = i + 1;
+      
+      const textSpan = document.createElement('span');
+      textSpan.className = 'text';
+      textSpan.textContent = s.text;
+      
+      const dotSpan = document.createElement('span');
+      dotSpan.className = `level-dot ${s.level}`;
+      
+      li.appendChild(numSpan);
+      li.appendChild(textSpan);
+      li.appendChild(dotSpan);
+      fragment.appendChild(li);
+    }
+    
+    sentenceList.appendChild(fragment);
+    state.renderedCount = end;
+    listCount.textContent = state.filtered.length;
+
+    // Setup intersection observer for next batch
+    if (end < state.filtered.length) {
+      if (!listObserver) {
+        listObserver = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            listObserver.unobserve(entries[0].target);
+            renderList(false);
+          }
+        }, { rootMargin: '300px' });
+      }
+      if (sentenceList.lastElementChild) {
+        listObserver.observe(sentenceList.lastElementChild);
+      }
+    }
+  }
+
+  function ensureIndexRendered(index) {
+    if (index < 0) return;
+    // If the index we want to show is not yet rendered, render up to that batch
+    while (state.renderedCount <= index && state.renderedCount < state.filtered.length) {
+      renderList(false);
+    }
   }
 
   // ---- Display Current Sentence ----
@@ -321,6 +386,8 @@
       return;
     }
     const s = state.filtered[state.currentIndex];
+    
+    ensureIndexRendered(state.currentIndex);
     
     if (state.showCn) {
       sentenceText.innerHTML = s.cn;
@@ -1064,13 +1131,11 @@
     setupDropdown();
     setupLanguage();
     setupPersonalization();
-    setupVoiceSelect();
     setupFilters();
     setupSpeed();
     setupPlayMode();
     setupFontSize();
     setupPlayerCollapse();
-    setupInstallPrompt();
     
     $('btnToggleCn').addEventListener('click', () => {
       state.showCn = !state.showCn;
@@ -1123,7 +1188,16 @@
       }
     });
 
-    applyFilters();
+    // Initial render in the next frame to allow the UI shell to show first
+    requestAnimationFrame(() => {
+      applyFilters();
+      
+      // Defer less critical setup to keep the main thread free for the first render
+      setTimeout(() => {
+        setupVoiceSelect();
+        setupInstallPrompt();
+      }, 100);
+    });
   }
 
   init();
