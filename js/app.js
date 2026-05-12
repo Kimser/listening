@@ -266,7 +266,7 @@
       const hideParentInAll = state.typeFilter === 'all' && isCategoryParent(s);
       return typeMatch && levelMatch && !hideParentInAll;
     });
-    
+
     renderList(true);
     if (state.currentIndex >= state.filtered.length) {
       state.currentIndex = state.filtered.length > 0 ? 0 : -1;
@@ -361,6 +361,8 @@
             renderList(false);
           }
         }, { rootMargin: '300px' });
+      } else {
+        listObserver.disconnect();
       }
       if (sentenceList.lastElementChild) {
         listObserver.observe(sentenceList.lastElementChild);
@@ -691,10 +693,23 @@
     });
   }
 
+  // ---- Dictionary safe access (dictionary.js loads deferred / async) ----
+  // NOTE: `const DICTIONARY` declared in dictionary.js does NOT attach to window,
+  // but lives in the global declarative environment. `typeof` is TDZ-safe and
+  // returns 'undefined' before dictionary.js has executed.
+  function getDict() {
+    try {
+      return typeof DICTIONARY !== 'undefined' ? DICTIONARY : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
   // ---- Word Popup ----
   function showWordPopup(word) {
     if (!word) return;
-    const entry = DICTIONARY[word];
+    const dict = getDict();
+    const entry = dict ? dict[word] : null;
     $('popupWord').textContent = word;
 
     if (entry) {
@@ -705,6 +720,13 @@
       renderWordPronunciations(word, null);
       $('popupMeaning').innerHTML = `<em>${i18n[state.lang].noDef}</em>`;
       $('popupExamples').innerHTML = '';
+      if (!dict && !window.__dictionaryReady) {
+        window.__onDictionaryReady = function () {
+          if (wordPopup.classList.contains('show') && $('popupWord').textContent === word) {
+            showWordPopup(word);
+          }
+        };
+      }
     }
 
     // Check if word is in wordbook
@@ -751,7 +773,7 @@
       <div class="stat-card"><div class="stat-value">${s.sentencesPlayed}</div><div class="stat-label">${i18n[state.lang].statsSentences}</div></div>
       <div class="stat-card"><div class="stat-value">${state.wordbook.length}</div><div class="stat-label">${i18n[state.lang].statsWords}</div></div>
       <div class="stat-card"><div class="stat-value">${SENTENCES.length}</div><div class="stat-label">${i18n[state.lang].statsTotal}</div></div>
-      <div class="stat-card"><div class="stat-value">${Object.keys(DICTIONARY).length}</div><div class="stat-label">${i18n[state.lang].statsDict}</div></div>
+      <div class="stat-card"><div class="stat-value">${Object.keys(getDict() || {}).length}</div><div class="stat-label">${i18n[state.lang].statsDict}</div></div>
     `;
     statsModal.classList.add('show');
   }
@@ -762,8 +784,9 @@
     if (state.wordbook.length === 0) {
       list.innerHTML = `<li class="wordbook-empty"><i class="ri-bookmark-line" style="font-size:32px;display:block;margin-bottom:8px"></i>${i18n[state.lang].noWords}</li>`;
     } else {
+      const dict = getDict() || {};
       list.innerHTML = state.wordbook.map(w => {
-        const entry = DICTIONARY[w];
+        const entry = dict[w];
         const usIpa = getIpaText(entry, 'us');
         const ukIpa = getIpaText(entry, 'uk');
         const meaning = entry ? entry.cn : '—';
@@ -869,7 +892,8 @@
     }
     const popupWord = $('popupWord').textContent;
     if (wordPopup.classList.contains('show') && popupWord) {
-      renderWordPronunciations(popupWord, DICTIONARY[popupWord] || null);
+      const dict = getDict();
+      renderWordPronunciations(popupWord, (dict && dict[popupWord]) || null);
     }
     renderInstallPrompt();
   }
@@ -914,7 +938,8 @@
         // Refresh word popup pronunciations if open
         const popupWord = $('popupWord').textContent;
         if (wordPopup.classList.contains('show') && popupWord) {
-          renderWordPronunciations(popupWord, DICTIONARY[popupWord] || null);
+          const dict = getDict();
+          renderWordPronunciations(popupWord, (dict && dict[popupWord]) || null);
         }
       });
     });

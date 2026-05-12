@@ -714,6 +714,60 @@ body.player-collapsed .sentence-list {
   background: var(--accent2);
 }
 
+/* Skeleton loading state — shown while data.js is still parsing on slow networks */
+.sentence-item-skeleton {
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: none;
+}
+.sentence-item-skeleton .sk-num,
+.sentence-item-skeleton .sk-text,
+.sentence-item-skeleton .sk-dot {
+  background: linear-gradient(
+    90deg,
+    var(--border) 0%,
+    var(--surface-hover, var(--border)) 50%,
+    var(--border) 100%
+  );
+  background-size: 200% 100%;
+  border-radius: 4px;
+  animation: lp-skeleton-shimmer 1.2s ease-in-out infinite;
+}
+.sentence-item-skeleton .sk-num {
+  width: 16px;
+  height: 12px;
+  flex-shrink: 0;
+}
+.sentence-item-skeleton .sk-text {
+  flex: 1;
+  height: 14px;
+}
+.sentence-item-skeleton .sk-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.sentence-item-skeleton:nth-child(2n) .sk-text {
+  max-width: 70%;
+}
+.sentence-item-skeleton:nth-child(3n) .sk-text {
+  max-width: 85%;
+}
+@keyframes lp-skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 /* Word Popup */
 .word-popup {
   position: fixed;

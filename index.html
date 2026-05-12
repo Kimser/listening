@@ -228,7 +228,7 @@
         <div class="list-header">
           <div style="display: flex; align-items: center; gap: 8px">
             <h2 data-i18n="sentences">Sentences</h2>
-            <span class="count-badge" id="listCount">0</span>
+            <span class="count-badge" id="listCount">…</span>
           </div>
           <div style="display: flex; gap: 8px">
             <button
@@ -249,7 +249,18 @@
             </button>
           </div>
         </div>
-        <ul class="sentence-list" id="sentenceList"></ul>
+        <ul class="sentence-list" id="sentenceList">
+          <!-- Skeleton placeholders shown while data.js is loading/parsing.
+               Removed automatically when renderList() first runs. -->
+          <li class="sentence-item-skeleton"><span class="sk-num"></span><span class="sk-text"></span><span class="sk-dot"></span></li>
+          <li class="sentence-item-skeleton"><span class="sk-num"></span><span class="sk-text"></span><span class="sk-dot"></span></li>
+          <li class="sentence-item-skeleton"><span class="sk-num"></span><span class="sk-text"></span><span class="sk-dot"></span></li>
+          <li class="sentence-item-skeleton"><span class="sk-num"></span><span class="sk-text"></span><span class="sk-dot"></span></li>
+          <li class="sentence-item-skeleton"><span class="sk-num"></span><span class="sk-text"></span><span class="sk-dot"></span></li>
+          <li class="sentence-item-skeleton"><span class="sk-num"></span><span class="sk-text"></span><span class="sk-dot"></span></li>
+          <li class="sentence-item-skeleton"><span class="sk-num"></span><span class="sk-text"></span><span class="sk-dot"></span></li>
+          <li class="sentence-item-skeleton"><span class="sk-num"></span><span class="sk-text"></span><span class="sk-dot"></span></li>
+        </ul>
       </section>
 
       <!-- Word Popup -->
@@ -351,10 +362,13 @@
       </div>
     </div>
 
-    <script src="js/data.js"></script>
-    <script src="js/audio.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/auth-guard.js"></script>
+    <script defer src="js/data.js"></script>
+    <script defer src="js/audio.js"></script>
+    <script defer src="js/app.js"></script>
+    <script defer src="js/auth-guard.js"></script>
+    <!-- Dictionary is only needed when user taps a word. Loaded LAST and deferred
+         so it does not block first paint or the sentence list render. -->
+    <script defer src="js/dictionary.js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         let refreshing = false;
