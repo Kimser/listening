@@ -129,7 +129,7 @@
       return;
     }
     
-    var currentLang = localStorage.getItem('lp_lang') || 'zh';
+    var currentLang = localStorage.getItem('lp_lang') || 'en';
     var msg = currentLang === 'en' 
       ? 'Login expired or password changed.' 
       : '登录已过期或密码已修改。';

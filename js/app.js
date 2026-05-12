@@ -15,7 +15,7 @@
     loopTimer: null,
     wordbook: JSON.parse(localStorage.getItem('lp_wordbook') || '[]'),
     stats: JSON.parse(localStorage.getItem('lp_stats') || '{"totalTime":0,"sessionsCount":0,"sentencesPlayed":0,"startTime":null}'),
-    lang: localStorage.getItem('lp_lang') || 'zh',
+    lang: localStorage.getItem('lp_lang') || 'en',
     showCn: localStorage.getItem('lp_showCn') === 'true',
     accent: localStorage.getItem('lp_accent') || 'us',
     isPlayerCollapsed: localStorage.getItem('lp_playerCollapsed') === 'true',
@@ -142,7 +142,7 @@
       dismissInstallPrompt(false);
       return;
     }
-    const langPack = i18n[state.lang] || i18n.zh;
+    const langPack = i18n[state.lang] || i18n.en;
     const ios = isIosDevice();
     const safari = isSafariBrowser();
     const canNativeInstall = !!deferredInstallPrompt;
@@ -965,7 +965,7 @@
     const triggerValue = document.querySelector('.select-value');
     if (!container) return;
 
-    const langPack = i18n[state.lang] || i18n.zh;
+    const langPack = i18n[state.lang] || i18n.en;
     const voices = audio.getAvailableVoices('en').filter(isNormalVoice);
     container.innerHTML = '';
     
