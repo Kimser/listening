@@ -212,6 +212,58 @@ class AudioEngine {
     return v ? v.name : '';
   }
 
+  _getSpokenSingleLetter(letter, variant = this.englishVariant) {
+    const names = {
+      a: 'ay',
+      b: 'bee',
+      c: 'see',
+      d: 'dee',
+      e: 'ee',
+      f: 'ef',
+      g: 'gee',
+      h: 'aitch',
+      i: 'eye',
+      j: 'jay',
+      k: 'kay',
+      l: 'el',
+      m: 'em',
+      n: 'en',
+      o: 'oh',
+      p: 'pee',
+      q: 'cue',
+      r: 'ar',
+      s: 'ess',
+      t: 'tee',
+      u: 'you',
+      v: 'vee',
+      w: 'double you',
+      x: 'ex',
+      y: 'why',
+      z: variant === 'uk' ? 'zed' : 'zee'
+    };
+    return names[(letter || '').toLowerCase()] || letter;
+  }
+
+  _normalizeWordSpeechText(word, variant = this.englishVariant) {
+    const raw = (word || '').trim();
+    const lower = raw.toLowerCase();
+    const compact = lower.replace(/[^a-z]/g, '');
+    const aliasMap = {
+      qa: 'Q and A',
+      qna: 'Q and A',
+      rd: 'R and D',
+      ma: 'M and A'
+    };
+
+    if (lower === 'a') return 'uh';
+    if (lower === 'i') return 'eye';
+    if (aliasMap[lower]) return aliasMap[lower];
+    if (aliasMap[compact] && compact.length <= 3) return aliasMap[compact];
+    if (/^[a-z]$/i.test(raw)) return this._getSpokenSingleLetter(raw, variant);
+
+    return raw;
+  }
+
   speakWord(word, onEnd, options = {}) {
     if (this._pendingSpeakTimer) {
       clearTimeout(this._pendingSpeakTimer);
@@ -219,8 +271,8 @@ class AudioEngine {
     }
     this._speakToken++;
     this.synth.cancel();
-    const speakText = (word || '').toLowerCase() === 'a' ? 'uh' : word;
     const variant = options.voiceVariant || this.englishVariant;
+    const speakText = this._normalizeWordSpeechText(word, variant);
     const utt = new SpeechSynthesisUtterance(speakText);
     const voice = this._getEnglishVoice(variant);
     if (voice) utt.voice = voice;

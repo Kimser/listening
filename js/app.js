@@ -473,12 +473,52 @@
       .replace(/\s*[—-]\s*/g, ', ');
   }
 
+  function getLetterSpeechName(letter) {
+    const names = {
+      a: 'ay',
+      b: 'bee',
+      c: 'see',
+      d: 'dee',
+      e: 'ee',
+      f: 'ef',
+      g: 'gee',
+      h: 'aitch',
+      i: 'eye',
+      j: 'jay',
+      k: 'kay',
+      l: 'el',
+      m: 'em',
+      n: 'en',
+      o: 'oh',
+      p: 'pee',
+      q: 'cue',
+      r: 'ar',
+      s: 'ess',
+      t: 'tee',
+      u: 'you',
+      v: 'vee',
+      w: 'double you',
+      x: 'ex',
+      y: 'why',
+      z: state.accent === 'uk' ? 'zed' : 'zee'
+    };
+    return names[(letter || '').toLowerCase()] || letter;
+  }
+
+  function normalizeJoinedLetterSpeech(text) {
+    // Expand letter abbreviations such as Q&A / R&D into stable spoken forms.
+    return (text || '').replace(/\b(?:[A-Za-z]\s*&\s*)+[A-Za-z]\b/g, (match) => {
+      const letters = match.match(/[A-Za-z]/g) || [];
+      return letters.map(getLetterSpeechName).join(' and ');
+    });
+  }
+
   function buildWordByWordStream(text) {
     return ((text || '').match(/[A-Za-z]+(?:['-][A-Za-z]+)*|[.,!?;:]/g) || []);
   }
 
   function speakWordByWordLikeSentence(text, rate, onEnd, index = 0, tokens = null) {
-    const stream = tokens || buildWordByWordStream(text);
+    const stream = tokens || buildWordByWordStream(normalizeJoinedLetterSpeech(text));
     if (index >= stream.length) {
       onEnd();
       return;
@@ -523,7 +563,8 @@
       return;
     }
     audio.onProgress = pct => { progressBar.style.width = pct + '%'; };
-    let spokenText = pass.normalizeA ? normalizeStandaloneArticleA(pass.text) : pass.text;
+    let spokenText = normalizeJoinedLetterSpeech(pass.text);
+    if (pass.normalizeA) spokenText = normalizeStandaloneArticleA(spokenText);
     if (pass.clearSpeech) spokenText = buildClearEnglishSpeechText(spokenText);
     audio.speak(spokenText, handlePassEnd, { lang: pass.lang, rate: pass.rate, pitch: pass.pitch || 1, volume: pass.volume || 1, voiceVariant: pass.voiceVariant });
   }
